@@ -1,10 +1,12 @@
-# Regression value, measured with ngspice 44.2 in KiCad's ltpsa mode (8.92 to 9.06 V
-# over 60-100 ms). The README rewrite in #10 derives it from the schematic.
+# The LM317 regulates its own output, the NPN's base node Ub, with R1 = 120 Ω and
+# R2 = 843 Ω: V(Ub) = 1.25 V × (1 + 843/120) = 10.03 V. Q1 is an emitter follower
+# outside that loop, so Out sits one Vbe lower: about 0.96 V for the default NPN at the
+# load's 1.1 A, giving 10.03 − 0.96 ≈ 9.07 V. Averaged over 60-100 ms.
 [[measure]]
 name = "vout"
 analysis = "tran"
 meas = "avg v(out) from=60m to=100m"
-expect = 8.99
+expect = 9.07
 rtol = 0.03
 
 # Full-wave bridge: D1 and D2 conduct on alternate half-cycles, 10 ms apart at 50 Hz.

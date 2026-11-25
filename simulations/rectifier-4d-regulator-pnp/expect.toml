@@ -1,11 +1,23 @@
-# Regression value, measured with ngspice 44.2 in KiCad's ltpsa mode (8.82 to 8.98 V
-# over 60-100 ms). The README rewrite in #10 derives it from the schematic.
+# The LM317 still regulates Out, with R1 = 120 Ω and R2 = 744 Ω:
+# Vout = 1.25 V × (1 + 744/120) = 8.99 V. Q1 only adds current: once the LM317's input
+# current drops about 0.7 V across R3 = 5 Ω (≈ 0.14 A), the PNP carries the rest.
+# Averaged over 60-100 ms.
 [[measure]]
 name = "vout"
 analysis = "tran"
 meas = "avg v(out) from=60m to=100m"
-expect = 8.90
+expect = 8.99
 rtol = 0.03
+
+# Most of the 1.12 A load current (8.96 V / 8 Ω) flows through the PNP, not the LM317:
+# 0.93 A here (negative because it flows out of the collector), leaving the LM317 about
+# 0.19 A. Measured with ngspice 44.2.
+[[measure]]
+name = "i_pnp"
+analysis = "tran"
+meas = "avg q1:c#branch from=60m to=100m"
+expect = -0.93
+rtol = 0.05
 
 # Full-wave bridge: D1 and D2 conduct on alternate half-cycles, 10 ms apart at 50 Hz.
 [[measure]]
