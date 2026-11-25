@@ -1,0 +1,36 @@
+# C1 = 10n, R2 = 10k: an ideal differentiator gives |H| = 2π·f·R2·C1, so at 1 kHz
+# 20·log10(0.6283) = −4.04 dB. R1 = 1k lowers it by 10·log10(1 + (2π·f·R1·C1)²) =
+# 0.017 dB and the op-amp's finite gain raises it by about as much: ngspice gives −4.040.
+# Moves with C1 and R2 (±5 % → ±0.42 dB), but not with R1: no R1 at all gives −4.023.
+[[measure]]
+name = "g_1k"
+analysis = "ac"
+meas = "find vdb(out) at=1k"
+expect = -4.04
+atol = 0.1
+
+# The op-amp's gain GBW/f meets the RC network: the peak sits at √(GBW·f_RC) with
+# f_RC = 1/(2π·(R1 + R2)·C1) = 1447 Hz, √(400k · 1447) = 24.06 kHz, and its gain is
+# (GBW/f_D) / (1 + GBW/f_S) with f_D = 1/(2π·R2·C1) = 1592 Hz and f_S = 1/(2π·R1·C1)
+# = 15.92 kHz: 251.3 / 26.13 = 9.62, or 19.66 dB. This catches R1, which g_1k cannot:
+# R1 ±5 % gives 19.25 / 20.08 dB, no R1 gives 47.9 dB.
+[[measure]]
+name = "g_peak"
+analysis = "ac"
+meas = "max vdb(out)"
+expect = 19.66
+atol = 0.1
+
+# Above the peak the gain depends on GBW, which g_peak barely sees:
+# |H| = (f/f_D) / √((1 − f²/f_pk²)² + (f/GBW + f/f_S)²) with f_pk = 24.06 kHz;
+# at 100 kHz, 62.81 / √(16.27² + 6.531²) = 3.583, or 11.08 dB; ngspice gives 11.07.
+# GBW ±10 % (POLE = 18 / 22) gives 10.22 / 11.82 dB, GBW 280k / 560k gives
+# 8.13 / 13.64 dB. C1 ±10 % and R1 ±5 % move it by 0.09 dB at most, which
+# g_1k and g_peak catch. R2 −10 % moves it 0.17 dB and 10 pF across R2 0.18 dB,
+# both outside ±0.15 dB.
+[[measure]]
+name = "g_100k"
+analysis = "ac"
+meas = "find vdb(out) at=100k"
+expect = 11.07
+atol = 0.15
