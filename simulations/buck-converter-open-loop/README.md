@@ -16,7 +16,7 @@ The transient analysis runs `.tran 100n 2m`. A directive on the sheet sets `.opt
 - Output voltage: L1 has no DC drop, so Vout is the average of SW: Vout = D·Vin − (1 − D)·Vf − D·Iout·Ron = 5.425 V − 0.202 V − 0.026 V = 5.197 V. The ideal buck would give D·Vin = 5.425 V; the diode costs 202 mV and the switch 26 mV. Each loss shows when its cause goes: with an ideal switch (rd = rs = 0, kp = 1e6) the simulation gives 5.224 V, 27 mV more; with a near-ideal diode (n = 0.05, rs = 0, so Vf = 18 mV) it gives 5.388 V, 191 mV more, against (1 − D) × (0.369 − 0.018) V = 0.192 V.
 - Output current: Iout = Vout/R1 = 5.197 V / 5 Ω = 1.039 A, the average of I(L1).
 - Inductor ripple: while Q1 is on, L1 sees 11.943 V − 5.197 V, so ΔI = (Vin − Iout·Ron − Vout)·D/(L·f) = (11.943 − 5.197) × 0.4521 / (100 µH × 100 kHz) = 0.305 A. I(L1) runs between 0.887 A and 1.192 A.
-- Output ripple: C1 takes the ripple current, so ΔV = ΔI/(8·f·C) = 0.3055 A / (8 × 100 kHz × 10 µF) = 38.19 mV.
+- Output ripple: C1 takes the ripple current, so ΔV = ΔI/(8·f·C) = 0.3055 A / (8 × 100 kHz × 10 µF) = 38.19 mV. The simulation finds the ripple from its sampled points, so it relies on the tab's 100 ns step: with the step capped at 1 µs instead, the peak is clipped and ΔV reads 37.43 mV.
 - Start-up: averaged over a cycle, SW steps from 0 to 5.2 V, and L1 with C1 and R1 is a second-order low-pass, as in RLC Step Response. With Q = R1·√(C1/L1) = 5 × √(10 µF / 100 µH) = 1.58, the step overshoots by exp(−π/√(4Q² − 1)) = 35 %, and the ringing decays with τ = 2·R1·C1 = 100 µs: over the 209 µs to the next peak the excess should shrink by e^(209/100) = 8.1. By 1.5 ms, 15 τ, it is gone.
 
 The simulation gives Vout = 5.197 V and I(L1) = 1.039 A averaged over 1.8–2 ms, and ΔI = 0.3055 A and ΔV = 38.19 mV over the last cycle. Earlier windows, 1.5–1.7 ms for Vout and the cycle ending at 1.8 ms for ΔV, agree to within 3 µV. At start-up Out peaks at 7.00 V at 98 µs, 34.6 % above its final value, and at 5.43 V at 307 µs: the excess shrinks from 1.80 V to 0.23 V, by 7.9.
@@ -28,7 +28,7 @@ Open `Buck-Converter-Open-Loop.kicad_sch` in KiCad, click **Simulate**, and run 
 The run takes about 0.3 s in ngspice 44.2. Two settings keep it honest:
 
 - `method=gear`: with ngspice's default trapezoidal integration, the current in D1 swings from one time step to the next instead of following L1, which carries it (0.585 A in D1 against 1.054 A in L1 at 1.807 ms). With Gear integration the two agree to 1 µA. `reltol=1e-4` tightens the time steps: the two ripple windows agree to 0.01 %, against 0.12 % at the default.
-- Save all currents stays off in the analysis settings. It puts a 0 V source in series with every pin, and with them ngspice stops at 85 µs with "timestep too small". I(L1) is saved without it.
+- Save all currents and Save all power dissipations stay off in the analysis settings. Either one puts a 0 V source in series with every pin, and with them ngspice stops at 85 µs with "timestep too small". I(L1) is saved without them.
 
 ## Try This
 

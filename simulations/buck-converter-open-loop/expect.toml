@@ -6,13 +6,17 @@
 
 # Vout = D·Vin − (1 − D)·Vf − D·Iout·Ron, with Ron = 20 mΩ + 10 mΩ + 1/(5 × (10 − 2))
 # = 55 mΩ and Vf = Vt·ln(Iout/Is) + Iout·rs = 0.369 V at 1.04 A:
-# 5.425 − 0.202 − 0.026 = 5.197 V. D or Vin 5 % off moves Vout by about 5 %.
+# 5.425 − 0.202 − 0.026 = 5.197 V; ngspice 44.2 gives 5.19725 V. D or Vin 5 % off moves
+# Vout by about 5 %. The 0.1 % tolerance (±5.2 mV) is tight enough to catch the switch
+# model: halving kp gives 5.1851 V and doubling rd 5.1880 V, both outside it. Steps of
+# 50 ns or 200 ns and reltol 1e-3 or 1e-5 stay within 0.5 mV of 5.19725 V. vto = −3 gives
+# 5.1946 V, a 2.7 mV shift that no tolerance this tight can separate safely from numerics.
 [[measure]]
 name = "vout"
 analysis = "tran"
 meas = "avg v(/out) from=1.8m to=2m"
-expect = 5.197
-rtol = 0.005
+expect = 5.1973
+rtol = 0.001
 
 # Iout = Vout/R1 = 5.197 V / 5 Ω = 1.039 A. Vout hardly depends on the load, so this is
 # the check that holds R1: 10 % more or less load moves Vout by only 5 mV.
@@ -33,10 +37,12 @@ expect = 0.3055
 rtol = 0.02
 
 # ΔV = ΔI/(8·f·C) = 0.3055 A / (8 × 100 kHz × 10 µF) = 38.19 mV over the last cycle.
-# Holds C1.
+# Holds C1. pp reads the sampled points, so coarse steps clip the ripple peak: the check
+# relies on the tab's 100 ns tstep capping the step. A 1 µs cap gives 37.43 mV and a 40 µs
+# cap 36.52 mV, both outside the 1 % tolerance; 50 ns and 200 ns steps give 38.20 mV.
 [[measure]]
 name = "delta_v"
 analysis = "tran"
 meas = "pp v(/out) from=1.99m to=2m"
 expect = 38.19e-3
-rtol = 0.02
+rtol = 0.01
