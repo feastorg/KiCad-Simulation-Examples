@@ -1,0 +1,16 @@
+# L1 = 10 H primary, L2 = 100 mH secondary, coupled with K = 1. The voltage ratio is
+# √(L1/L2) = 10, so 325 V peak on the primary gives 32.5 V on the secondary.
+[[measure]]
+name = "v_secondary"
+analysis = "tran"
+meas = "max v(/vs) from=40m to=100m"
+expect = 32.5
+rtol = 0.02
+
+# Into Rload1 = 100 Ω that is 32.5 V / 100 Ω = 325 mA.
+[[measure]]
+name = "i_secondary"
+analysis = "tran"
+meas = "max l2#branch from=40m to=100m"
+expect = 0.325
+rtol = 0.02

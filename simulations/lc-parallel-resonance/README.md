@@ -1,22 +1,24 @@
-# LC Parallell Resonance
+# LC Parallel Resonance
 
-Demonstrates parallel LC resonance and its high-impedance peak at resonance.
+A parallel LC tank blocks its resonant frequency, 159 kHz, making a sharp notch with a Q of 10.
 
-## Circuit Summary
+## Circuit
 
-An inductor and capacitor are placed in parallel across an AC source.
+V1 drives L1 = 1 µH in parallel with C1 = 1 µF, the tank, in series with R1 = 10 Ω to ground. Out is the voltage across R1. The AC sweep runs from 1 Hz to 1 MHz and plots the gain of V(Out) and of the current I(R1).
 
-## Expected Behavior
+## What To Look For
 
-- AC sweep shows a sharp impedance peak at the resonant frequency.
-- Current draw is minimized near resonance.
+- Resonance: f0 = 1/(2π√(L1·C1)) = 159.2 kHz, the same as LC Series Resonance.
+- At f0 the tank's impedance becomes very large, so almost no current flows and V(Out) drops into a deep notch. Far below f0 the inductor is nearly a short and all of the 1 V reaches Out.
+- Q = R1·√(C1/L1) = 10, so the notch is narrow: its −3 dB points are 151.4 kHz and 167.3 kHz, a bandwidth of f0/Q = 15.9 kHz.
+
+The simulation puts the −3 dB points at 151.4 kHz and 167.3 kHz, with a gain of 1.000 at 1 kHz.
 
 ## How To Run
 
-1. Open `LC-Parallell-resonance.kicad_sch` in KiCad.
-2. Click `Simulate` and run the configured analyses.
-3. Add probes to the key nodes to view the expected behavior.
+Open `LC-Parallel-resonance.kicad_sch` in KiCad, click **Simulate**, and run the AC tab. It plots the gain of V(Out) and of I(R1).
 
-## Notes
+## Try This
 
-- Adjust L and C to move the resonant frequency.
+- Change R1 to 100 Ω: Q rises to 100 and the notch narrows to about 1.6 kHz.
+- In this arrangement a larger R1 gives a higher Q. In LC Series Resonance a smaller R1 does.

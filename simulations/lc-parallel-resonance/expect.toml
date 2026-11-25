@@ -1,0 +1,27 @@
+# L1 = 1 µH and C1 = 1 µF in parallel, in series with R1 = 10 Ω to ground:
+# f0 = 1/(2π√(LC)) = 159.2 kHz, where the tank's impedance goes to infinity and
+# Out drops towards 0. The AC source has amplitude 1.
+
+# Q = R·√(C/L) = 10, so the notch is narrow. Its −3 dB points are
+# f0·(√(1 + 1/(4Q²)) ∓ 1/(2Q)) = 151.4 kHz and 167.3 kHz, a 15.9 kHz bandwidth = f0/Q.
+[[measure]]
+name = "f_low"
+analysis = "ac"
+meas = "when vdb(out)=-3 cross=1"
+expect = 151.4e3
+rtol = 0.02
+
+[[measure]]
+name = "f_high"
+analysis = "ac"
+meas = "when vdb(out)=-3 cross=2"
+expect = 167.3e3
+rtol = 0.02
+
+# Far below f0 the inductor is nearly a short and all of the 1 V reaches Out.
+[[measure]]
+name = "gain_1k"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 1.0
+rtol = 0.01

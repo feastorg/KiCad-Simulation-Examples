@@ -1,0 +1,24 @@
+# L1 = 10 H primary, L2 = L3 = 100 mH secondaries, all coupled with K = 1. Each
+# secondary has the ratio √(L1/L2) = 10, so 325 V peak gives 32.5 V on each.
+[[measure]]
+name = "v_us1"
+analysis = "tran"
+meas = "max v(us1) from=40m to=100m"
+expect = 32.5
+rtol = 0.02
+
+[[measure]]
+name = "v_us2"
+analysis = "tran"
+meas = "max v(us2) from=40m to=100m"
+expect = 32.5
+rtol = 0.02
+
+# L3 is connected the other way round, so Us2 is inverted: it peaks half a 50 Hz
+# cycle, 10 ms, after Us1.
+[[measure]]
+name = "us2_delay"
+analysis = "tran"
+meas = "trig v(us1) val=20 rise=3 targ v(us2) val=20 rise=3"
+expect = 10e-3
+rtol = 0.02
