@@ -1,14 +1,14 @@
 # V1 = 15 V drives Iref through R1 = 14.3 kΩ into the diode-connected Q1; V2 holds Q2's
 # collector (Out) and is swept from 0 to 15 V. Q1 and Q2 are KiCad's Gummel-Poon NPN,
-# β = 100, with vaf = 50. Simulated Vbe = 0.7736 V, so Iref = (15 − 0.7736) / 14.3 kΩ =
-# 0.9949 mA, and with Q1's Vcb = 0 its collector current is Iref / (1 + 2/β) = 0.9753 mA.
-# Q2 adds the Early factor (1 + Vcb/VAF): Iout = 0.9753 mA × (1 + (Vout − 0.7736) / 50).
+# β = 100, with vaf = 50. Simulated Vbe = 0.77358 V, so Iref = (15 − 0.77358) / 14.3 kΩ =
+# 0.994855 mA, and with Q1's Vcb = 0 its collector current is Iref / (1 + 2/β) = 0.97535 mA.
+# Q2 adds the Early factor (1 + Vcb/VAF): Iout = 0.97535 mA × (1 + (Vout − 0.77358) / 50).
 #
 # ngspice's i(V2) is the current into V2's + terminal, which is on Out. Q2's collector
 # current flows out of that terminal and into Q2, so i(V2) = −Iout and the values are
 # negative.
 
-# Vout = 5 V: 0.9753 mA × (1 + 4.226 / 50) = 1.0578 mA.
+# Vout = 5 V: 0.97535 mA × (1 + 4.22642 / 50) = 1.0578 mA.
 [[measure]]
 name = "iout_5v"
 analysis = "dc"
@@ -16,7 +16,7 @@ meas = "find i(V2) at=5"
 expect = -1.0578e-3
 rtol = 0.002
 
-# Vout = 10 V: 0.9753 mA × (1 + 9.226 / 50) = 1.1553 mA.
+# Vout = 10 V: 0.97535 mA × (1 + 9.22642 / 50) = 1.1553 mA.
 [[measure]]
 name = "iout_10v"
 analysis = "dc"
