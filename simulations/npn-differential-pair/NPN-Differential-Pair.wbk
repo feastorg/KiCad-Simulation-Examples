@@ -1,0 +1,49 @@
+{
+  "last_sch_text_sim_command": "",
+  "tabs": [
+    {
+      "analysis": "DC",
+      "commands": [
+        ".dc V3 -0.2 0.2 1m",
+        ".kicad adjustpaths",
+        ".save all",
+        ".probe alli",
+        ".probe allp"
+      ],
+      "dottedSecondary": true,
+      "legend": {
+        "x": 86,
+        "y": 39
+      },
+      "margins": {
+        "bottom": 45,
+        "left": 70,
+        "right": 70,
+        "top": 30
+      },
+      "measurements": [],
+      "showGrid": true,
+      "traces": [
+        {
+          "color": "rgb(55, 126, 184)",
+          "signal": "V(/C1)",
+          "trace_type": 2049
+        },
+        {
+          "color": "rgb(228, 26, 28)",
+          "signal": "V(/C2)",
+          "trace_type": 2049
+        },
+        {
+          "color": "rgb(77, 175, 74)",
+          "signal": "V(/C2)-V(/C1)",
+          "trace_type": 2049
+        }
+      ]
+    }
+  ],
+  "user_defined_signals": [
+    "V(/C2)-V(/C1)"
+  ],
+  "version": 6
+}

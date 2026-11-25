@@ -1,0 +1,35 @@
+# V3 = Vd drives Q1's base and Q2's base is grounded; the 1 mA tail source I1 splits
+# between them. Q1 and Q2 are KiCad's Gummel-Poon NPN (β = 100, so α = 100/101, and no
+# Early effect), with RC = 10 kΩ from each collector to +15 V. VT = kT/q = 25.8649 mV at
+# 27 °C. Each collector carries α·Itail/2·(1 ± tanh(Vd / 2VT)), so
+# V(C1) = 15 − 4.950495 V × (1 + tanh(Vd / 2VT)) and V(C2) = 15 − 4.950495 V × (1 − tanh(Vd / 2VT)).
+#
+# meas cannot take an expression such as v(/c2)-v(/c1) after find, so each collector is
+# checked on its own. The output V(C2) − V(C1) is their difference.
+
+# Vd = 1 mV: tanh(1 mV / 51.7298 mV) = 0.0193288, so V(C1) = 9.95382 V.
+[[measure]]
+name = "c1_1mv"
+analysis = "dc"
+meas = "find v(/c1) at=1m"
+expect = 9.95382
+rtol = 0.0001
+
+# Vd = 1 mV: V(C2) = 10.14519 V. V(C2) − V(C1) = 0.19137 V, a gain of 191.37, against
+# gm·RC = α·(Itail/2)/VT·RC = 191.40.
+[[measure]]
+name = "c2_1mv"
+analysis = "dc"
+meas = "find v(/c2) at=1m"
+expect = 10.14519
+rtol = 0.0001
+
+# Vd = 0.2 V: tanh(3.86624) = 0.999124, so nearly all of α·Itail flows in Q1 and
+# V(C1) = 5.10335 V. With V(C2) = 14.99566 V the output is 9.89231 V, against the
+# α·Itail·RC = 9.90099 V limit.
+[[measure]]
+name = "c1_200mv"
+analysis = "dc"
+meas = "find v(/c1) at=0.2"
+expect = 5.10335
+rtol = 0.0001
