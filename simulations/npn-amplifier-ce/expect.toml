@@ -1,0 +1,21 @@
+# Common-emitter amplifier on 10 V: R1 = 48 kΩ and R2 = 7.2 kΩ bias the base, Rc (R3) =
+# 1 kΩ, Re (R4) = 100 Ω, default NPN (β = 100). The input is a 100 mV peak sine at 1 kHz.
+
+# The divider alone would give 1.30 V, but its 6.3 kΩ source resistance carries the
+# ~30 µA base current, so the base sits near 1.11 V, the emitter one Vbe lower at about
+# 0.31 V, and Ic ≈ 0.31 V / 100 Ω = 3.1 mA. The collector rests at 10 − 3.1 mA × 1 kΩ.
+[[measure]]
+name = "vc_bias"
+analysis = "tran"
+meas = "avg v(/uc) from=3m to=5m"
+expect = 6.95
+rtol = 0.03
+
+# Gain ≈ Rc / (Re + re), with re = VT / Ic = 25.9 mV / 3.06 mA = 8.5 Ω: 1000 / 108.5 = 9.2.
+# A 200 mV peak-to-peak input gives about 1.8 V peak-to-peak at Out (inverted).
+[[measure]]
+name = "vout_pp"
+analysis = "tran"
+meas = "pp v(/out) from=3m to=5m"
+expect = 1.80
+rtol = 0.03

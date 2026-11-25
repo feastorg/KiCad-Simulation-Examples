@@ -1,0 +1,20 @@
+# V1 is a 0 to 3.3 V square wave, high for the first 1 ms of every 2 ms. Q1 is a PNP with
+# its emitter at 3.3 V; the LED and Rk1 = 150 Ω run from its collector to ground.
+# A PNP turns on when its base is pulled below the emitter, so the LED lights while
+# the input is LOW (1 to 2 ms) and is off while it is high.
+
+# Low input: about 9.9 mA through the LED, as in the NPN version.
+[[measure]]
+name = "i_led_on"
+analysis = "tran"
+meas = "find d1#branch at=1.5m"
+expect = 9.86e-3
+rtol = 0.03
+
+# Base current flows out of the base: (3.3 − 0.85) V / 1 kΩ ≈ −2.5 mA.
+[[measure]]
+name = "i_base_on"
+analysis = "tran"
+meas = "find q1:b#branch at=1.5m"
+expect = -2.46e-3
+rtol = 0.03
