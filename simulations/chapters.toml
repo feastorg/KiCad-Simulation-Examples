@@ -35,6 +35,7 @@ summary = "LC resonance and Q, and coupled inductors as transformers."
 examples = [
     "lc-series-resonance",
     "lc-parallel-resonance",
+    "rlc-step-response",
     "transformer-1p-1s",
     "transformer-1p-2s",
 ]
