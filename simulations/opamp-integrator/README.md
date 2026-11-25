@@ -9,7 +9,7 @@ U1 runs from ±15 V, with its non-inverting input grounded. V3, a 1 V sine at 1 
 ## What To Look For
 
 - The inverting input is a virtual ground, so R1 carries V(In)/R and that current charges C1: V(Out) = −1/(R·C) · ∫V(In) dt. For a sine of peak Vp the output swings 2 · Vp/(2π · f · R · C) = 2 · 1 V/(2π · 1 kHz · 10 kΩ · 10 nF) = 3.18 V peak to peak.
-- At 1 kHz the model's open-loop gain is only 20,000/|1 + j · 1 kHz/20 Hz| = 400, which takes about 0.4 % off the swing.
+- At 1 kHz the model's open-loop gain A = 20,000/(1 + j · f/20 Hz) is only 400 in magnitude. With Zf = R2 ∥ C1 the swing becomes 2 · Vp · |Zf/R|/|1 + (1 + Zf/R)/A| = 3.1827 V/1.00403 = 3.170 V peak to peak.
 - C1 blocks DC, so without R2 nothing would set the output's DC level. R2 is the only DC path: it makes the stage an inverting amplifier with gain −Rf/R = −100 below the lossy corner 1/(2π · Rf · C) = 1/(2π · 1 MΩ · 10 nF) = 15.9 Hz, and an integrator above it.
 - The 10 mV input offset sees a DC gain of 1 + Rf/R = 101, so the output sits at −VOFF · (1 + Rf/R) = −1.01 V. The finite open-loop gain trims that to −1.01 V/(1 + 101/20,000) = −1.005 V.
 - Because the sine starts at 0 V, the output also starts with an extra average of −Vp/(2π · f · R · C) = −1.59 V. It decays through R2 with the time constant Rf · C = 10 ms, so the measurements use the last 10 cycles, 90 to 100 ms. The 80 to 90 ms window gives the same figures to four digits.
