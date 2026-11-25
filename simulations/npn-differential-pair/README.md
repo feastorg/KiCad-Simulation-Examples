@@ -4,7 +4,7 @@ Two NPNs share a 1 mA tail current and amplify the difference between their base
 
 ## Circuit
 
-V1 = 15 V makes VCC = +15 V, and V2 = 15 V, with its + terminal on ground, makes VEE = −15 V. R1 = R2 = 10 kΩ run from VCC to the collectors, C1 and C2. Q1 and Q2 are KiCad's Gummel-Poon NPN with its default model: β = 100 and no Early effect. Their emitters join at Tail, and the ideal current source I1 pulls 1 mA from Tail to VEE. V3 sets Vd on In, Q1's base, and Q2's base is grounded. The output is V(C2) − V(C1). The workbook runs `.dc V3 -0.2 0.2 1m`, sweeping Vd from −0.2 V to 0.2 V.
+V1 = 15 V makes VCC = +15 V, and V2 = 15 V, with its + terminal on ground, makes VEE = −15 V, as the simulation gives. I1 is ideal and pulls 1 mA whatever VEE is, so the collectors cannot show a wrong V2: with V2 reversed or set to 5 V they stay exactly where they are, and only VEE moves. R1 = R2 = 10 kΩ run from VCC to the collectors, C1 and C2. Q1 and Q2 are KiCad's Gummel-Poon NPN with its default model: β = 100 and no Early effect. Their emitters join at Tail, and the ideal current source I1 pulls 1 mA from Tail to VEE. V3 sets Vd on In, Q1's base, and Q2's base is grounded. The output is V(C2) − V(C1). The workbook runs `.dc V3 -0.2 0.2 1m`, sweeping Vd from −0.2 V to 0.2 V.
 
 ## What To Look For
 

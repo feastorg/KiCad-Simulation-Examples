@@ -1004,7 +1004,7 @@
 		(fields_autoplaced no)
 		(uuid "0cb49f80-9738-434d-a914-c97a09cde2f2")
 		(property "Reference" "V1"
-			(at 78.74 87.63 0)
+			(at 80.01 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1015,7 +1015,7 @@
 			)
 		)
 		(property "Value" "15"
-			(at 78.74 90.17 0)
+			(at 80.01 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1673,7 +1673,7 @@
 		(fields_autoplaced no)
 		(uuid "b51fc41f-e43b-489b-93fd-e4dba1ee69e6")
 		(property "Reference" "V2"
-			(at 93.98 87.63 0)
+			(at 95.25 87.63 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1684,7 +1684,7 @@
 			)
 		)
 		(property "Value" "15"
-			(at 93.98 90.17 0)
+			(at 95.25 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1871,7 +1871,7 @@
 		(fields_autoplaced no)
 		(uuid "f310fc96-9c63-48e0-a409-ce5e5bf190b0")
 		(property "Reference" "I1"
-			(at 135.89 118.11 0)
+			(at 137.16 118.11 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1882,7 +1882,7 @@
 			)
 		)
 		(property "Value" "1m"
-			(at 135.89 120.65 0)
+			(at 137.16 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1986,7 +1986,7 @@
 		(fields_autoplaced no)
 		(uuid "7dd7212c-94d5-44ec-b38e-39cf8cd24c65")
 		(property "Reference" "V3"
-			(at 109.22 107.95 0)
+			(at 110.49 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1997,7 +1997,7 @@
 			)
 		)
 		(property "Value" "0"
-			(at 109.22 110.49 0)
+			(at 110.49 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

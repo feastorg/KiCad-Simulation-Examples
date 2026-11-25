@@ -33,3 +33,12 @@ analysis = "dc"
 meas = "find v(/c1) at=0.2"
 expect = 5.10335
 rtol = 0.0001
+
+# V2 has its + terminal on ground, so VEE = −15 V. The ideal I1 forces 1 mA whatever the
+# voltage across it, so the collectors cannot show a wrong or reversed V2; VEE itself does.
+[[measure]]
+name = "vee"
+analysis = "dc"
+meas = "find v(/vee) at=0"
+expect = -15
+rtol = 0.0001
