@@ -75,6 +75,7 @@ examples = [
     "opamp-inverting",
     "opamp-noninverting",
     "opamp-adding",
+    "opamp-differentiator",
     "opamp-sallen-key-lowpass",
     "opamp-comparator",
     "opamp-open-loop",
