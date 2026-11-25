@@ -23,31 +23,37 @@ Run `just check` to confirm the folder layout.
 
 ## README Template
 
-Use this as a starting point for each simulation README:
+Use this as a starting point for each simulation README. The RC examples, such as
+`simulations/rc-charge/README.md`, follow it.
 
 ```markdown
 # Title of Simulation
 
-One short paragraph describing the goal of the simulation.
+One sentence: what the circuit shows, with its key figure.
 
-## Circuit Summary
+## Circuit
 
-Describe the topology and the key components.
+The source, the parts with their values, which node is Out, and what each analysis in
+the workbook runs.
 
-## Expected Behavior
+## What To Look For
 
-Explain what plots or behaviors to look for when running the simulation.
+Each figure the simulation should show, with the formula and the values that give it.
+End with the numbers the simulation actually gives.
 
 ## How To Run
 
-1. Open `<schematic>.kicad_sch` in KiCad.
-2. Click `Simulate` and run the configured analyses.
-3. Add probes for the key nodes to view expected behavior.
+Open `<schematic>.kicad_sch` in KiCad, click **Simulate**, and run the configured tabs.
+Say which traces each tab plots.
 
-## Notes
+## Try This
 
-Any modeling assumptions, limitations, or tips.
+A change to make and what it does, worked out from the same formulas.
 ```
+
+Every single-number figure in What To Look For also goes in the example's
+`expect.toml`, which CI checks on every pull request. See `CONTRIBUTING.md` in the
+repository for its format.
 
 ## Naming
 
@@ -56,5 +62,6 @@ Any modeling assumptions, limitations, or tips.
 
 ## Assets
 
-Schematics are rendered in CI. If you need additional images or plots, include them in the
-README with relative paths under the same simulation directory.
+CI renders the schematic and simulates the workbook's analyses, and the site shows both
+under each example's README. Add other images only when they show something those don't,
+with relative paths under the same simulation directory.
