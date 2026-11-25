@@ -1,0 +1,24 @@
+# Low-side NMOS switch on 12 V driving L1 = 10 mH in series with R1 = 120 Ω, with D1
+# across the load. The gate is high from 100 µs to 600 µs, six time constants of
+# L/R = 83.3 µs.
+
+# On current: Ion = Vdd / R = 12 V / 120 Ω = 100 mA. After 6 L/R the current has reached
+# 100 mA × (1 − e^−6) = 99.75 mA.
+[[measure]]
+name = "ion"
+analysis = "tran"
+meas = "find i(l1) at=600u"
+expect = 0.1
+rtol = 0.02
+
+# At turn-off D1 carries the inductor current and clamps the drain at Vdd + Vf. The default
+# diode (Is = 1e-14 A) drops Vf = Vt · ln(Ion / Is) = 0.774 V at 99.75 mA, so the clamp is
+# 12.77 V. The drain rings a few tens of mV as D1 takes over; ngspice 44.2 gives a 12.80 V
+# peak. The window starts at turn-off, after the smaller spike the gate edge couples in
+# at turn-on.
+[[measure]]
+name = "v_clamp"
+analysis = "tran"
+meas = "max v(/drain) from=600u to=1m"
+expect = 12.8
+rtol = 0.02
