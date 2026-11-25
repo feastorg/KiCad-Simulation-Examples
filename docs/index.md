@@ -7,7 +7,7 @@ nav_order: 1
 
 <!-- AUTO-GENERATED: DO NOT EDIT BY HAND -->
 
-This is a collection of examples to display KiCad's integrated simulation capabilities. This builds off of the fantastic: [OJStuff/Schematics-Examples](https://github.com/OJStuff/Schematics-Examples) (last updated Dec 15, 2024; commit 41eb9bc).
+This is a collection of examples to display KiCad's integrated simulation capabilities. The examples were created by Ole Johan (GitHub: OJStuff) and released under CC0 1.0. The original OJStuff/Schematics-Examples repository is no longer available on GitHub; this collection continues from its last commit, 03500e1 (2025-04-03).
 
 ## Simulations
 
