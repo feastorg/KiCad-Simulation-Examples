@@ -1,0 +1,42 @@
+# Open-loop buck: V1 = 12 V, PMOS Q1 switched at 100 kHz by V2, D1 freewheeling,
+# L1 = 100 µH, C1 = 10 µF, R1 = 5 Ω. Sw is high for 4.521 µs of each 10 µs period
+# (simulated), so D = 0.4521. The LC filter settles with τ = 2·R1·C1 = 100 µs, so every
+# window starts at 1.5 ms or later, past 15 τ; windows at 1.5–1.7 ms and 1.8–2.0 ms agree
+# to 3 µV on Vout.
+
+# Vout = D·Vin − (1 − D)·Vf − D·Iout·Ron, with Ron = 20 mΩ + 10 mΩ + 1/(5 × (10 − 2))
+# = 55 mΩ and Vf = Vt·ln(Iout/Is) + Iout·rs = 0.369 V at 1.04 A:
+# 5.425 − 0.202 − 0.026 = 5.197 V. D or Vin 5 % off moves Vout by about 5 %.
+[[measure]]
+name = "vout"
+analysis = "tran"
+meas = "avg v(/out) from=1.8m to=2m"
+expect = 5.197
+rtol = 0.005
+
+# Iout = Vout/R1 = 5.197 V / 5 Ω = 1.039 A. Vout hardly depends on the load, so this is
+# the check that holds R1: 10 % more or less load moves Vout by only 5 mV.
+[[measure]]
+name = "iout"
+analysis = "tran"
+meas = "avg i(l1) from=1.8m to=2m"
+expect = 1.039
+rtol = 0.02
+
+# ΔI = (Vin − Iout·Ron − Vout)·D/(L·f) = (11.943 − 5.197) × 0.4521 / 10 = 0.305 A;
+# ngspice 44.2 gives 0.3055 A over the last cycle. Holds L1.
+[[measure]]
+name = "delta_i"
+analysis = "tran"
+meas = "pp i(l1) from=1.99m to=2m"
+expect = 0.3055
+rtol = 0.02
+
+# ΔV = ΔI/(8·f·C) = 0.3055 A / (8 × 100 kHz × 10 µF) = 38.19 mV over the last cycle.
+# Holds C1.
+[[measure]]
+name = "delta_v"
+analysis = "tran"
+meas = "pp v(/out) from=1.99m to=2m"
+expect = 38.19e-3
+rtol = 0.02
