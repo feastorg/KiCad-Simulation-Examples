@@ -104,4 +104,5 @@ summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, 
 examples = [
     "simulation-temperature-sweep",
     "simulation-noise-rc",
+    "simulation-transfer-function",
 ]
