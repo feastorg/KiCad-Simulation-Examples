@@ -1819,7 +1819,7 @@
 	)
 	(symbol
 		(lib_id "Simulation_SPICE:VPULSE")
-		(at 73.66 181.61 0)
+		(at 60.96 181.61 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1829,7 +1829,7 @@
 		(dnp no)
 		(uuid "34c3504b-fdb7-49ec-8fbf-be08ca3eda7a")
 		(property "Reference" "V3"
-			(at 77.47 178.9401 0)
+			(at 64.77 178.9401 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1840,7 +1840,7 @@
 			)
 		)
 		(property "Value" "VPULSE"
-			(at 77.47 181.4801 0)
+			(at 64.77 181.4801 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1851,7 +1851,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1862,7 +1862,7 @@
 			)
 		)
 		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1873,7 +1873,7 @@
 			)
 		)
 		(property "Description" "Voltage source, pulse"
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1884,7 +1884,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=+ 2=-"
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1895,7 +1895,7 @@
 			)
 		)
 		(property "Sim.Type" "PULSE"
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1906,7 +1906,7 @@
 			)
 		)
 		(property "Sim.Device" "V"
-			(at 73.66 181.61 0)
+			(at 60.96 181.61 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1918,7 +1918,7 @@
 			)
 		)
 		(property "Sim.Params" "y1=-10 y2=10 td=0 tr=4.5m tf=4.5m tw=0.5m per=10m"
-			(at 77.47 184.0201 0)
+			(at 64.77 184.0201 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1945,7 +1945,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 73.66 186.69 0)
+		(at 60.96 186.69 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1956,7 +1956,7 @@
 		(fields_autoplaced yes)
 		(uuid "d5adb1f1-ba5c-4d28-ba84-3248ca70ff52")
 		(property "Reference" "#PWR04"
-			(at 73.66 193.04 0)
+			(at 60.96 193.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1967,7 +1967,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 73.66 191.77 0)
+			(at 60.96 191.77 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1977,7 +1977,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 186.69 0)
+			(at 60.96 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1988,7 +1988,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 186.69 0)
+			(at 60.96 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1999,7 +1999,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 73.66 186.69 0)
+			(at 60.96 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2167,7 +2167,7 @@
 	)
 	(global_label "In"
 		(shape input)
-		(at 73.66 176.53 90)
+		(at 60.96 176.53 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2177,7 +2177,7 @@
 		)
 		(uuid "c49623ad-15f0-4082-a1ee-630e327e572b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 73.66 169.9534 90)
+			(at 60.96 169.9534 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2186,6 +2186,17 @@
 				(hide yes)
 			)
 		)
+	)
+	(text ".options method=gear noopiter"
+		(exclude_from_sim no)
+		(at 54.61 165.1 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "704791ae-c4b0-4b8e-9122-aee349b35c2a")
 	)
 	(sheet_instances
 		(path "/"
