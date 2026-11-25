@@ -22,17 +22,17 @@ Each zener's model is set by four fields on its symbol:
 - `Sim.Library` is a path relative to the project folder. The model file sits beside the schematic, so its name is the whole path. KiCad turns it into an `.include` line with the absolute path when it writes the netlist.
 - `Sim.Name` picks the model inside that file: the name after `.SUBCKT`, or after `.model`.
 - Both files define a `.SUBCKT`, a small circuit of several elements, so `Sim.Device` is `SUBCKT` and the netlist line starts with X: `XD1 GND /sym BZX84C5V6`. A file holding a single `.model` line is used as a built-in device instead. Actuator NPN Switch LED does this: `LED.lib` holds `.model LED D (...)`, D1 there has `Sim.Device` D, and its netlist line is `D1 3.3v Net-_D1-K_ LED`.
-- `Sim.Pins`, set on the Pin Assignments tab of the Simulation Model dialog, pairs each symbol pin with a subcircuit port. The zener symbol's pin 1 is the cathode and pin 2 the anode. The two vendors order their ports differently: Symmetry writes `.SUBCKT BZX84C5V6 2 1` and calls the cathode port 1, while Diodes writes `.SUBCKT DI_BZX84C5V6 1 2` and calls the anode port 1. With the pins set as in the table, both netlist lines put the anode on ground: `XD1 GND /sym BZX84C5V6` and `XD2 GND /diodes DI_BZX84C5V6`.
+- `Sim.Pins`, set on the Pin Assignments tab of the Simulation Model Editor, pairs each symbol pin with a subcircuit port. The zener symbol's pin 1 is the cathode and pin 2 the anode. The two vendors number their ports differently, though both list the anode first: Symmetry writes `.SUBCKT BZX84C5V6 2 1` and calls the cathode port 1, while Diodes writes `.SUBCKT DI_BZX84C5V6 1 2` and calls the anode port 1. With the pins set as in the table, both netlist lines put the anode on ground: `XD1 GND /sym BZX84C5V6` and `XD2 GND /diodes DI_BZX84C5V6`.
 - Pin assignments do not carry over from one model to another. Give D2 D1's `1=1 2=2` and the netlist line becomes `XD2 /diodes GND DI_BZX84C5V6`: the zener is wired backwards, I2 drives it forward, and diodes reads 0.712 V instead of 5.594 V. Give D1 D2's `1=2 2=1` and sym reads 0.770 V.
 - The Diodes model is a 3.33 V source VZ in series with a diode DR (IS = 5.15 fA, N = 3, RS = 24.5 Ω) carrying the 5 mA: Vz = VZ + N · VT · ln(I / IS) + I · RS = 3.33 V + 3 × 25.865 mV × 27.601 + 5 mA × 24.5 Ω = 3.33 + 2.1417 + 0.1225 = 5.5942 V.
 - The Symmetry model holds its breakdown in a controlled source EV1 that copies 1 mA × 5532.13 Ω = 5.532 V. The rest of the subcircuit adds a simulated 68 mV at 5 mA, for 5.600 V.
 - The project runs ngspice in KiCad's default compatibility mode, LTspice and PSpice (`model_mode` 4 in the `.kicad_pro`; ngspice reports "Compatibility modes selected: ps lt a"). Vendor models are written for those simulators: the Symmetry header says "MODEL FORMAT: PSpice". These two parse the same without it: with the mode off, ngspice gives the same two voltages to seven digits.
 
-The simulation gives 5.600 V at sym and 5.594 V at diodes.
+The simulation gives 5.60017 V at sym and 5.59423 V at diodes.
 
 ## How To Run
 
-Open `Simulation-Vendor-model.kicad_sch` in KiCad, click **Simulate**, and run the operating point tab. KiCad lists V(/sym) and V(/diodes). To see the fields, open D1's or D2's properties and click **Simulation Model**: the Model tab shows the library and name, the Pin Assignments tab the pins.
+Open `Simulation-Vendor-model.kicad_sch` in KiCad, click **Simulate**, and run the operating point tab. KiCad lists V(/sym) and V(/diodes). To see the fields, open D1's or D2's properties and click **Simulation Model...** to open the Simulation Model Editor: the Model tab shows the library and name, the Pin Assignments tab the pins.
 
 ## Try This
 
