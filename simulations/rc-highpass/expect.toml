@@ -1,0 +1,17 @@
+# C1 = 100 µF in series, R1 = 100 Ω to ground: fc = 1/(2π · 100 Ω · 100 µF) = 15.92 Hz.
+# The AC source has amplitude 1, so V(Out) in dB is the gain.
+[[measure]]
+name = "fc"
+analysis = "ac"
+meas = "when vdb(out)=-3"
+expect = 15.92
+rtol = 0.02
+
+# Well above fc the capacitor is a short and the gain is 1 (0 dB). A relative tolerance
+# cannot be set around 0 dB, so this checks the magnitude instead: 1 ± 1 %.
+[[measure]]
+name = "gain_1k"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 1.0
+rtol = 0.01

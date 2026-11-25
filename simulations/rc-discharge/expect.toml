@@ -1,0 +1,18 @@
+# R1 = 1 kΩ, C1 = 100 µF: τ = RC = 0.1 s. V1 holds 100 V, so C1 starts charged to
+# 100 V, then steps to 0 V at t = 0.
+
+# After one time constant 1/e = 36.8 % of the starting voltage remains.
+[[measure]]
+name = "v_tau"
+analysis = "tran"
+meas = "find v(out) at=100m"
+expect = 36.8
+rtol = 0.02
+
+# At the step the full 100 V is across R1: I = −100 V / 1 kΩ = −100 mA, flowing out of C1.
+[[measure]]
+name = "i_peak"
+analysis = "tran"
+meas = "min c1#branch from=0 to=50m"
+expect = -0.1
+rtol = 0.02

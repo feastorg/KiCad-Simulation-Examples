@@ -1,0 +1,26 @@
+# A high-pass stage (C1 = 100 µF in series, R1 = 100 Ω to ground) feeds a low-pass
+# stage (R2 = 10 Ω in series, C2 = 1 µF to ground).
+# Low corner:  1/(2π · 100 Ω · 100 µF) = 15.9 Hz.
+# High corner: 1/(2π · 10 Ω · 1 µF)    = 15.9 kHz.
+# The capacitors are far enough apart that the stages hardly load each other.
+[[measure]]
+name = "f_low"
+analysis = "ac"
+meas = "when vdb(out)=-3 cross=1"
+expect = 15.9
+rtol = 0.03
+
+[[measure]]
+name = "f_high"
+analysis = "ac"
+meas = "when vdb(out)=-3 cross=2"
+expect = 15.9e3
+rtol = 0.03
+
+# In the middle of the band the gain is close to 1 (0 dB).
+[[measure]]
+name = "gain_mid"
+analysis = "ac"
+meas = "find vm(out) at=400"
+expect = 1.0
+rtol = 0.02

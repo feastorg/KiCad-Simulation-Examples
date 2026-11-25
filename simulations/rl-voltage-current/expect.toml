@@ -1,0 +1,18 @@
+# R1 = 100 Ω, L1 = 100 µH, driven by a 1 V sine at 159.2 kHz = R/(2πL): the corner
+# frequency, where the inductor's reactance equals R. Out is the inductor voltage.
+
+# At the corner the inductor voltage is 1/√2 of the input: 0.707 V.
+[[measure]]
+name = "v_out"
+analysis = "tran"
+meas = "max v(out) from=30u to=50u"
+expect = 0.707
+rtol = 0.02
+
+# ...and leads the input by 45°, one eighth of the 6.28 µs period: 0.785 µs.
+[[measure]]
+name = "lead"
+analysis = "tran"
+meas = "trig v(out) val=0 rise=4 targ v(in) val=0 rise=4"
+expect = 0.785e-6
+rtol = 0.03
