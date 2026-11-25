@@ -1,0 +1,19 @@
+# R = 10 kΩ, C = 10 nF, 1 V peak at 1 kHz: the output swings 2·Vp/(2π·f·R·C) = 3.18 V
+# peak to peak. The model's open-loop gain, about 400 at 1 kHz, takes 0.4 % off it.
+# Measured over the last 10 cycles, after 9 time constants RfC = 10 ms. R or C 5 % off
+# moves it 5 %.
+[[measure]]
+name = "v_pp"
+analysis = "tran"
+meas = "pp v(out) from=90m to=100m"
+expect = 3.18
+rtol = 0.02
+
+# Rf = 1 MΩ is the only DC path round C. It turns the model's 10 mV input offset into
+# −VOFF·(1 + Rf/R) = −1.01 V at the output. Rf 5 % off moves it 5 %.
+[[measure]]
+name = "v_avg"
+analysis = "tran"
+meas = "avg v(out) from=90m to=100m"
+expect = -1.01
+rtol = 0.03
