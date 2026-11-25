@@ -46,12 +46,30 @@ def export_netlist(sch: Path, out: Path) -> str:
     return "\n".join(line for line in lines if line.strip().lower() != ".end")
 
 
-def run_ngspice(deck: str, workdir: Path) -> str:
-    cir = workdir / "deck.cir"
+def compatibility_mode(pro: Path) -> list[str]:
+    """The ngspice behaviour KiCad sets for this project, as ngspice arguments.
+
+    KiCad 10 stores NGSPICE_COMPATIBILITY_MODE as schematic.ngspice.model_mode and
+    sends the matching command before loading the netlist (eeschema/sim/ngspice.cpp).
+    """
+    settings = json.loads(pro.read_text(encoding="utf-8"))["schematic"].get("ngspice", {})
+    mode = settings.get("model_mode", 4)  # KiCad's default is LT_PSPICE
+    behaviour = {0: None, 1: None, 2: "psa", 3: "lta", 4: "ltpsa", 5: "hsa"}
+    if mode not in behaviour:
+        raise ValueError(f"{pro.name}: model_mode {mode} is not supported here")
+    return ["-D", f"ngbehavior={behaviour[mode]}"] if behaviour[mode] else []
+
+
+def run_ngspice(deck: str, example: Path, tmp: Path) -> str:
+    cir = tmp / "deck.cir"
     cir.write_text(deck, encoding="utf-8")
+    (pro,) = example.glob("*.kicad_pro")
     # Run from the example folder so relative model paths resolve as they do in KiCad.
     proc = subprocess.run(
-        ["ngspice", "-b", str(cir)], cwd=workdir, capture_output=True, text=True
+        ["ngspice", *compatibility_mode(pro), "-b", str(cir)],
+        cwd=example,
+        capture_output=True,
+        text=True,
     )
     if proc.returncode != 0:
         raise RuntimeError(f"ngspice exited {proc.returncode}:\n{proc.stdout}{proc.stderr}")
@@ -80,7 +98,7 @@ def simulate(example: Path) -> list[str]:
             # build its save list from the expression, which it misparses for vdb().
             control = [".control", "run", *(f"meas {analysis} {m['name']} {m['meas']}" for m in measures), ".endc"]
             deck = "\n".join([netlist, analysis_command(wbk, analysis), *control, ".end", ""])
-            output = run_ngspice(deck, example)
+            output = run_ngspice(deck, example, Path(tmp))
             for m in measures:
                 value = measured(output, m["name"])
                 expect, rtol = m["expect"], m["rtol"]

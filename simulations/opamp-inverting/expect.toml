@@ -1,0 +1,8 @@
+# R1 = 1 kΩ, R2 = 10 kΩ: gain = -R2/R1 = -10, so |V(Out)| = 10 for the 1 V AC source.
+# The model's finite gain lowers it slightly: ngspice 44.2 gives 9.99 at 1 kHz.
+[[measure]]
+name = "gain"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 10.0
+rtol = 0.02
