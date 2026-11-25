@@ -1,0 +1,16 @@
+# R1 = 1 kΩ to ground, R2 = 9 kΩ feedback: gain = 1 + R2/R1 = 10.
+[[measure]]
+name = "gain"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 10.0
+rtol = 0.01
+
+# The closed-loop bandwidth is the gain-bandwidth divided by the gain:
+# 400 kHz / 10 = 40 kHz, where the gain is 3 dB below 20 dB.
+[[measure]]
+name = "f_3db"
+analysis = "ac"
+meas = "when vdb(out)=17 cross=1"
+expect = 40e3
+rtol = 0.03

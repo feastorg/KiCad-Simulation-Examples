@@ -1,0 +1,27 @@
+# No feedback: the AC sweep shows the op-amp model itself. kicad_builtin_opamp has
+# GAIN = 20k and POLE = 20 Hz; U1's VOFF=0 removes the 10 mV offset that would otherwise
+# drive the output into a rail. The AC source has amplitude 1.
+
+# At low frequency the gain is the full 20,000 (86 dB).
+[[measure]]
+name = "gain_dc"
+analysis = "ac"
+meas = "find vm(out) at=1"
+expect = 20000
+rtol = 0.01
+
+# It is 3 dB down at the 20 Hz pole...
+[[measure]]
+name = "f_pole"
+analysis = "ac"
+meas = "when vdb(out)=83 cross=1"
+expect = 20.0
+rtol = 0.02
+
+# ...then falls 20 dB per decade, reaching 1 at GAIN · POLE = 400 kHz.
+[[measure]]
+name = "f_unity"
+analysis = "ac"
+meas = "when vm(out)=1 cross=1"
+expect = 400e3
+rtol = 0.02

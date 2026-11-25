@@ -1,0 +1,8 @@
+# The output is fed straight back to the inverting input: gain 1. The model's
+# 400 kHz gain-bandwidth puts the follower's corner beyond the 100 kHz sweep.
+[[measure]]
+name = "gain"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 1.0
+rtol = 0.005
