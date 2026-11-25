@@ -60,6 +60,7 @@ examples = [
     "simulation-npn-characteristics",
     "actuator-npn-switch-led",
     "actuator-pnp-switch-led",
+    "nmos-switch-inductive-flyback",
     "npn-amplifier-ce",
     "nmos-amplifier-cs",
 ]
