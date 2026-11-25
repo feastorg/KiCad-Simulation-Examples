@@ -1,0 +1,21 @@
+# R1 = 10 kΩ, C1 = 10 nF, R2 = 1 MΩ, 1 V peak at 1 kHz. With Zf = R2 ∥ C1 and the
+# model's open-loop gain A = 20,000/(1 + j·f/20 Hz), the output swings
+# 2·Vp·|Zf/R1|/|1 + (1 + Zf/R1)/A| = 3.1827/1.00403 = 3.170 V peak to peak.
+# Measured over the last 10 cycles, after 9 time constants R2·C1 = 10 ms.
+# R1 or C1 2 % off moves it 2 %.
+[[measure]]
+name = "v_pp"
+analysis = "tran"
+meas = "pp v(out) from=90m to=100m"
+expect = 3.170
+rtol = 0.01
+
+# R2 is the only DC path round C1. It turns the model's 10 mV input offset into
+# −VOFF·(1 + R2/R1)/(1 + (1 + R2/R1)/A0) = −1.01/(1 + 101/20,000) = −1.005 V,
+# with A0 = 20,000. R2 2 % off moves it 2 %, VOFF = 10.3 mV 3 %.
+[[measure]]
+name = "v_avg"
+analysis = "tran"
+meas = "avg v(out) from=90m to=100m"
+expect = -1.005
+rtol = 0.015
