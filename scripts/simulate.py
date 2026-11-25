@@ -108,7 +108,13 @@ def check(example: Path) -> list[str]:
         # meas has no operating-point or noise form, so for "op" and "noise" the entry's
         # meas is an expression, printed after the run as "name = value". After a noise
         # run the current plot holds the totals, onoise_total and inoise_total.
-        if analysis in ("op", "noise"):
+        # meas refuses a transfer-function run (tf) too; its results are scalars such as
+        # transfer_function and v1#input_impedance.
+        if analysis in (
+            "op",
+            "noise",
+            "tf",
+        ):
             control = [c for m in measures for c in (f"let {m['name']} = {m['meas']}", f"print {m['name']}")]
         else:
             control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
