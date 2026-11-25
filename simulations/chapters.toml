@@ -31,7 +31,7 @@ examples = [
 [[chapter]]
 slug = "resonance-magnetics"
 title = "Resonance and Magnetics"
-summary = "LC resonance and Q, and coupled inductors as transformers."
+summary = "LC resonance and Q, an RLC circuit's step response, and coupled inductors as transformers."
 examples = [
     "lc-series-resonance",
     "lc-parallel-resonance",
@@ -69,7 +69,7 @@ examples = [
 [[chapter]]
 slug = "op-amps"
 title = "Op-Amps"
-summary = "The classic op-amp circuits, and the open-loop gain and bandwidth behind them."
+summary = "The classic op-amp circuits and an active filter, and the open-loop gain and bandwidth behind them."
 examples = [
     "opamp-voltage-follower",
     "opamp-inverting",
