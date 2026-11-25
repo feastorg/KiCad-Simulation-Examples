@@ -1,6 +1,6 @@
 # Low-side NMOS switch on 12 V driving L1 = 10 mH in series with R1 = 120 Ω, with D1
 # across the load. The gate is high from 100 µs to 600 µs, six time constants of
-# L/R = 83.3 µs.
+# L/R = 83.3 µs, and starts to fall at 600.1 µs.
 
 # On current: Ion = Vdd / R = 12 V / 120 Ω = 100 mA. After 6 L/R the current has reached
 # 100 mA × (1 − e^−6) = 99.75 mA.
@@ -14,11 +14,22 @@ rtol = 0.02
 # At turn-off D1 carries the inductor current and clamps the drain at Vdd + Vf. The default
 # diode (Is = 1e-14 A) drops Vf = Vt · ln(Ion / Is) = 0.774 V at 99.75 mA, so the clamp is
 # 12.77 V. The drain rings a few tens of mV as D1 takes over; ngspice 44.2 gives a 12.80 V
-# peak. The window starts at turn-off, after the smaller spike the gate edge couples in
-# at turn-on.
+# peak. The window starts at turn-off so the value is the clamp; the 12.71 V spike the gate
+# edge couples in at turn-on lies outside it, and outside the 0.05 V tolerance too.
 [[measure]]
 name = "v_clamp"
 analysis = "tran"
 meas = "max v(/drain) from=600u to=1m"
 expect = 12.8
-rtol = 0.02
+atol = 0.05
+
+# Decay: with Vf held at 0.774 V, i(t) = (I0 + Vf/R) · e^(−t/τ) − Vf/R, so the current
+# falls from I0 = 99.75 mA to 50 mA in τ · ln((I0 + Vf/R) / (50 mA + Vf/R)) = 52.7 µs,
+# timed from the start of the gate's fall. ngspice 44.2 gives 52.9 µs. This holds L1 to
+# its value: τ scales with L.
+[[measure]]
+name = "t_half"
+analysis = "tran"
+meas = "trig at=600.1u targ i(l1) val=0.05 fall=1"
+expect = 52.9e-6
+rtol = 0.05
