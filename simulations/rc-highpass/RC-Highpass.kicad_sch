@@ -631,7 +631,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "; fg : Xc = R\n; fg = 1/(2*pi*R*C) = 1.592 kHz"
+	(text "; fg : Xc = R\n; fg = 1/(2*pi*R*C) = 15.92 Hz"
 		(exclude_from_sim no)
 		(at 148.59 121.92 0)
 		(effects

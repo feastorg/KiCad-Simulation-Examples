@@ -1,27 +1,52 @@
 # KiCad Simulation Examples
 
-## Overview
+[![CI](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml/badge.svg)](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml)
 
-This repository contains a curated set of KiCad schematics used to teach and explore circuit
-simulation concepts. Each simulation includes a short explanation and is ready to run in
-KiCad with included SPICE models where needed.
+40 KiCad 10 schematics that teach circuit simulation with KiCad's built-in ngspice
+simulator, from an RC filter to a regulated power supply. Each README states what the
+example should show, with the numbers worked out from the circuit, and 39 of the 40 come
+with their analyses already set up; the 40th is a cheat sheet of simulator commands.
 
-Docs site: https://feastorg.github.io/KiCad-Simulation-Examples/
+<p>
+  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/schematic.png" alt="RC Lowpass schematic: a 10 ohm resistor feeding a 1 uF capacitor" width="32%">
+  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/ac.svg" alt="RC Lowpass AC sweep: gain flat to about 1 kHz, -3 dB near 16 kHz, then falling" width="64%">
+</p>
 
-Download bundles:
+*[RC Lowpass](https://feastorg.github.io/KiCad-Simulation-Examples/simulations/rc-lowpass/): 10 Ω and 1 µF put the −3 dB corner at 1/(2πRC) = 15.9 kHz. The simulation puts it at 15.9 kHz.*
 
-- PDFs only: https://feastorg.github.io/KiCad-Simulation-Examples/assets/downloads/schematics-pdf.zip
-- Full kit (PDF + KiCad schematic + README): https://feastorg.github.io/KiCad-Simulation-Examples/assets/downloads/schematics-kit.zip
+## What's Inside
 
-## How To Run a Simulation
+Browse it all on the site: **https://feastorg.github.io/KiCad-Simulation-Examples/**
 
-1. Open the `.kicad_sch` file for a simulation in KiCad.
-2. Click **Simulate** to open the simulator.
-3. Run the configured analysis and add probes/signals to plot results.
+| Chapter | Examples |
+|---|---|
+| [Simulator Basics](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/simulator-basics/): operating point, DC sweep, AC sweep, transient | 6 |
+| [Passive RC and RL](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/passive-rc-rl/): time constants, corners, phase | 7 |
+| [Resonance and Magnetics](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/resonance-magnetics/): LC resonance, transformers | 4 |
+| [Diodes and Rectifiers](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/diodes-rectifiers/): diode curve, half-wave to three-phase bridge | 5 |
+| [Transistors](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/transistors/): BJT curves, switches, amplifiers | 5 |
+| [Op-Amps](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/op-amps/): followers, amplifiers, summer, comparator, open loop | 7 |
+| [Power Supplies](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/power-supplies/): linear regulators, polarity and overvoltage protection | 6 |
 
-## Tools
+## Checked by Simulation
 
-The schematics are made with [KiCad](https://en.wikipedia.org/wiki/KiCad).
+On every pull request, CI exports each example's netlist with kicad-cli, runs its analyses
+in ngspice, and checks the key figures its README states, the ones listed in its
+`expect.toml`. One example, KiCad Simulation Commands, is a cheat sheet with no analysis
+set up, so it has nothing to check.
+
+## Getting Started
+
+1. Open an example's `.kicad_sch` from [`simulations/`](simulations/) in KiCad 10.
+2. Click **Simulate** and run the analyses already set up in its workbook.
+
+Or download everything: [all schematics as PDFs](https://feastorg.github.io/KiCad-Simulation-Examples/assets/downloads/schematics-pdf.zip),
+or [the full kit](https://feastorg.github.io/KiCad-Simulation-Examples/assets/downloads/schematics-kit.zip)
+with every KiCad project, workbook and model.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits and License
 

@@ -654,7 +654,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "; f0: Xl = R\n; 2*pi*f0*L = R\n; f0 = 100/(2*3.141592*1E-6) = 159.2 kHz"
+	(text "; f0: Xl = R\n; 2*pi*f0*L = R\n; f0 = 100/(2*3.141592*100E-6) = 159.2 kHz"
 		(exclude_from_sim no)
 		(at 148.59 115.57 0)
 		(effects
