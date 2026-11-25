@@ -1,0 +1,36 @@
+# V1 steps from 0 to 1 V at 10 µs into two series RLC branches, L = 1 mH and C = 1 µF:
+# ω0 = 1/√(LC) = 31.6 krad/s, f0 = 5033 Hz. ζ = (R/2)·√(C/L).
+
+# R1 = 10 Ω: ζ = 0.158. The overshoot is exp(−πζ/√(1−ζ²)) = 60.5 %, a peak of 1.605 V.
+[[measure]]
+name = "v_peak"
+analysis = "tran"
+meas = "max v(out_u)"
+expect = 1.605
+rtol = 0.01
+
+# It rings at fd = f0·√(1−ζ²) = 4970 Hz: one period, 201.2 µs, between rising
+# crossings of the final 1 V.
+[[measure]]
+name = "t_ring"
+analysis = "tran"
+meas = "trig v(out_u) val=1 rise=1 targ v(out_u) val=1 rise=2"
+expect = 201.2e-6
+rtol = 0.01
+
+# R2 = 63.2 Ω ≈ 2√(L/C): ζ = 1, critically damped, so Out_C never overshoots 1 V...
+[[measure]]
+name = "v_crit_max"
+analysis = "tran"
+meas = "max v(out_c)"
+expect = 1.0
+atol = 0.005
+
+# ...and reaches 90 % when 1 − (1 + ω0·t)·exp(−ω0·t) = 0.9, at ω0·t = 3.89:
+# 123 µs after the step, 133 µs from the start.
+[[measure]]
+name = "t90_crit"
+analysis = "tran"
+meas = "when v(out_c)=0.9 rise=1"
+expect = 133e-6
+rtol = 0.02
