@@ -254,7 +254,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "LC-Parallell-resonance.kicad_pro",
+    "filename": "LC-Parallel-resonance.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -393,7 +393,7 @@
         "version": 0
       },
       "model_mode": 4,
-      "workbook_filename": "LC-Parallell-resonance.wbk"
+      "workbook_filename": "LC-Parallel-resonance.wbk"
     },
     "page_layout_descr_file": "",
     "plot_directory": "",
