@@ -105,9 +105,10 @@ def check(example: Path) -> list[str]:
     for analysis, measures in by_analysis.items():
         # Measure in the control block, after the run: a .meas dot-line makes ngspice
         # build its save list from the expression, which it misparses for vdb().
-        # meas has no operating-point form, so for "op" the entry's meas is an
-        # expression, printed after the run as "name = value".
-        if analysis == "op":
+        # meas has no operating-point or noise form, so for "op" and "noise" the entry's
+        # meas is an expression, printed after the run as "name = value". After a noise
+        # run the current plot holds the totals, onoise_total and inoise_total.
+        if analysis in ("op", "noise"):
             control = [c for m in measures for c in (f"let {m['name']} = {m['meas']}", f"print {m['name']}")]
         else:
             control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
@@ -132,8 +133,11 @@ def trace_expression(signal: str) -> str | None:
     """Translate a KiCad trace name into an ngspice expression, or None if unknown.
 
     V(x) stays as it is; I(R1) and I(Q1:c) are the branch currents ngspice records
-    under .probe alli; "... (gain)" is the AC magnitude in dB.
+    under .probe alli; "... (gain)" is the AC magnitude in dB. A noise analysis's
+    spectra live in its first plot, noise1; the second holds the totals.
     """
+    if signal in ("onoise_spectrum", "inoise_spectrum"):
+        return f"noise1.{signal}"
     expr, gain = re.subn(r"\s*\(gain\)$", "", signal)
     expr = re.sub(r"\bI\(([^()]+)\)", lambda m: f"{m.group(1).lower()}#branch", expr)
     term = r"(?:V\([^()]+\)|[\w:]+#branch)"
