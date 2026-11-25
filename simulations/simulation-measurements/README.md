@@ -4,7 +4,7 @@ KiCad's Measurements pane turns a plot into a number on every run: here the 10�
 
 ## Circuit
 
-The RC Charge circuit. V1 steps from 0 to 1 V at t = 0 and drives R1 = 1 kΩ in series with C1 = 100 µF to ground; Out is the capacitor voltage. The workbook runs `.tran 1m 500m` and holds one measurement:
+The RC Charge circuit. V1 steps from 0 to 1 V at t = 2 ns and drives R1 = 1 kΩ in series with C1 = 100 µF to ground; Out is the capacitor voltage. The workbook runs `.tran 1m 500m` and holds one measurement:
 
 ```text
 trig v(out) val=0.1 rise=1 targ v(out) val=0.9 rise=1
@@ -12,7 +12,7 @@ trig v(out) val=0.1 rise=1 targ v(out) val=0.9 rise=1
 
 ## What To Look For
 
-- The entry is an ngspice `meas` command without its first two words, the analysis and a result name, which KiCad supplies. `trig` starts the clock when V(Out) first rises through 0.1 V, `targ` stops it when V(Out) first rises through 0.9 V, and the result is the time between them.
+- The entry is an ngspice `meas` command without its first three words, `meas`, the analysis and a result name, which KiCad supplies. `trig` starts the clock when V(Out) first rises through 0.1 V, `targ` stops it when V(Out) first rises through 0.9 V, and the result is the time between them.
 - V(Out) = 1 − e^(−t/RC) with RC = 1 kΩ · 100 µF = 0.1 s. It reaches 0.1 V at RC·ln(10/9) = 10.54 ms and 0.9 V at RC·ln 10 = 230.26 ms, so the rise time is RC·ln 9 = 0.1 s × 2.1972 = 219.72 ms, the textbook 2.2·RC.
 - `val=0.1` and `val=0.9` are volts, not percentages. They are 10 % and 90 % only because the step is 1 V.
 - KiCad gives the result the unit of the signal it measures, so the pane labels this time in volts: read 220mV as 220 ms.
