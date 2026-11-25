@@ -1,0 +1,36 @@
+# R1 = R2 = 10 kΩ feed a fraction β = R2 / (R1 + R2) = 0.5 of Out back to the
+# non-inverting input, so the thresholds are ±β · Vsat = ±0.5 · 14.999 V = ±7.50 V,
+# moved down 10 mV by the model's VOFF: +7.49 V and −7.51 V. The triangle keeps
+# ramping while Out swings, so the simulated crossings land about 20 mV further out.
+# Each threshold is In at the moment Out crosses 0 V: Out falls when In rises
+# through the upper threshold, and rises when In falls through the lower one.
+# R1 or R2 off by 5 % moves both by about 0.18 V. The lower one skips the first
+# millisecond, where Out corrects the wrong rail the operating point starts on.
+[[measure]]
+name = "vth_upper"
+analysis = "tran"
+meas = "find v(in) when v(out)=0 fall=1"
+expect = 7.508
+atol = 0.05
+
+[[measure]]
+name = "vth_lower"
+analysis = "tran"
+meas = "find v(in) when v(out)=0 rise=1 td=1m"
+expect = -7.529
+atol = 0.05
+
+# Out saturates within 1 mV of each rail: Vsat = 14.999 V into R1 + R2 = 20 kΩ.
+[[measure]]
+name = "out_high"
+analysis = "tran"
+meas = "find v(out) at=2m"
+expect = 14.999
+atol = 0.05
+
+[[measure]]
+name = "out_low"
+analysis = "tran"
+meas = "find v(out) at=7m"
+expect = -14.999
+atol = 0.05
