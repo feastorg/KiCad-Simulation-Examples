@@ -1,0 +1,26 @@
+# NPN Current Mirror
+
+Two matched NPNs copy a 0.995 mA reference current, and the Early effect makes the copy grow from 1.058 mA at 5 V to 1.155 mA at 10 V.
+
+## Circuit
+
+V1 = 15 V drives the reference current through R1 = 14.3 kΩ into Q1, whose base is tied to its collector at node Ref, so it acts as a diode. Q2's base shares Ref, and its collector, Out, is held by the source V2. The workbook runs `.dc V2 0 15 10m`, sweeping Out from 0 to 15 V. Q1 and Q2 are KiCad's Gummel-Poon NPN with β = 100 and `vaf=50` set in their simulation model parameters. The model's default VAF is infinite, so without that setting there is no Early effect.
+
+## What To Look For
+
+- Reference: Ref sits one Vbe above ground, 0.7736 V in the simulation, so Iref = (15 − 0.7736) / 14.3 kΩ = 0.9949 mA. Q1 holds Vbe there whatever V2 does, so Iref does not change across the sweep.
+- Mirror ratio: Iref feeds Q1's collector and both bases. With equal Vbe the two transistors carry the same collector current Ic, so Iref = Ic + 2Ic/β, and Ic = Iref / (1 + 2/β) = 0.9949 mA / 1.02 = 0.9753 mA.
+- Early effect: Q2's collector current grows with its collector-base voltage, Iout = 0.9753 mA × (1 + (Vout − 0.7736) / 50). At Vout = 0.7736 V the two transistors see the same voltages and Iout equals Q1's 0.9753 mA. At Vout = 5 V, Iout = 0.9753 mA × 1.0845 = 1.0578 mA. At 10 V, 0.9753 mA × 1.1845 = 1.1553 mA, and at 15 V, 1.2529 mA.
+- Output resistance: between 5 V and 10 V, Iout rises by 0.0975 mA, so ro = 5 V / 0.0975 mA = 51.3 kΩ, which is VAF / 0.9753 mA. The textbook estimate VAF / Iout, 50 V / 1.0578 mA = 47.3 kΩ at 5 V, is within 10 % of it.
+- Below about 0.14 V Q2 is saturated and the current collapses. At Vout = 0 its base-collector junction is forward biased and the current reverses.
+
+The simulation gives Iout = 1.0578 mA at 5 V, 1.1553 mA at 10 V and 1.2529 mA at 15 V, and −0.49 mA at 0 V. ngspice's I(V2) is the current into V2's + terminal on Out, so it reads −Iout.
+
+## How To Run
+
+Open `NPN-Current-Mirror.kicad_sch` in KiCad, click **Simulate**, and run the DC tab. It plots I(Q2:c), the output current, against V2.
+
+## Try This
+
+- Remove `vaf=50` from Q1 and Q2: the curve goes flat at 0.9753 mA above the knee, the ideal mirror.
+- Set `vaf=100`: Iout becomes 0.9753 mA × (1 + (Vout − 0.7736) / 100), 1.0166 mA at 5 V and 1.0654 mA at 10 V, and ro doubles to 102.5 kΩ.
