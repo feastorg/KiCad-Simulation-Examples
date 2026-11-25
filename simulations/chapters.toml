@@ -100,4 +100,5 @@ title = "Analysis Techniques"
 summary = "Analyses beyond the basics, starting with a DC sweep of the circuit's temperature."
 examples = [
     "simulation-temperature-sweep",
+    "simulation-measurements",
 ]
