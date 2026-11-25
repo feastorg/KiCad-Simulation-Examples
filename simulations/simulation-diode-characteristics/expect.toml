@@ -1,0 +1,19 @@
+# V1 is swept from 0 to 2 V across D1 (the default diode model: Is = 1e-14 A, n = 1) in
+# series with R1 = 100 Ω. The diode current follows I = Is·(e^(Vd/VT) − 1), VT = 25.9 mV.
+
+# At 1 mA the diode drops VT·ln(1 mA / Is) = 0.655 V, and R1 drops 0.1 V, so
+# V(/a) = 0.755 V.
+[[measure]]
+name = "va_at_1mA"
+analysis = "dc"
+meas = "find v(/a) when d1#branch=1m"
+expect = 0.755
+rtol = 0.02
+
+# At V1 = 2 V the diode drops about 0.72 V, leaving (2 − 0.72) V / 100 Ω = 12.8 mA.
+[[measure]]
+name = "i_at_2V"
+analysis = "dc"
+meas = "find d1#branch at=2"
+expect = 12.8e-3
+rtol = 0.02

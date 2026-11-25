@@ -1,0 +1,26 @@
+# A 15 V peak, 50 Hz sine through D1 into C1 = 3300 µF and R1 = 100 Ω.
+
+# The output peaks one diode drop below the input: about 15 − 0.8 = 14.2 V.
+[[measure]]
+name = "v_peak"
+analysis = "tran"
+meas = "max v(out) from=60m to=100m"
+expect = 14.2
+rtol = 0.02
+
+# Half-wave: D1 conducts once per cycle, every 20 ms.
+[[measure]]
+name = "recharge_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=2 targ d1#branch val=0.2 rise=3"
+expect = 20e-3
+rtol = 0.02
+
+# Ripple ≈ I / (f · C) = (14 V / 100 Ω) / (50 Hz × 3300 µF) = 0.85 V. The capacitor is
+# also topped up during each conduction pulse, so the simulated ripple is a little lower.
+[[measure]]
+name = "ripple"
+analysis = "tran"
+meas = "pp v(out) from=60m to=100m"
+expect = 0.78
+rtol = 0.15

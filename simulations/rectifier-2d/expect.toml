@@ -1,0 +1,27 @@
+# Two 15 V peak, 50 Hz sources 180° apart (a centre-tapped winding), each through its own
+# diode into C1 = 3300 µF and R1 = 100 Ω.
+
+# The output peaks one diode drop below the input: about 15 − 0.8 = 14.2 V.
+[[measure]]
+name = "v_peak"
+analysis = "tran"
+meas = "max v(out) from=60m to=100m"
+expect = 14.2
+rtol = 0.02
+
+# Full-wave: D1 and D2 take turns, recharging C1 every 10 ms.
+[[measure]]
+name = "half_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=3 targ d2#branch val=0.2 rise=3"
+expect = 10e-3
+rtol = 0.02
+
+# Twice as many recharges halve the ripple: about I / (2 f C) = 0.42 V, a little lower
+# in simulation for the same reason as Rectifier 1D.
+[[measure]]
+name = "ripple"
+analysis = "tran"
+meas = "pp v(out) from=60m to=100m"
+expect = 0.38
+rtol = 0.15
