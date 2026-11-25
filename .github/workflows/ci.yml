@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: ghcr.io/inti-cmnb/kicad10_auto:1.9.1-1_k10.0.4_d13.2
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends just ngspice shellcheck git
+
+      - name: Versions
+        run: |
+          kicad-cli version
+          ngspice --version | head -n 2
+          python3 --version
+
+      - name: Check
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          just check
+
+      - name: Test
+        run: just test

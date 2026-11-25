@@ -12,9 +12,9 @@ check:
     python3 -m py_compile scripts/*.py
     python3 scripts/check_layout.py
 
-# Run every simulation and assert its expected results
+# Simulate every example that has an expect.toml and check its results (needs kicad-cli, ngspice)
 test:
-    @echo "test: SKIPPED, no simulation harness yet (issue #4)"
+    python3 scripts/simulate.py
 
 # Build the docs site artifacts under docs/ (needs KiBot, KiCad and rsvg-convert)
 docs:
