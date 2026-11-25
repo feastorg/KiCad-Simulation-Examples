@@ -13,7 +13,7 @@ U1 runs from ±15 V and is wired as a follower: its output connects straight bac
 - For a second-order low-pass, the −3 dB point is f0 · √(a + √(a² + 1)) with a = 1 − 1/(2Q²) = 0.091, so f−3dB = 1123 Hz.
 - Well below the corner the follower passes the signal unchanged, 0 dB. Q slightly above 0.707 gives a peak of Q/√(1 − 1/(4Q²)) = 1.004, about +0.04 dB, at f0 · √a = 324 Hz.
 - Above the corner the gain falls at 40 dB per decade, twice as fast as RC Lowpass. At 10 kHz the gain is 1/√((1 − x²)² + (x/Q)²) with x = 10 kHz / f0 = 9.32, or −38.8 dB.
-- Above about 50 kHz the slope flattens, and the gain levels off near −72 dB around 87 kHz. Current through C1 develops a voltage across the op-amp's 10 Ω output resistance, which the falling loop gain no longer suppresses: the follower's output impedance is about Rout/(1 + A), and A has dropped to about 5 by 87 kHz. With ROUT = 0, or an ideal op-amp, the slope stays at 40 dB per decade.
+- Above about 50 kHz the slope flattens, and the gain reaches a floor near −72 dB at 87 kHz, rising again beyond the sweep. Current through C1 develops a voltage across the op-amp's 10 Ω output resistance, which the falling loop gain no longer suppresses: the follower's output impedance is about Rout/(1 + A), and A has dropped to about 5 by 87 kHz. With ROUT = 0, or an ideal op-amp, the slope stays at 40 dB per decade.
 
 The simulation gives the −3 dB point at 1121 Hz, 0.000 dB at 10 Hz and −38.8 dB at 10 kHz.
 
