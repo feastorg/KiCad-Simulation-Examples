@@ -8,7 +8,7 @@
 name = "vf_25"
 analysis = "dc"
 meas = "find v(/a) at=25"
-expect = 0.6587
+expect = 0.65866
 rtol = 0.001
 
 # At 85 °C, T = 358.15 K: Vf = 0.5509 V, a chord slope of (0.5509 − 0.6587) V / 60 K
