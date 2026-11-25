@@ -254,7 +254,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Simulation-DC-operational-point.kicad_pro",
+    "filename": "Simulation-DC-operating-point.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -393,7 +393,7 @@
         "version": 0
       },
       "model_mode": 4,
-      "workbook_filename": "Simulation-DC-operational-point.wbk"
+      "workbook_filename": "Simulation-DC-operating-point.wbk"
     },
     "page_layout_descr_file": "",
     "plot_directory": "",
