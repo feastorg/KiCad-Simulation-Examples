@@ -56,7 +56,7 @@ examples = [
 [[chapter]]
 slug = "transistors"
 title = "Transistors"
-summary = "BJT curves, transistors as switches, single-transistor amplifiers, and a current mirror."
+summary = "BJT curves, transistors as switches, single-transistor amplifiers, a current mirror and a differential pair."
 examples = [
     "simulation-npn-characteristics",
     "actuator-npn-switch-led",
@@ -65,6 +65,7 @@ examples = [
     "npn-amplifier-ce",
     "nmos-amplifier-cs",
     "npn-current-mirror",
+    "npn-differential-pair",
 ]
 
 [[chapter]]
@@ -100,9 +101,11 @@ examples = [
 [[chapter]]
 slug = "analysis-techniques"
 title = "Analysis Techniques"
-summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, and the thermal noise of an RC filter."
+summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, an amplifier's DC gain and impedances, measurements on a result, and importing a vendor's SPICE model."
 examples = [
     "simulation-temperature-sweep",
     "simulation-noise-rc",
     "simulation-transfer-function",
+    "simulation-measurements",
+    "simulation-vendor-model",
 ]

@@ -1,0 +1,23 @@
+# I1 and I2 each drive 5 mA into a BZX84C5V6 zener's cathode, anode to ground. An
+# operating point has no sweep, so each entry's meas is an expression, read after the
+# analysis. The two models differ by 5.9 mV and the Symmetry one moves only 0.25 mV
+# for a 5 % change in its current, so the tolerance is ±0.003 %, about ±0.17 mV.
+
+# D1, Symmetry's .SUBCKT BZX84C5V6 2 1 with Sim.Pins "1=1 2=2": a 5.532 V source
+# (1 mA × 5532.13 Ω) plus a simulated 68 mV from the rest of the subcircuit = 5.600 V.
+[[measure]]
+name = "vz_sym"
+analysis = "op"
+meas = "v(/sym)"
+expect = 5.60017
+rtol = 0.00003
+
+# D2, Diodes Inc's .SUBCKT DI_BZX84C5V6 1 2 with Sim.Pins "1=2 2=1":
+# VZ + n·VT·ln(I/IS) + I·RS = 3.33 + 3 × 25.865 mV × ln(5 mA / 5.15 fA) + 5 mA × 24.5 Ω
+# = 3.33 + 2.1417 + 0.1225 = 5.5942 V.
+[[measure]]
+name = "vz_diodes"
+analysis = "op"
+meas = "v(/diodes)"
+expect = 5.59423
+rtol = 0.00003
