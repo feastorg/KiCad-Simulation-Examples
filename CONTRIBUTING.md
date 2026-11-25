@@ -31,7 +31,9 @@ How to lay out an example and what its README needs is on the site:
 - A README states numbers worked out from the schematic, such as the cutoff, gain or
   ripple, and the formula behind them. The example's `expect.toml` checks them: each
   `[[measure]]` names an analysis from the `.wbk`, an ngspice `meas` expression, the
-  expected value and a relative tolerance. See `simulations/rc-lowpass/expect.toml`.
+  expected value and a tolerance: `rtol`, relative, or `atol`, absolute, for a value that
+  should be near zero. For an `op` analysis, `meas` is an expression such as `v(out)`.
+  See `simulations/rc-lowpass/expect.toml`.
 - SPICE models sit next to the schematic that uses them and are referenced by a path
   relative to the project.
 - `docs/index.md`, `docs/simulations/`, `docs/assets/simulations/` and

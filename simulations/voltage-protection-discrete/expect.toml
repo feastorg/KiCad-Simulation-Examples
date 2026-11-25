@@ -1,0 +1,51 @@
+# V1 is a ±12 V, 10 Hz sine, standing for a supply that can be connected backwards
+# (the negative half) or run too high (the 12 V peak). Four circuits, each into 5 Ω.
+
+# 1: series diode. Passes the positive half less one diode drop (about 0.85 V at 2.2 A)...
+[[measure]]
+name = "out1_peak"
+analysis = "tran"
+meas = "max v(out1)"
+expect = 11.15
+rtol = 0.02
+
+# ...and blocks the negative half.
+[[measure]]
+name = "out1_negative"
+analysis = "tran"
+meas = "find v(out1) at=75m"
+expect = 0
+atol = 0.01
+
+# 2: P-MOSFET in the supply line. Once on, it loses only tens of millivolts.
+[[measure]]
+name = "out2_peak"
+analysis = "tran"
+meas = "max v(out2)"
+expect = 11.98
+rtol = 0.01
+
+# 3 and 4: overvoltage cut-off. Q4/Q6 turn on once the rail exceeds the 5.6 V zener plus
+# a Vbe, about 6.2 V, and switch the output MOSFET off. So the output never rises much
+# above 5.9 V...
+[[measure]]
+name = "out3_peak"
+analysis = "tran"
+meas = "max v(out3)"
+expect = 5.91
+rtol = 0.03
+
+[[measure]]
+name = "out4_peak"
+analysis = "tran"
+meas = "max v(out4)"
+expect = 5.90
+rtol = 0.03
+
+# ...and at the 12 V input peak (t = 25 ms) it is switched off: within 10 mV of 0 V.
+[[measure]]
+name = "out4_at_12V"
+analysis = "tran"
+meas = "find v(out4) at=25m"
+expect = 0
+atol = 0.01
