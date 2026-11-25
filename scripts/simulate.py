@@ -2,7 +2,7 @@
 """Simulate examples with ngspice and check the results their expect.toml promises.
 
 For each simulations/<name>/expect.toml, export the schematic's SPICE netlist with
-kicad-cli, add the analysis from the example's .wbk workbook and the .meas lines from
+kicad-cli, add the analysis from the example's .wbk workbook and the meas commands from
 expect.toml, run ngspice in batch mode, and compare each measurement with its
 expected value.
 
@@ -76,8 +76,10 @@ def simulate(example: Path) -> list[str]:
         for m in spec["measure"]:
             by_analysis.setdefault(m["analysis"].lower(), []).append(m)
         for analysis, measures in by_analysis.items():
-            meas_lines = [f".meas {analysis} {m['name']} {m['meas']}" for m in measures]
-            deck = "\n".join([netlist, analysis_command(wbk, analysis), *meas_lines, ".end", ""])
+            # Measure after the run, in a control block: a .meas dot-line makes ngspice
+            # build its save list from the expression, which it misparses for vdb().
+            control = [".control", "run", *(f"meas {analysis} {m['name']} {m['meas']}" for m in measures), ".endc"]
+            deck = "\n".join([netlist, analysis_command(wbk, analysis), *control, ".end", ""])
             output = run_ngspice(deck, example)
             for m in measures:
                 value = measured(output, m["name"])
