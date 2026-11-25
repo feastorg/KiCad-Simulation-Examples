@@ -2,7 +2,7 @@
 layout: default
 title: Contributing a Simulation
 parent: KiCad Simulation Examples
-nav_order: 10
+nav_order: 100
 ---
 
 Thanks for helping expand the KiCad Simulation Examples library. This site is built directly
