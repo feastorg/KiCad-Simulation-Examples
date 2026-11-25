@@ -14,7 +14,7 @@ name = "iout_5v"
 analysis = "dc"
 meas = "find i(V2) at=5"
 expect = -1.0578e-3
-rtol = 0.01
+rtol = 0.002
 
 # Vout = 10 V: 0.9753 mA × (1 + 9.226 / 50) = 1.1553 mA.
 [[measure]]
@@ -22,4 +22,4 @@ name = "iout_10v"
 analysis = "dc"
 meas = "find i(V2) at=10"
 expect = -1.1553e-3
-rtol = 0.01
+rtol = 0.002
