@@ -55,7 +55,7 @@ examples = [
 [[chapter]]
 slug = "transistors"
 title = "Transistors"
-summary = "BJT curves, transistors as switches, and single-transistor amplifiers."
+summary = "BJT curves, transistors as switches, single-transistor amplifiers, and a current mirror."
 examples = [
     "simulation-npn-characteristics",
     "actuator-npn-switch-led",
@@ -63,6 +63,7 @@ examples = [
     "nmos-switch-inductive-flyback",
     "npn-amplifier-ce",
     "nmos-amplifier-cs",
+    "npn-current-mirror",
 ]
 
 [[chapter]]
