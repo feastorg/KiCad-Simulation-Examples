@@ -1,0 +1,25 @@
+# One 15 V, 50 Hz source across a diode bridge, 3300 µF reservoir, 100 Ω load.
+
+# Full-wave: D1 and D2 conduct on alternate half-cycles, 1/(2 × 50 Hz) = 10 ms apart.
+[[measure]]
+name = "half_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=1 from=60m targ d2#branch val=0.2 rise=1 from=60m"
+expect = 10e-3
+rtol = 0.05
+
+# Peak output is the source peak less two diode drops, about 0.8 V each at 2.4 A.
+[[measure]]
+name = "vpeak"
+analysis = "tran"
+meas = "max v(out) from=60m to=100m"
+expect = 13.4
+rtol = 0.03
+
+# Ripple ≈ I / (2 f C) = (13.2 V / 100 Ω) / (2 × 50 Hz × 3300 µF) = 0.40 V peak to peak.
+[[measure]]
+name = "ripple"
+analysis = "tran"
+meas = "pp v(out) from=60m to=100m"
+expect = 0.40
+rtol = 0.2

@@ -1,0 +1,17 @@
+# Series regulator: the op-amp holds its inverting input at the 5.6 V zener voltage,
+# with R3 = 1 kΩ from the output and R1 = 1629 Ω to ground:
+# Vout = 5.6 V × (1 + 1000/1629) = 9.04 V.
+[[measure]]
+name = "vout"
+analysis = "tran"
+meas = "avg v(out) from=60m to=100m"
+expect = 9.04
+rtol = 0.03
+
+# Full-wave bridge: D1 and D2 conduct on alternate half-cycles, 10 ms apart at 50 Hz.
+[[measure]]
+name = "half_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=1 from=60m targ d2#branch val=0.2 rise=1 from=60m"
+expect = 10e-3
+rtol = 0.05

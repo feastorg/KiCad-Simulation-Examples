@@ -27,12 +27,7 @@
         },
         {
           "color": "rgb(55, 126, 184)",
-          "signal": "V(In1)",
-          "trace_type": 257
-        },
-        {
-          "color": "rgb(77, 175, 74)",
-          "signal": "V(In2)",
+          "signal": "V(In1)-V(In2)",
           "trace_type": 257
         },
         {

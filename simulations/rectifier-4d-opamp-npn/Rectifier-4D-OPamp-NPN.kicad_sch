@@ -2249,28 +2249,6 @@
 			)
 		)
 	)
-	(global_label "In2"
-		(shape output)
-		(at 118.11 176.53 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "ce967a28-09ed-408c-af94-1371d845a605")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 118.11 170.6609 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(symbol
 		(lib_name "GND_1")
 		(lib_id "power:GND")
@@ -2871,73 +2849,6 @@
 			(project "Rectifier-4D-OPamp-NPN-(.tran)"
 				(path "/95246ab0-aedc-41ad-8fc8-1776512f8fe1"
 					(reference "Q1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 118.11 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7aae448b-4a77-4534-843b-8916dcb04d0b")
-		(property "Reference" "#PWR02"
-			(at 118.11 193.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 118.11 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "59a2e1e8-c714-4f59-8f25-7122285085bf")
-		)
-		(instances
-			(project "Rectifier-4D-OPamp-NPN-(.tran)"
-				(path "/95246ab0-aedc-41ad-8fc8-1776512f8fe1"
-					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -3984,114 +3895,6 @@
 		)
 	)
 	(symbol
-		(lib_name "VSIN_1")
-		(lib_id "Simulation_SPICE:VSIN")
-		(at 118.11 181.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e6794ccf-e7c1-435a-b1cf-c6ec98dafe85")
-		(property "Reference" "V2"
-			(at 121.92 178.9401 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "VSIN"
-			(at 121.92 181.4801 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Voltage source, sinusoidal"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=+ 2=-"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Params" "dc=0 ampl=15 f=50 td=0 theta=0 phase=180 ac=1"
-			(at 121.92 184.0201 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Type" "SIN"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "V"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "e6df1a08-011b-4ff2-a7bc-2af32d8d8850")
-		)
-		(pin "1"
-			(uuid "bbcec008-de51-4923-914e-c7e37238daa6")
-		)
-		(instances
-			(project "Rectifier-4D-OPamp-NPN-(.tran)"
-				(path "/95246ab0-aedc-41ad-8fc8-1776512f8fe1"
-					(reference "V2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 111.76 110.49 0)
 		(unit 1)
@@ -4355,70 +4158,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 55.88 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "In2"
+		(shape output)
+		(at 55.88 186.69 270)
 		(fields_autoplaced yes)
-		(uuid "f785fb7f-8502-42dd-9a23-e51e0e8991e4")
-		(property "Reference" "#PWR06"
-			(at 55.88 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d018cdf5-a67c-45ef-b860-40ed8eff1c75")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 55.88 192.6385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 55.88 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 55.88 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 55.88 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 55.88 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8558e281-2fa2-4c06-84d8-83cca8d8f3ad")
-		)
-		(instances
-			(project "Rectifier-4D-OPamp-NPN-(.tran)"
-				(path "/95246ab0-aedc-41ad-8fc8-1776512f8fe1"
-					(reference "#PWR06")
-					(unit 1)
-				)
 			)
 		)
 	)

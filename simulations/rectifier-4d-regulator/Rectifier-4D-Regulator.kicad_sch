@@ -1531,28 +1531,6 @@
 		)
 		(uuid "de70faa9-b77d-42cd-a5a0-c3c6d532b9db")
 	)
-	(global_label "In2"
-		(shape output)
-		(at 118.11 176.53 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "054905de-8a2f-497a-ba38-e9c839bbf8ab")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 118.11 170.5815 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "In1"
 		(shape output)
 		(at 58.42 176.53 90)
@@ -2061,135 +2039,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 118.11 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "In2"
+		(shape output)
+		(at 58.42 186.69 270)
 		(fields_autoplaced yes)
-		(uuid "3307d76b-6227-4f19-9896-e5ecaefd3452")
-		(property "Reference" "#PWR02"
-			(at 118.11 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "09878671-b854-4f62-835e-ef062152b753")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 58.42 192.6385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 118.11 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 118.11 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "11eedc79-1ddf-4293-a6c6-736c696a1b1d")
-		)
-		(instances
-			(project "Rectifier-4D-Regulator-(.tran)"
-				(path "/824a1256-25d4-4c20-968f-40a07210c698"
-					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 58.42 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "341df773-d19e-4b74-9139-0dd599f432ba")
-		(property "Reference" "#PWR01"
-			(at 58.42 193.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 58.42 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 58.42 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 58.42 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 58.42 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c6d6f96b-2856-459b-b54a-317818d3bdaf")
-		)
-		(instances
-			(project "Rectifier-4D-Regulator-(.tran)"
-				(path "/824a1256-25d4-4c20-968f-40a07210c698"
-					(reference "#PWR01")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2323,113 +2191,6 @@
 			(project "Rectifier-4D-Regulator-(.tran)"
 				(path "/824a1256-25d4-4c20-968f-40a07210c698"
 					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Simulation_SPICE:VSIN")
-		(at 118.11 181.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "432f567b-1809-46b8-b3f1-bef542818a8d")
-		(property "Reference" "V2"
-			(at 121.92 178.9401 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "VSIN"
-			(at 121.92 181.4801 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Voltage source, sinusoidal"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=+ 2=-"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Params" "dc=0 ampl=15 f=50 td=0 theta=0 phase=180 ac=1"
-			(at 121.92 184.0201 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Type" "SIN"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "V"
-			(at 118.11 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3cd52340-a54b-4010-b8a7-43788c16cb20")
-		)
-		(pin "2"
-			(uuid "d2680ad8-cae2-411e-ba0a-75239f1983f4")
-		)
-		(instances
-			(project "Rectifier-4D-Regulator-(.tran)"
-				(path "/824a1256-25d4-4c20-968f-40a07210c698"
-					(reference "V2")
 					(unit 1)
 				)
 			)

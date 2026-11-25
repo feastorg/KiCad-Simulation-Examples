@@ -1,0 +1,18 @@
+# Regression value, measured with ngspice 44.2 in KiCad's ltpsa mode (4.664 to 4.665 V
+# over 60-100 ms): the 5.6 V zener less the NPN follower's base-emitter drop. The README
+# rewrite in #10 derives it from the schematic.
+[[measure]]
+name = "vout"
+analysis = "tran"
+meas = "avg v(out) from=60m to=100m"
+expect = 4.665
+rtol = 0.03
+
+# Full-wave bridge: D1 and D2 conduct on alternate half-cycles, 10 ms apart at 50 Hz.
+# Before #6 was fixed, both sources had phase=180 and the circuit rectified half-wave.
+[[measure]]
+name = "half_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=1 from=60m targ d2#branch val=0.2 rise=1 from=60m"
+expect = 10e-3
+rtol = 0.05
