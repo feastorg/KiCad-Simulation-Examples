@@ -12,10 +12,11 @@ check:
     python3 -m py_compile scripts/*.py
     python3 scripts/check_layout.py
 
-# Simulate every example that has an expect.toml and check its results (needs kicad-cli, ngspice)
+# Check every expect.toml, then simulate and plot every example into build/plots (needs kicad-cli, ngspice)
 test:
     python3 scripts/simulate.py
+    python3 scripts/simulate.py --plots build/plots
 
-# Build the docs site artifacts under docs/ (needs KiBot, KiCad and rsvg-convert)
+# Build the docs site artifacts under docs/ (needs KiBot, KiCad, ngspice and rsvg-convert)
 docs:
     bash scripts/build_docs.sh

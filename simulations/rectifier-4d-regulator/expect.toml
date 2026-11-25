@@ -1,0 +1,8 @@
+# LM317 with R1 = 120 Ω and R2 = 746 Ω: Vout = 1.25 V × (1 + 746/120) = 9.02 V.
+# Averaged over the last 40 ms, after the 4700 µF reservoir has charged.
+[[measure]]
+name = "vout"
+analysis = "tran"
+meas = "avg v(out) from=60m to=100m"
+expect = 9.02
+rtol = 0.03

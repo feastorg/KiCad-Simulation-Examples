@@ -6,6 +6,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 python3 scripts/render_schematics.py
+python3 scripts/simulate.py --plots docs/assets/simulations
 python3 scripts/generate_sim_pages.py
 python3 scripts/bundle_pdfs.py
 python3 scripts/bundle_full_kit.py

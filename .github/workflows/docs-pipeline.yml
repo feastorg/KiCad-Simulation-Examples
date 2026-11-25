@@ -23,21 +23,14 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    container: ghcr.io/inti-cmnb/kicad9_auto:latest
+    container: ghcr.io/inti-cmnb/kicad10_auto:1.9.1-1_k10.0.4_d13.2
     steps:
       - uses: actions/checkout@v4
 
-      - name: Ensure SVG converter
+      - name: Install tools
         run: |
-          if ! command -v rsvg-convert >/dev/null 2>&1; then
-            if command -v apt-get >/dev/null 2>&1; then
-              apt-get update
-              apt-get install -y librsvg2-bin
-            else
-              echo "rsvg-convert not found and apt-get is unavailable" >&2
-              exit 1
-            fi
-          fi
+          apt-get update
+          apt-get install -y --no-install-recommends ngspice librsvg2-bin
 
       - name: Render schematics
         run: bash scripts/build_docs.sh
