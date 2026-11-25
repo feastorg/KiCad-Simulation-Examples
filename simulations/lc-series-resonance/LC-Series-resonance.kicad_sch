@@ -809,7 +809,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "; f0 = 1/(2*pi*√(LC)) = 159 155 Hz\n; At f0, impedance i LOW and current HIGH"
+	(text "; f0 = 1/(2*pi*√(LC)) = 159 155 Hz\n; At f0, impedance is LOW and current HIGH"
 		(exclude_from_sim no)
 		(at 125.73 105.41 0)
 		(effects

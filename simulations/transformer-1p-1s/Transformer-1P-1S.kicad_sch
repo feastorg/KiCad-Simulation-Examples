@@ -1145,7 +1145,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1000u"
+		(property "Value" "10"
 			(at 134.62 101.5999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1227,7 +1227,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "100m"
 			(at 156.21 101.5999 0)
 			(show_name no)
 			(do_not_autoplace no)
