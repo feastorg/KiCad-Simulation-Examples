@@ -105,16 +105,21 @@ def check(example: Path) -> list[str]:
     for analysis, measures in by_analysis.items():
         # Measure in the control block, after the run: a .meas dot-line makes ngspice
         # build its save list from the expression, which it misparses for vdb().
-        control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
+        # meas has no operating-point form, so for "op" the entry's meas is an
+        # expression, printed after the run as "name = value".
+        if analysis == "op":
+            control = [c for m in measures for c in (f"let {m['name']} = {m['meas']}", f"print {m['name']}")]
+        else:
+            control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
         with tempfile.TemporaryDirectory() as tmp:
             output = run_deck(example, Path(tmp), find_tab(example, analysis), control)
         for m in measures:
             value = measured(output, m["name"])
             expect, rtol = m["expect"], m["rtol"]
             ok = abs(value - expect) <= rtol * abs(expect)
-            print(f"{example.name}: {m['name']} = {value:.4g} (expect {expect:.4g} ± {rtol:.0%}) {'ok' if ok else 'FAIL'}")
+            print(f"{example.name}: {m['name']} = {value:.4g} (expect {expect:.4g} ± {rtol * 100:g}%) {'ok' if ok else 'FAIL'}")
             if not ok:
-                failures.append(f"{example.name}: {m['name']} = {value:.4g}, expected {expect:.4g} ± {rtol:.0%}")
+                failures.append(f"{example.name}: {m['name']} = {value:.4g}, expected {expect:.4g} ± {rtol * 100:g}%")
     return failures
 
 
