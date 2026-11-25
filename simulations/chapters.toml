@@ -1,0 +1,91 @@
+# The site's chapters, in reading order. Each example folder under simulations/ belongs
+# to exactly one chapter; `just check` fails if one is missing or listed twice.
+
+[[chapter]]
+slug = "simulator-basics"
+title = "Simulator Basics"
+summary = "The analyses KiCad's simulator runs: operating point, DC sweep, AC sweep and transient."
+examples = [
+    "simulation-dc-operating-point",
+    "simulation-dc-sweep",
+    "simulation-ac-sweep",
+    "simulation-transient-pulse",
+    "simulation-transient-sine",
+    "kicad-simulation-commands",
+]
+
+[[chapter]]
+slug = "passive-rc-rl"
+title = "Passive RC and RL"
+summary = "Time constants, corner frequencies and phase in resistor-capacitor and resistor-inductor circuits."
+examples = [
+    "rc-charge",
+    "rc-discharge",
+    "rc-voltage-current",
+    "rl-voltage-current",
+    "rc-lowpass",
+    "rc-highpass",
+    "rc-bandpass",
+]
+
+[[chapter]]
+slug = "resonance-magnetics"
+title = "Resonance and Magnetics"
+summary = "LC resonance and Q, and coupled inductors as transformers."
+examples = [
+    "lc-series-resonance",
+    "lc-parallel-resonance",
+    "transformer-1p-1s",
+    "transformer-1p-2s",
+]
+
+[[chapter]]
+slug = "diodes-rectifiers"
+title = "Diodes and Rectifiers"
+summary = "A diode's curve, then half-wave, full-wave, bridge and three-phase rectifiers."
+examples = [
+    "simulation-diode-characteristics",
+    "rectifier-1d",
+    "rectifier-2d",
+    "rectifier-4d",
+    "rectifier-6d",
+]
+
+[[chapter]]
+slug = "transistors"
+title = "Transistors"
+summary = "BJT curves, transistors as switches, and single-transistor amplifiers."
+examples = [
+    "simulation-npn-characteristics",
+    "actuator-npn-switch-led",
+    "actuator-pnp-switch-led",
+    "npn-amplifier-ce",
+    "nmos-amplifier-cs",
+]
+
+[[chapter]]
+slug = "op-amps"
+title = "Op-Amps"
+summary = "The classic op-amp circuits, and the open-loop gain and bandwidth behind them."
+examples = [
+    "opamp-voltage-follower",
+    "opamp-inverting",
+    "opamp-noninverting",
+    "opamp-adding",
+    "opamp-comparator",
+    "opamp-open-loop",
+    "opamp-headphone",
+]
+
+[[chapter]]
+slug = "power-supplies"
+title = "Power Supplies"
+summary = "Linear regulators fed from a bridge rectifier, and protection against reversed or excess supply voltage."
+examples = [
+    "rectifier-4d-zener-npn",
+    "rectifier-4d-regulator",
+    "rectifier-4d-regulator-npn",
+    "rectifier-4d-regulator-pnp",
+    "rectifier-4d-opamp-npn",
+    "voltage-protection-discrete",
+]

@@ -1,27 +1,41 @@
 #!/usr/bin/env python3
 """
-Generate docs pages for each simulation from simulations/<sim>/README.md.
+Generate the docs pages from simulations/chapters.toml and each simulations/<sim>/README.md.
+
+Writes:
+  docs/index.md                     the home page, listing the chapters and their examples
+  docs/chapters/<slug>/index.md     one page per chapter, with a card for each example
+  docs/simulations/<sim>/index.md   one page per example, under its chapter
+  docs/simulations/index.md         an overview at the old /simulations/ address
 """
 
 from __future__ import annotations
 
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIM_ROOT = ROOT / "simulations"
 DOCS_ROOT = ROOT / "docs"
 SIM_DOCS_ROOT = DOCS_ROOT / "simulations"
+CHAPTER_DOCS_ROOT = DOCS_ROOT / "chapters"
 ASSETS_ROOT = DOCS_ROOT / "assets" / "simulations"
 
 SITE_TITLE = "KiCad Simulation Examples"
-SIM_SECTION_TITLE = "Simulations"
 REPO_URL = "https://github.com/feastorg/KiCad-Simulation-Examples"
-DOWNLOAD_PDF_ZIP = "{{ site.baseurl }}/assets/downloads/schematics-pdf.zip"
-DOWNLOAD_KIT_ZIP = "{{ site.baseurl }}/assets/downloads/schematics-kit.zip"
+BASE = "{{ site.baseurl }}"
+DOWNLOADS = (
+    f"Downloads: [all schematics as PDFs]({BASE}/assets/downloads/schematics-pdf.zip) · "
+    f"[the full kit]({BASE}/assets/downloads/schematics-kit.zip) "
+    "(KiCad projects, workbooks, models, PDFs and READMEs)"
+)
+KICAD_NOTE = "Made for KiCad 10."
+FIRST_CHAPTER_NAV = 3  # after the home page (1) and the introduction (2)
 
 H1_RE = re.compile(r"^\s{0,3}#\s+(.+?)\s*$")
+GENERATED = "<!-- AUTO-GENERATED: DO NOT EDIT BY HAND -->"
 
 
 def die(message: str) -> None:
@@ -29,30 +43,26 @@ def die(message: str) -> None:
     sys.exit(1)
 
 
-def title_from_dir(name: str) -> str:
-    return name.replace("_", " ").replace("-", " ").title()
-
-
-def split_readme(readme_text: str, default_title: str) -> tuple[str, str]:
+def split_readme(readme_text: str) -> tuple[str, str, str]:
+    """Return the README's H1 title, its body below the title, and the first paragraph."""
     lines = readme_text.splitlines()
-    title = None
-    body_start = 0
     for idx, line in enumerate(lines):
         m = H1_RE.match(line)
         if m:
-            title = m.group(1).strip()
-            body_start = idx + 1
-            break
-    if not title:
-        title = default_title
-        body_start = 0
-    body = "\n".join(lines[body_start:]).lstrip()
-    return title, body
+            body = "\n".join(lines[idx + 1 :]).lstrip()
+            blurb = next((l.strip() for l in body.splitlines() if l.strip()), "")
+            return m.group(1).strip(), body, blurb
+    die("README.md has no '# ' title")
+    raise RuntimeError("unreachable")
 
 
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content.rstrip() + "\n", encoding="utf-8")
+
+
+def front_matter(**fields: object) -> str:
+    return "---\nlayout: default\n" + "".join(f"{k}: {v}\n" for k, v in fields.items()) + "---\n"
 
 
 ANALYSIS_NAMES = {"tran": "Transient", "ac": "AC sweep", "dc": "DC sweep", "op": "Operating point"}
@@ -77,149 +87,126 @@ def render_plots(sim_name: str) -> str:
         caption = ANALYSIS_NAMES.get(analysis, analysis.upper())
         if kind == "current":
             caption += ", currents"
-        lines.append(f"![{caption}]({{{{ site.baseurl }}}}/assets/simulations/{sim_name}/{svg.name})")
+        lines.append(f"![{caption}]({BASE}/assets/simulations/{sim_name}/{svg.name})")
         lines.append("")
     return "\n".join(lines)
 
 
-def render_sim_page(sim_name: str, title: str, body: str) -> str:
-    image_path = f"{{{{ site.baseurl }}}}/assets/simulations/{sim_name}/schematic.png"
-    download_pdf = DOWNLOAD_PDF_ZIP
-    download_kit = DOWNLOAD_KIT_ZIP
-    repo_link = f"{REPO_URL}/tree/main/simulations/{sim_name}"
+def render_sim_page(sim: dict, chapter: dict) -> str:
     return (
-        "---\n"
-        "layout: default\n"
-        f"title: {title}\n"
-        f"parent: {SIM_SECTION_TITLE}\n"
-        f"grand_parent: {SITE_TITLE}\n"
-        "---\n\n"
-        "<!-- AUTO-GENERATED: DO NOT EDIT BY HAND -->\n\n"
-        f"> Download all schematics as PDFs: [{download_pdf}]({download_pdf})\n"
-        f"> Or take the full kit with you (PDF + KiCad schematic + README): [{download_kit}]({download_kit})\n\n"
-        f"![Schematic]({image_path})\n\n"
-        f"[Open project folder on GitHub]({repo_link})\n\n"
-        f"{body}\n\n"
-        f"{render_plots(sim_name)}\n"
+        front_matter(title=sim["title"], parent=chapter["title"], grand_parent=SITE_TITLE, nav_order=sim["order"])
+        + f"\n{GENERATED}\n\n"
+        + f"![Schematic of {sim['title']}]({BASE}/assets/simulations/{sim['name']}/schematic.png)\n\n"
+        + f"[Open the project folder on GitHub]({REPO_URL}/tree/main/simulations/{sim['name']}) · "
+        + f"[Schematic PDF]({BASE}/assets/simulations/{sim['name']}/schematic.pdf)\n\n"
+        + f"{sim['body']}\n\n"
+        + f"{render_plots(sim['name'])}\n\n"
+        + f"*{KICAD_NOTE}*\n"
     )
 
 
-def render_sim_index(items: list[tuple[str, str, str]]) -> str:
-    lines = [
-        "---",
-        "layout: default",
-        f"title: {SIM_SECTION_TITLE}",
-        f"parent: {SITE_TITLE}",
-        "has_children: true",
-        "nav_order: 3",
-        "---",
+def example_card(sim: dict) -> list[str]:
+    return [
+        f"### [{sim['title']}]({BASE}/simulations/{sim['name']}/)",
         "",
-        "<!-- AUTO-GENERATED: DO NOT EDIT BY HAND -->",
+        sim["blurb"],
         "",
-        "Browse individual simulation pages below. Each page includes a schematic and a short",
-        "explanation of what the circuit demonstrates.",
-        "",
-        f"Download all schematics as PDFs: [{DOWNLOAD_PDF_ZIP}]({DOWNLOAD_PDF_ZIP})",
-        f"Or take the full kit with you (PDF + KiCad schematic + README): [{DOWNLOAD_KIT_ZIP}]({DOWNLOAD_KIT_ZIP})",
-        "",
-        "Want to contribute a new simulation? See the contributor guide:",
-        "[Contributing a Simulation](../contributing/).",
+        f"[![Schematic of {sim['title']}]({BASE}/assets/simulations/{sim['name']}/schematic.png)]"
+        f"({BASE}/simulations/{sim['name']}/)",
         "",
     ]
-    for sim_name, title, blurb in items:
-        img = f"<img src=\"{{{{ site.baseurl }}}}/assets/simulations/{sim_name}/schematic.png\" width=\"260\" />"
-        link = f"{{{{ site.baseurl }}}}/simulations/{sim_name}/"
-        lines.append(f"- [{title}]({link})  ")
-        if blurb:
-            lines.append(f"  {blurb}")
-        lines.append(f"  {img}")
-        lines.append("")
+
+
+def render_chapter_page(chapter: dict, sims: list[dict]) -> str:
+    lines = [
+        front_matter(title=chapter["title"], parent=SITE_TITLE, has_children="true", nav_order=chapter["nav_order"]),
+        GENERATED,
+        "",
+        chapter["summary"],
+        "",
+    ]
+    for sim in sims:
+        lines += example_card(sim)
     return "\n".join(lines)
 
 
-def render_site_index(items: list[tuple[str, str, str]]) -> str:
-    intro = (
-        "This is a collection of examples to display KiCad's integrated simulation "
-        "capabilities. The examples were created by Ole Johan (GitHub: OJStuff) and "
-        "released under CC0 1.0. The original OJStuff/Schematics-Examples repository "
-        "is no longer available on GitHub; this collection continues from its last "
-        "commit, 03500e1 (2025-04-03)."
-    )
+def chapter_list(chapters: list[dict], sims_by_chapter: dict[str, list[dict]]) -> list[str]:
+    lines = []
+    for chapter in chapters:
+        lines += [f"## [{chapter['title']}]({BASE}/chapters/{chapter['slug']}/)", "", chapter["summary"], ""]
+        lines += [f"- [{s['title']}]({BASE}/simulations/{s['name']}/)" for s in sims_by_chapter[chapter["slug"]]]
+        lines.append("")
+    return lines
+
+
+def render_site_index(chapters: list[dict], sims_by_chapter: dict[str, list[dict]]) -> str:
+    total = sum(len(s) for s in sims_by_chapter.values())
     lines = [
-        "---",
-        "layout: default",
-        f"title: {SITE_TITLE}",
-        "has_children: true",
-        "nav_order: 1",
-        "---",
+        front_matter(title=SITE_TITLE, has_children="true", nav_order=1),
+        GENERATED,
         "",
-        "<!-- AUTO-GENERATED: DO NOT EDIT BY HAND -->",
+        f"{total} KiCad schematics that teach circuit simulation with KiCad's built-in ngspice "
+        f"simulator, in {len(chapters)} chapters. Each example states what it should show, with "
+        "the numbers worked out from the circuit, and the simulated plots to compare against. "
+        "On every pull request, CI simulates each example that has an analysis set up and checks "
+        "the figures its README states.",
         "",
-        intro,
+        f"New to KiCad's simulator? Start with the [Introduction to Simulation in KiCad]"
+        f"({BASE}/introduction-to-simulations/), then [{chapters[0]['title']}]"
+        f"({BASE}/chapters/{chapters[0]['slug']}/).",
         "",
-        f"Download all schematics as PDFs: [{DOWNLOAD_PDF_ZIP}]({DOWNLOAD_PDF_ZIP})",
-        f"Or take the full kit with you (PDF + KiCad schematic + README): [{DOWNLOAD_KIT_ZIP}]({DOWNLOAD_KIT_ZIP})",
+        DOWNLOADS,
         "",
-        "Contributing a new simulation? See:",
-        "[Contributing a Simulation](contributing/).",
-        "",
-        "## Simulations",
+        f"*{KICAD_NOTE}*",
         "",
     ]
-    for sim_name, title, blurb in items:
-        img = f"<img src=\"{{{{ site.baseurl }}}}/assets/simulations/{sim_name}/schematic.png\" width=\"260\" />"
-        link = f"{{{{ site.baseurl }}}}/simulations/{sim_name}/"
-        lines.append(f"- [{title}]({link})  ")
-        if blurb:
-            lines.append(f"  {blurb}")
-        lines.append(f"  {img}")
-        lines.append("")
+    lines += chapter_list(chapters, sims_by_chapter)
+    lines += [
+        "## Credits",
+        "",
+        "The examples were created by Ole Johan (GitHub: OJStuff) and released under CC0 1.0. "
+        "The original OJStuff/Schematics-Examples repository is no longer available on GitHub; "
+        "this collection continues from its last commit, 03500e1 (2025-04-03).",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def render_overview(chapters: list[dict], sims_by_chapter: dict[str, list[dict]]) -> str:
+    """Kept at /simulations/ so existing links to the old list still land somewhere useful."""
+    lines = [front_matter(title="All Simulations", nav_exclude="true"), GENERATED, "", DOWNLOADS, ""]
+    lines += chapter_list(chapters, sims_by_chapter)
     return "\n".join(lines)
 
 
 def main() -> None:
-    if not SIM_ROOT.exists():
-        die("simulations/ directory not found")
+    chapters = tomllib.loads((SIM_ROOT / "chapters.toml").read_text(encoding="utf-8"))["chapter"]
+    sims_by_chapter: dict[str, list[dict]] = {}
+    titles: set[str] = {SITE_TITLE} | {c["title"] for c in chapters}
+    if len(titles) != len(chapters) + 1:
+        die("chapter titles must be unique and differ from the site title")
 
-    sim_dirs = sorted(p for p in SIM_ROOT.iterdir() if p.is_dir())
-    if not sim_dirs:
-        die("no simulation directories found")
+    for index, chapter in enumerate(chapters):
+        chapter["nav_order"] = FIRST_CHAPTER_NAV + index
+        sims = []
+        for order, name in enumerate(chapter["examples"], start=1):
+            readme = SIM_ROOT / name / "README.md"
+            if not readme.is_file():
+                die(f"simulations/{name}/README.md not found (listed in chapters.toml)")
+            title, body, blurb = split_readme(readme.read_text(encoding="utf-8"))
+            # Just the Docs finds a page's parent by title, so titles must not repeat.
+            if title in titles:
+                die(f"{name}: title '{title}' is already used by another page")
+            titles.add(title)
+            sims.append({"name": name, "title": title, "body": body, "blurb": blurb, "order": order})
+        sims_by_chapter[chapter["slug"]] = sims
 
-    missing_readmes = []
-    items: list[tuple[str, str, str]] = []
+        for sim in sims:
+            write_text(SIM_DOCS_ROOT / sim["name"] / "index.md", render_sim_page(sim, chapter))
+        write_text(CHAPTER_DOCS_ROOT / chapter["slug"] / "index.md", render_chapter_page(chapter, sims))
 
-    for sim_dir in sim_dirs:
-        readme = sim_dir / "README.md"
-        if not readme.exists():
-            missing_readmes.append(sim_dir.name)
-            continue
-
-        text = readme.read_text(encoding="utf-8", errors="ignore")
-        title, body = split_readme(text, title_from_dir(sim_dir.name))
-        blurb = ""
-        for line in body.splitlines():
-            stripped = line.strip()
-            if stripped:
-                blurb = stripped
-                break
-
-        items.append((sim_dir.name, title, blurb))
-
-        page = render_sim_page(sim_dir.name, title, body)
-        out_path = SIM_DOCS_ROOT / sim_dir.name / "index.md"
-        write_text(out_path, page)
-
-    if missing_readmes:
-        missing = ", ".join(sorted(missing_readmes))
-        die(f"missing README.md in simulations: {missing}")
-
-    items.sort(key=lambda x: x[1].lower())
-
-    sim_index = render_sim_index(items)
-    write_text(SIM_DOCS_ROOT / "index.md", sim_index)
-
-    site_index = render_site_index(items)
-    write_text(DOCS_ROOT / "index.md", site_index)
+    write_text(DOCS_ROOT / "index.md", render_site_index(chapters, sims_by_chapter))
+    write_text(SIM_DOCS_ROOT / "index.md", render_overview(chapters, sims_by_chapter))
 
 
 if __name__ == "__main__":
