@@ -1,0 +1,17 @@
+# Non-inverting stage: R2 = 1 kΩ to ground, R3 = 4.7 kΩ feedback taken from Out, after
+# the 47 Ω output resistor R4. Gain = 1 + R3/R2 = 5.7.
+[[measure]]
+name = "gain"
+analysis = "ac"
+meas = "find vm(out) at=1k"
+expect = 5.7
+rtol = 0.01
+
+# C1 = 1 µF into R1 = 100 kΩ blocks DC at the input: a high-pass corner at
+# 1/(2π · 100 kΩ · 1 µF) = 1.59 Hz, where the gain is 3 dB below its 15.1 dB.
+[[measure]]
+name = "f_low"
+analysis = "ac"
+meas = "when vdb(out)=12.1 cross=1"
+expect = 1.59
+rtol = 0.03

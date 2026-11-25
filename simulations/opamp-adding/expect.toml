@@ -1,0 +1,18 @@
+# Inverting summer: R1 = R2 = 1 kΩ from In1 and In2, R3 = 10 kΩ feedback.
+# Vout = −10 · (V(In1) + V(In2)). The inputs are in-phase 1 kHz sines of 0.25 V and
+# 0.5 V peak, so Out swings ±7.5 V: 15 V peak to peak.
+[[measure]]
+name = "vout_pp"
+analysis = "tran"
+meas = "pp v(out) from=2m to=5m"
+expect = 15.0
+rtol = 0.01
+
+# The model's 10 mV input offset is amplified by the noise gain 1 + R3/(R1 ∥ R2) = 21,
+# shifting the output by about −0.21 V.
+[[measure]]
+name = "vout_offset"
+analysis = "tran"
+meas = "avg v(out) from=2m to=5m"
+expect = -0.21
+rtol = 0.05

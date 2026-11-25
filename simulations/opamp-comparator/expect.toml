@@ -1,0 +1,25 @@
+# R2 = R3 = 4.7 kΩ between +15 V and −15 V hold the inverting input at 0 V. The
+# non-inverting input divides Rpot1 = 4.7 kΩ against R1, which the DC sweep steps from
+# 1 kΩ to 10 kΩ (as an LDR's resistance would change with light). It crosses 0 V when
+# R1 = Rpot1 = 4.7 kΩ, and the output switches between the rails there.
+[[measure]]
+name = "r_trip"
+analysis = "dc"
+meas = "when v(/vplus)=0 cross=1"
+expect = 4.7e3
+rtol = 0.01
+
+# Below the trip point the output sits at the negative rail, above it at the positive one.
+[[measure]]
+name = "out_low"
+analysis = "dc"
+meas = "find v(out) at=2k"
+expect = -15.0
+rtol = 0.01
+
+[[measure]]
+name = "out_high"
+analysis = "dc"
+meas = "find v(out) at=8k"
+expect = 15.0
+rtol = 0.01

@@ -1,8 +1,18 @@
 # R1 = 1 kΩ, R2 = 10 kΩ: gain = -R2/R1 = -10, so |V(Out)| = 10 for the 1 V AC source.
-# The model's finite gain lowers it slightly: ngspice 44.2 gives 9.99 at 1 kHz.
+# Finite open-loop gain A lowers it to 10 / |1 + 11/A|. At 1 kHz the model's A is 400 but
+# almost 90° out of phase (its pole is at 20 Hz), so the error is in quadrature:
+# 10 / |1 − j·11/400| = 9.996. ngspice 44.2 gives 9.991.
 [[measure]]
 name = "gain"
 analysis = "ac"
 meas = "find vm(out) at=1k"
 expect = 10.0
+rtol = 0.02
+
+# At 10 kHz A = 40: 10 / |1 − j·11/40| = 9.64.
+[[measure]]
+name = "gain_10k"
+analysis = "ac"
+meas = "find vm(out) at=10k"
+expect = 9.64
 rtol = 0.02
