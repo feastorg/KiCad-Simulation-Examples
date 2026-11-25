@@ -10,7 +10,7 @@ V3's flat tops are there for ngspice: with `tw=0` it treats the hold time as uns
 
 The text directive `.options method=gear noopiter` on the schematic is there for ngspice too, because of the model's sharp output clamp:
 - Gear integration keeps the result independent of the time step. With ngspice's default trapezoidal method, a 5 µs step makes Out fall at In = −6.66 V, far from either threshold.
-- `noopiter` sends the operating point straight to gmin stepping. Without it, ngspice reports Out = −15 V at the start, a point that does not balance the currents inside the model. With In = −10 V, the only DC solution is Out = +15 V.
+- `noopiter` sends the operating point straight to gmin stepping. Without it, ngspice reports Out = −15 V at the start, a point that does not balance the currents inside the model. With In = −10 V, the only DC solution is Out = +15 V, and with these resistors gmin stepping finds it. It isn't a general cure: with R1 = 20 kΩ (Try This) the operating point still starts on −15 V and the transient corrects it within a microsecond, which is why the lower-threshold check skips the first millisecond.
 
 ## What To Look For
 
