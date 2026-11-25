@@ -1,0 +1,21 @@
+# I1 drives 1 mA into D1 (the default diode model: Is = 1e-14 A at the 27 °C nominal
+# temperature, n = 1, EG = 1.11 eV, XTI = 3) while .dc TEMP sweeps -40 to 85 °C.
+# Vf(T) = EG − (T/T0)·(EG − Vf0) − 3·VT·ln(T/T0), with T0 = 300.15 K and
+# Vf0 = VT0·ln(1 mA / Is) = 25.865 mV × 25.328 = 0.65511 V.
+
+# At 25 °C, T = 298.15 K: Vf = 0.6587 V.
+[[measure]]
+name = "vf_25"
+analysis = "dc"
+meas = "find v(/a) at=25"
+expect = 0.6587
+rtol = 0.001
+
+# At 85 °C, T = 358.15 K: Vf = 0.5509 V, a chord slope of (0.5509 − 0.6587) V / 60 K
+# = −1.80 mV/K.
+[[measure]]
+name = "vf_85"
+analysis = "dc"
+meas = "find v(/a) at=85"
+expect = 0.5509
+rtol = 0.001
