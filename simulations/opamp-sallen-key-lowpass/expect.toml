@@ -1,0 +1,27 @@
+# R1 = R2 = 10k, C1 = 22n, C2 = 10n, unity gain:
+# f0 = 1 / (2π · R · √(C1·C2)) = 1073 Hz, Q = 0.5 · √(C1/C2) = 0.742.
+# The −3 dB point is f0 · √(a + √(a² + 1)) with a = 1 − 1/(2Q²): 1123 Hz.
+[[measure]]
+name = "f3"
+analysis = "ac"
+meas = "when vdb(out)=-3"
+expect = 1123
+rtol = 0.01
+
+# A follower passes DC unchanged: 0 dB well below the corner.
+[[measure]]
+name = "g_dc"
+analysis = "ac"
+meas = "find vdb(out) at=10"
+expect = 0
+atol = 0.1
+
+# At 10 kHz the gain is 1/√((1 − x²)² + (x/Q)²) with x = f/f0 = 9.32:
+# −38.77 dB. It moves with C1 and C2 where f3 barely does (C1 = 20n gives
+# −37.95 dB but still passes f3).
+[[measure]]
+name = "g_10k"
+analysis = "ac"
+meas = "find vdb(out) at=10k"
+expect = -38.8
+atol = 0.3

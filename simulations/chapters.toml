@@ -72,6 +72,7 @@ examples = [
     "opamp-inverting",
     "opamp-noninverting",
     "opamp-adding",
+    "opamp-sallen-key-lowpass",
     "opamp-comparator",
     "opamp-open-loop",
     "opamp-headphone",
