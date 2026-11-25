@@ -1090,33 +1090,13 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 121.92) (xy 148.59 107.95)
+			(xy 148.59 110.49) (xy 148.59 107.95)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "23ae8e58-e2c3-4af3-a617-cf2b2b0c961c")
-	)
-	(wire
-		(pts
-			(xy 135.89 102.87) (xy 143.51 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "25be7cf0-2260-42ed-80fd-25668cfd77e7")
-	)
-	(wire
-		(pts
-			(xy 135.89 90.17) (xy 168.91 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "29b748cb-2d55-40a3-b091-b8ad7fa55e84")
 	)
 	(wire
 		(pts
@@ -1137,26 +1117,6 @@
 			(type default)
 		)
 		(uuid "69eb3ff4-ac25-432c-8b6c-195010c6bb11")
-	)
-	(wire
-		(pts
-			(xy 168.91 90.17) (xy 168.91 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99b4c59f-ee3e-4b49-b49d-0c0e6b9b59fd")
-	)
-	(wire
-		(pts
-			(xy 135.89 102.87) (xy 135.89 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a0a669c0-1621-41ef-9fc3-437db236d014")
 	)
 	(wire
 		(pts
@@ -1242,7 +1202,7 @@
 	)
 	(global_label "V-"
 		(shape input)
-		(at 148.59 121.92 270)
+		(at 148.59 110.49 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2583,6 +2543,46 @@
 				(hide yes)
 			)
 		)
+	)
+	(wire
+		(pts
+			(xy 143.51 102.87) (xy 140.97 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfed7397-4910-4504-b759-77197eab026d")
+	)
+	(wire
+		(pts
+			(xy 140.97 102.87) (xy 140.97 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e527805a-5d88-4a25-8dbb-19afd1ea1dab")
+	)
+	(wire
+		(pts
+			(xy 140.97 119.38) (xy 168.91 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d271539e-baba-408d-803a-6db2efd8fe3b")
+	)
+	(wire
+		(pts
+			(xy 168.91 119.38) (xy 168.91 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "207aecba-00ae-44ca-abd4-69e5fa1dd4e0")
 	)
 	(sheet_instances
 		(path "/"
