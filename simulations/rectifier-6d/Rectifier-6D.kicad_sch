@@ -1148,70 +1148,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 115.57 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "N"
+		(shape output)
+		(at 115.57 186.69 270)
 		(fields_autoplaced yes)
-		(uuid "2285fc84-d7de-4f7d-b8c1-50daf9a4b6b9")
-		(property "Reference" "#PWR08"
-			(at 115.57 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e4af8570-a7e4-411f-bafa-dd21aac8a04a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 115.57 192.6385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 115.57 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 115.57 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 115.57 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 115.57 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "6e9305cf-a296-472e-b8ff-c5e452ba89f7")
-		)
-		(instances
-			(project "Rectifier-6D(3-phase)-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "#PWR08")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1349,70 +1304,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 24.13 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "N"
+		(shape output)
+		(at 24.13 186.69 270)
 		(fields_autoplaced yes)
-		(uuid "62c306b4-e398-4077-a80e-f7329d86d918")
-		(property "Reference" "#PWR07"
-			(at 24.13 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e8cf61e0-2b6e-469a-b5a4-10f46aea62d3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 24.13 192.6385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 24.13 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 24.13 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 24.13 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 24.13 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "109104b5-8b2c-48b8-86c4-a9cd0826334e")
-		)
-		(instances
-			(project "Rectifier-6D(3-phase)-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "#PWR07")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2046,70 +1956,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 24.13 161.29 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "N"
+		(shape output)
+		(at 24.13 161.29 270)
 		(fields_autoplaced yes)
-		(uuid "a8851891-daa4-4057-8bf6-ff5f5bc3f63b")
-		(property "Reference" "#PWR06"
-			(at 24.13 167.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7ab25533-d4f1-4c27-a598-03d4bb2b99b8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 24.13 167.2385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 24.13 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 24.13 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 24.13 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 24.13 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "439d40b2-db83-482c-8273-ff1f524a51ad")
-		)
-		(instances
-			(project "Rectifier-6D(3-phase)-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "#PWR06")
-					(unit 1)
-				)
 			)
 		)
 	)

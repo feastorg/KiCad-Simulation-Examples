@@ -22,17 +22,17 @@
       "traces": [
         {
           "color": "rgb(228, 26, 28)",
-          "signal": "V(In1)",
+          "signal": "V(In1)-V(N)",
           "trace_type": 257
         },
         {
           "color": "rgb(55, 126, 184)",
-          "signal": "V(In2)",
+          "signal": "V(In2)-V(N)",
           "trace_type": 257
         },
         {
           "color": "rgb(77, 175, 74)",
-          "signal": "V(In3)",
+          "signal": "V(In3)-V(N)",
           "trace_type": 257
         },
         {

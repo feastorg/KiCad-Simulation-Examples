@@ -1,0 +1,19 @@
+# Three 15 V, 50 Hz phases 120° apart, star point N floating, six-diode bridge,
+# 3300 µF reservoir, 100 Ω load.
+
+# Six-pulse: the output is recharged six times a cycle, so its ripple repeats every
+# 1 / (6 × 50 Hz) = 3.33 ms. Timed between successive upward crossings of its mean.
+[[measure]]
+name = "ripple_period"
+analysis = "tran"
+meas = "trig v(out) val=24.24 rise=1 from=60m targ v(out) val=24.24 rise=2 from=60m"
+expect = 3.333e-3
+rtol = 0.05
+
+# Peak output is the line-to-line peak, 15 V × √3 = 26.0 V, less two diode drops.
+[[measure]]
+name = "vpeak"
+analysis = "tran"
+meas = "max v(out) from=60m to=100m"
+expect = 24.3
+rtol = 0.03
