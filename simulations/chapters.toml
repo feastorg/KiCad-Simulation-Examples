@@ -100,8 +100,9 @@ examples = [
 [[chapter]]
 slug = "analysis-techniques"
 title = "Analysis Techniques"
-summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, and the thermal noise of an RC filter."
+summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, and measurements on a result."
 examples = [
     "simulation-temperature-sweep",
     "simulation-noise-rc",
+    "simulation-measurements",
 ]
