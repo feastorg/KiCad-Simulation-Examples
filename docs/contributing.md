@@ -2,7 +2,7 @@
 layout: default
 title: Contributing a Simulation
 parent: KiCad Simulation Examples
-nav_order: 4
+nav_order: 10
 ---
 
 Thanks for helping expand the KiCad Simulation Examples library. This site is built directly
@@ -19,7 +19,10 @@ Each simulation must live under `simulations/<name>/` and include:
 - Any required SPICE models (`.lib`, `.spice`, etc.) stored alongside the schematic
 
 Do not commit the `*.kicad_prl` file: it holds your local KiCad window state.
-Run `just check` to confirm the folder layout.
+
+Add the folder's name to one chapter in `simulations/chapters.toml`, in the place a reader
+should meet it. The site is built in that order. Run `just check` to confirm the folder
+layout and that every example is in exactly one chapter.
 
 ## README Template
 

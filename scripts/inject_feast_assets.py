@@ -17,6 +17,9 @@ import yaml
 CONFIG_PATH = Path("docs/_config.yml")
 TEMP_CLONE_DIR = Path("_feast_temp")
 REMOTE_REPO_URL = "https://github.com/feastorg/feastorg.github.io.git"
+# The theme assets are taken from this commit, so the site only changes when it is bumped.
+# c4626e3 is main as of 2026-10-16; it builds with just-the-docs 0.12.0, as docs/_config.yml does.
+REMOTE_COMMIT = "c4626e34ae529f88a0f9f7e045513fedb5274711"
 WANTED_COLOR_SCHEME = "feast"
 RETRY_ATTEMPTS = 3
 RETRY_DELAY = 5
@@ -38,15 +41,15 @@ def load_color_scheme(config_path: Path) -> str | None:
 
 
 def clone_theme_repo(retries: int = RETRY_ATTEMPTS, delay: int = RETRY_DELAY) -> bool:
-    log(f"Cloning theme repo to {TEMP_CLONE_DIR}...")
+    log(f"Fetching theme repo at {REMOTE_COMMIT[:7]} to {TEMP_CLONE_DIR}...")
     for attempt in range(1, retries + 1):
         try:
-            subprocess.run(
-                ["git", "clone", "--depth", "1", REMOTE_REPO_URL, str(TEMP_CLONE_DIR)],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-            )
+            for cmd in (
+                ["git", "init", "-q", str(TEMP_CLONE_DIR)],
+                ["git", "-C", str(TEMP_CLONE_DIR), "fetch", "-q", "--depth", "1", REMOTE_REPO_URL, REMOTE_COMMIT],
+                ["git", "-C", str(TEMP_CLONE_DIR), "checkout", "-q", "FETCH_HEAD"],
+            ):
+                subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             log(f"Clone successful on attempt {attempt}")
             return True
         except subprocess.CalledProcessError as exc:

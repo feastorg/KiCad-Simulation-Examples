@@ -8,7 +8,7 @@ circuit does, open an issue first so we can agree on what it should teach.
 ```sh
 just check   # shellcheck, compile the scripts, check the simulation folder layout
 just test    # check each expect.toml, then simulate and plot every example (needs kicad-cli, ngspice)
-just docs    # build the site artifacts under docs/ (needs KiBot, KiCad, ngspice, rsvg-convert)
+just docs    # build the site artifacts under docs/ (needs KiCad, ngspice, rsvg-convert, Pillow)
 ```
 
 Run `just check && just test` before every commit. The examples target KiCad 10; open

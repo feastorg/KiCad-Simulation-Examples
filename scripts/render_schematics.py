@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Render schematic images for each simulation using KiBot.
+Render each simulation's schematic with kicad-cli.
 
-Outputs:
-  docs/assets/simulations/<sim>/schematic.svg
-  docs/assets/simulations/<sim>/schematic.png
+Outputs, per example:
+  docs/assets/simulations/<sim>/schematic.pdf   the full sheet, with title block
+  docs/assets/simulations/<sim>/schematic.svg   the drawing alone, without the sheet
+  docs/assets/simulations/<sim>/schematic.png   that drawing, cropped to its content
 """
 
 from __future__ import annotations
@@ -12,12 +13,18 @@ from __future__ import annotations
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+
+from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parents[1]
 SIM_ROOT = ROOT / "simulations"
 OUT_ROOT = ROOT / "docs" / "assets" / "simulations"
-KIBOT_CFG = ROOT / "kibot" / "schematic-export.kibot.yaml"
+
+PNG_WIDTH = 2400  # pixels for the whole sheet before cropping
+CROP_MARGIN = 40  # pixels of background kept around the drawing
+EDGE = 4  # pixels at the image edge ignored when finding the drawing
 
 
 def die(message: str) -> None:
@@ -25,105 +32,59 @@ def die(message: str) -> None:
     sys.exit(1)
 
 
-def pick_schematic(sim_dir: Path) -> Path:
-    sch_files = sorted(sim_dir.glob("*.kicad_sch"))
-    if not sch_files:
-        die(f"no .kicad_sch found in {sim_dir}")
-    if len(sch_files) == 1:
-        return sch_files[0]
-    for sch in sch_files:
-        if sch.stem == sim_dir.name:
-            return sch
-    names = ", ".join(p.name for p in sch_files)
-    die(f"multiple schematics in {sim_dir}, none matching dir name: {names}")
-    raise RuntimeError("unreachable")
-
-
-def require_tool(name: str) -> None:
-    if shutil.which(name) is None:
-        die(f"missing required tool: {name}")
+def crop_to_content(png: Path) -> None:
+    """Crop a rendered sheet to its drawing: whatever differs from the background colour."""
+    image = Image.open(png).convert("RGB")
+    width, height = image.size
+    background = Image.new("RGB", image.size, image.getpixel((width // 2, EDGE)))
+    mask = ImageChops.difference(image, background).convert("L").point(lambda v: 255 if v > 24 else 0)
+    box = mask.crop((EDGE, EDGE, width - EDGE, height - EDGE)).getbbox()
+    if box is None:
+        die(f"{png}: the rendered schematic is empty")
+    left, top, right, bottom = (box[0] + EDGE, box[1] + EDGE, box[2] + EDGE, box[3] + EDGE)
+    image.crop(
+        (
+            max(left - CROP_MARGIN, 0),
+            max(top - CROP_MARGIN, 0),
+            min(right + CROP_MARGIN, width),
+            min(bottom + CROP_MARGIN, height),
+        )
+    ).save(png, optimize=True)
 
 
 def render_sim(sim_dir: Path) -> None:
-    sim_name = sim_dir.name
-    sch = pick_schematic(sim_dir)
-    out_dir = OUT_ROOT / sim_name
+    (sch,) = sim_dir.glob("*.kicad_sch")
+    out_dir = OUT_ROOT / sim_dir.name
     out_dir.mkdir(parents=True, exist_ok=True)
 
     subprocess.run(
-        [
-            "kibot",
-            "-c",
-            str(KIBOT_CFG),
-            "-e",
-            str(sch),
-            "-d",
-            str(out_dir),
-        ],
+        ["kicad-cli", "sch", "export", "pdf", "-o", str(out_dir / "schematic.pdf"), str(sch)],
         check=True,
     )
-
-    svg_path = out_dir / "schematic.svg"
-    pdf_path = out_dir / "schematic.pdf"
-    if not svg_path.exists():
-        die(f"expected output not found: {svg_path}")
-    if not pdf_path.exists():
-        die(f"expected output not found: {pdf_path}")
-
-    png_path = out_dir / "schematic.png"
-    if shutil.which("rsvg-convert"):
-        subprocess.run(["rsvg-convert", str(svg_path), "-o", str(png_path)], check=True)
-    elif shutil.which("inkscape"):
+    # kicad-cli names the SVG after the schematic, so export into a temp dir and rename.
+    with tempfile.TemporaryDirectory() as tmp:
         subprocess.run(
-            [
-                "inkscape",
-                str(svg_path),
-                "--export-type=png",
-                f"--export-filename={png_path}",
-            ],
+            ["kicad-cli", "sch", "export", "svg", "--exclude-drawing-sheet", "-o", tmp, str(sch)],
             check=True,
         )
-    elif shutil.which("convert"):
-        subprocess.run(["convert", str(svg_path), str(png_path)], check=True)
-    else:
-        die("no SVG-to-PNG converter found (rsvg-convert, inkscape, or convert)")
+        shutil.move(Path(tmp) / f"{sch.stem}.svg", out_dir / "schematic.svg")
+
+    png = out_dir / "schematic.png"
+    subprocess.run(
+        ["rsvg-convert", "-w", str(PNG_WIDTH), str(out_dir / "schematic.svg"), "-o", str(png)],
+        check=True,
+    )
+    crop_to_content(png)
+    print(f"{sim_dir.name}: schematic.pdf, schematic.svg, schematic.png")
 
 
 def main() -> None:
-    if not SIM_ROOT.exists():
-        die("simulations/ directory not found")
-    if not KIBOT_CFG.exists():
-        die(f"KiBot config not found: {KIBOT_CFG}")
-
-    require_tool("kibot")
-
-    sim_dirs = sorted(p for p in SIM_ROOT.iterdir() if p.is_dir())
+    for tool in ("kicad-cli", "rsvg-convert"):
+        if shutil.which(tool) is None:
+            die(f"missing required tool: {tool}")
+    sim_dirs = sorted(p.parent for p in SIM_ROOT.glob("*/*.kicad_sch"))
     if not sim_dirs:
-        die("no simulation directories found")
-
-    missing_schematics: list[str] = []
-    multi_schematics: list[tuple[str, list[str]]] = []
-    for sim_dir in sim_dirs:
-        sch_files = sorted(sim_dir.glob("*.kicad_sch"))
-        if not sch_files:
-            missing_schematics.append(sim_dir.name)
-            continue
-        if len(sch_files) > 1 and not any(s.stem == sim_dir.name for s in sch_files):
-            multi_schematics.append((sim_dir.name, [s.name for s in sch_files]))
-
-    if missing_schematics or multi_schematics:
-        if missing_schematics:
-            missing = ", ".join(sorted(missing_schematics))
-            print(f"error: missing .kicad_sch in simulations: {missing}", file=sys.stderr)
-        if multi_schematics:
-            for sim, files in multi_schematics:
-                names = ", ".join(files)
-                print(
-                    f"error: multiple schematics in {sim}, none matching dir name: {names}",
-                    file=sys.stderr,
-                )
-        sys.exit(1)
-
+        die("no simulation schematics found")
     for sim_dir in sim_dirs:
         render_sim(sim_dir)
 

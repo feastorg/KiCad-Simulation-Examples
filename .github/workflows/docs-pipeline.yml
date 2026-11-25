@@ -7,7 +7,14 @@ on:
       - "simulations/**"
       - "docs/**"
       - "scripts/**"
-      - "kibot/**"
+      - ".github/workflows/**"
+  # Pull requests build the site, so a broken render or page shows up before merge;
+  # only main deploys it.
+  pull_request:
+    paths:
+      - "simulations/**"
+      - "docs/**"
+      - "scripts/**"
       - ".github/workflows/**"
   workflow_dispatch:
 
@@ -16,8 +23,9 @@ permissions:
   pages: write
   id-token: write
 
+# One run per branch: a pull request's build never cancels a deploy from main.
 concurrency:
-  group: deploy-docs-site
+  group: docs-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -30,7 +38,7 @@ jobs:
       - name: Install tools
         run: |
           apt-get update
-          apt-get install -y --no-install-recommends ngspice librsvg2-bin
+          apt-get install -y --no-install-recommends ngspice librsvg2-bin python3-pil
 
       - name: Render schematics
         run: bash scripts/build_docs.sh
@@ -81,6 +89,7 @@ jobs:
   # artifact right after it was uploaded (runs 45684316371 and 45687575786).
   deploy:
     needs: [build]
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

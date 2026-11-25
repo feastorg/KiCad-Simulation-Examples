@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,20 @@ def check_folder(sim_dir: Path) -> list[str]:
     return errors
 
 
+def check_chapters(names: set[str]) -> list[str]:
+    """Every example belongs to exactly one chapter, and every chapter entry exists."""
+    path = ROOT / "simulations" / "chapters.toml"
+    if not path.is_file():
+        return ["simulations/chapters.toml: missing"]
+    listed: list[str] = []
+    for chapter in tomllib.loads(path.read_text(encoding="utf-8"))["chapter"]:
+        listed += chapter["examples"]
+    errors = [f"chapters.toml: {n} is listed {listed.count(n)} times" for n in sorted(set(listed)) if listed.count(n) > 1]
+    errors += [f"chapters.toml: {n} is not an example folder" for n in sorted(set(listed) - names)]
+    errors += [f"chapters.toml: {n} is in no chapter" for n in sorted(names - set(listed))]
+    return errors
+
+
 def tracked_files() -> list[str]:
     return subprocess.run(
         ["git", "-C", str(ROOT), "ls-files", "--", "simulations"],
@@ -44,6 +59,7 @@ def main() -> int:
         return 1
     errors = [e for d in sim_dirs for e in check_folder(d)]
     errors += [f"{p}: must not be tracked" for p in tracked if p.endswith(UNTRACKED_SUFFIXES)]
+    errors += check_chapters({d.name for d in sim_dirs})
     for e in errors:
         print(f"error: {e}", file=sys.stderr)
     if errors:

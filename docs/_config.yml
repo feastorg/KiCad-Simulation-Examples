@@ -4,7 +4,7 @@ description: >
 baseurl: "/KiCad-Simulation-Examples"
 url: "https://feastorg.github.io"
 
-remote_theme: pmarsceill/just-the-docs
+remote_theme: just-the-docs/just-the-docs@v0.12.0 # the version feastorg.github.io pins
 color_scheme: feast # apply FEAST theme assets
 
 aux_links:
@@ -26,7 +26,6 @@ permalink: /:path/
 exclude:
   - TODO.md
   - README.md
-  - index_template.md
 
 # automatically apply layout: page to all docs/*.md
 defaults:
