@@ -10,9 +10,9 @@ The front end is Rectifier 4D: V1, a 15 V peak, 50 Hz sine across a four-diode b
 
 - The op-amp drives Q1 until the divider's tap equals the zener voltage. So Vout = Vz × (1 + R3/R1) = 5.6 V × (1 + 1000/1629) = 9.04 V.
 - Unlike Rectifier 4D Regulator NPN, Q1's Vbe is inside the loop, so the output does not move with it.
-- The reservoir still ripples, about 11.4–13.3 V at /Vin, and the output stays flat.
+- The bridge recharges C1 twice per 50 Hz cycle, D1 and D2 taking turns 10 ms apart, so the reservoir still ripples, about 11.4–13.3 V at /Vin, and the output stays flat.
 
-The simulation gives 9.01 V at Out, flat to within a few millivolts.
+The simulation gives 9.01 V at Out, flat to within a few millivolts, with D1 and D2 conducting 10 ms apart.
 
 ## How To Run
 

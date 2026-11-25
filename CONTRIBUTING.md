@@ -29,7 +29,8 @@ How to lay out an example and what its README needs is on the site:
   ```
 
 - A README states numbers worked out from the schematic, such as the cutoff, gain or
-  ripple, and the formula behind them. The example's `expect.toml` checks them: each
+  ripple, and the formula behind them. The example's `expect.toml` checks the key ones,
+  and every figure it checks is stated in the README: each
   `[[measure]]` names an analysis from the `.wbk`, an ngspice `meas` expression, the
   expected value and a tolerance: `rtol`, relative, or `atol`, absolute, for a value that
   should be near zero. For an `op` analysis, `meas` is an expression such as `v(out)`.

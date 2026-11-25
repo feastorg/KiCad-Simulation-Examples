@@ -12,7 +12,7 @@ The front end is Rectifier 4D: V1, a 15 V peak, 50 Hz sine across a four-diode b
 - The LM317's own input current flows through R3. Once it reaches about 0.7 V / 5 Ω ≈ 0.14 A, Q1's base-emitter junction turns on and Q1 supplies the rest of the load current from /Vin straight to Out.
 - So of the 1.12 A load current (8.96 V / 8 Ω), Q1 carries about 0.93 A and the LM317 only the remainder, while staying in control of the voltage.
 
-The simulation gives 8.96 V on average (8.82 V to 8.98 V), with Q1 carrying 0.93 A.
+The simulation gives 8.96 V on average (8.82 V to 8.98 V), with Q1 carrying 0.93 A and D1 and D2 conducting 10 ms apart.
 
 ## How To Run
 

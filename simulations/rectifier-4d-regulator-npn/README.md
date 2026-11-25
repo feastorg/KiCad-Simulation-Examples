@@ -12,7 +12,7 @@ The front end is Rectifier 4D: V1, a 15 V peak, 50 Hz sine across a four-diode b
 - Q1 follows it one base-emitter drop lower. At the load's 1.1 A, that Vbe is about 0.96 V for the default NPN, so Out ≈ 10.03 − 0.96 = 9.07 V.
 - Because Vbe is outside the loop, any change in it, from load current or temperature, appears at the output. In this run the output wanders by 0.14 V as the reservoir ripples.
 
-The simulation gives 9.04 V on average, varying from 8.92 V to 9.06 V.
+The simulation gives 9.04 V on average, varying from 8.92 V to 9.06 V as the bridge recharges the reservoir every 10 ms (D1 and D2 conducting 10 ms apart).
 
 ## How To Run
 

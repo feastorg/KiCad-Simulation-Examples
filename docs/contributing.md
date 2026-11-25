@@ -54,8 +54,9 @@ Say which traces each tab plots.
 A change to make and what it does, worked out from the same formulas.
 ```
 
-Every single-number figure in What To Look For also goes in the example's
-`expect.toml`, which CI checks on every pull request. See `CONTRIBUTING.md` in the
+The key single-number figures in What To Look For also go in the example's
+`expect.toml`, which CI checks on every pull request. Every figure `expect.toml` checks
+should appear in the README, so a reader can see what is being held to. See `CONTRIBUTING.md` in the
 repository for its format.
 
 ## Naming
