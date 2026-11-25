@@ -1,0 +1,22 @@
+# Common-source amplifier on 10 V: R1 = 120 kΩ and R2 = 52 kΩ bias the gate at
+# 10 V × 52 / 172 = 3.02 V (no gate current, so no loading). Rd (R3) = 2 kΩ, Rs (R4) =
+# 100 Ω, and Q1 is KiCad's default VDMOS model. The input is a 100 mV peak sine at 1 kHz.
+
+# The bias point depends on the model's parameters; these are regression values measured
+# with ngspice 44.2: Id = 2.34 mA (Vs = 0.234 V), and the drain rests at
+# 10 V − 2.34 mA × 2 kΩ = 5.32 V, in saturation.
+[[measure]]
+name = "vd_bias"
+analysis = "tran"
+meas = "avg v(/ud) from=3m to=5m"
+expect = 5.32
+rtol = 0.03
+
+# Gain = Rd / (Rs + 1/gm). The simulated output, 3.16 V peak-to-peak from 200 mV, is a gain
+# of 15.8, which puts the model's 1/gm at about 27 Ω.
+[[measure]]
+name = "vout_pp"
+analysis = "tran"
+meas = "pp v(/out) from=3m to=5m"
+expect = 3.16
+rtol = 0.03

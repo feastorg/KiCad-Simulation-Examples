@@ -1,0 +1,10 @@
+# V1 is swept from 0 to 2 V through R1 = 100 Ω into Q1's collector, once for each base
+# current I1 from 0 to 100 µA in 10 µA steps. Q1 is the default NPN model, β = 100.
+# In the active region Ic = β · Ib, so the highest curve, Ib = 100 µA, levels off at
+# 10 mA. At V1 = 2 V that leaves Vce = 2 V − 10 mA × 100 Ω = 1 V, still active.
+[[measure]]
+name = "ic_max"
+analysis = "dc"
+meas = "max q1:c#branch"
+expect = 10e-3
+rtol = 0.01

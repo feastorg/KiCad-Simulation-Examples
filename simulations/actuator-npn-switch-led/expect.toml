@@ -1,0 +1,27 @@
+# V1 is a 0 to 3.3 V square wave, high for the first 1 ms of every 2 ms. Through
+# Rb1 = 1 kΩ it drives Q1's base; the LED and Rk1 = 150 Ω run from 3.3 V to the collector.
+
+# High input: Ib = (3.3 V − 0.85 V) / 1 kΩ ≈ 2.5 mA, far more than the LED current
+# needs, so Q1 saturates.
+[[measure]]
+name = "i_base_on"
+analysis = "tran"
+meas = "find q1:b#branch at=0.5m"
+expect = 2.46e-3
+rtol = 0.03
+
+# Saturated, Q1 drops only about 0.05 V. The LED (about 1.77 V at 10 mA with this model)
+# and Rk1 share the rest: (3.3 − 1.77 − 0.05) V / 150 Ω ≈ 9.9 mA.
+[[measure]]
+name = "i_led_on"
+analysis = "tran"
+meas = "find d1#branch at=0.5m"
+expect = 9.86e-3
+rtol = 0.03
+
+[[measure]]
+name = "vce_on"
+analysis = "tran"
+meas = "find v(/uc) at=0.5m"
+expect = 0.047
+rtol = 0.2
