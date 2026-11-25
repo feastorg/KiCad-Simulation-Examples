@@ -1,0 +1,52 @@
+# V1 is PWL(0 0 1m 1 2m 1 3m 0): a ramp of 1 V/ms to 1 V at 1 ms, held to 2 ms, then
+# down to 0 V at 3 ms. B1 is V=v(in)*v(in), B2 is V = v(in) > 0.5 ? 1 : 0.
+
+# At 0.5 ms the ramp is at 0.5 V, so Sq = 0.5² = 0.25 V.
+[[measure]]
+name = "v_sq"
+analysis = "tran"
+meas = "find v(sq) at=0.5m"
+expect = 0.25
+rtol = 0.01
+
+# At 0.25 ms, Sq = 0.25² = 0.0625 V: a second point, so a linear B1 that also gives
+# 0.25 V at 0.5 ms fails.
+[[measure]]
+name = "v_sq_q"
+analysis = "tran"
+meas = "find v(sq) at=0.25m"
+expect = 0.0625
+rtol = 0.01
+
+# In holds at 1 V from 1 to 2 ms, so Sq peaks at 1² = 1 V.
+[[measure]]
+name = "sq_max"
+analysis = "tran"
+meas = "max v(sq)"
+expect = 1.0
+rtol = 0.01
+
+# Lim steps from 0 to 1 V when v(in) passes 0.5 V: 0.5 V / (1 V/ms) = 0.5 ms. The step
+# is found to within one 1 µs time step.
+[[measure]]
+name = "t_lim"
+analysis = "tran"
+meas = "when v(lim)=0.5 rise=1"
+expect = 0.5e-3
+atol = 1e-6
+
+# On the way down, In passes 0.5 V at 2 ms + 0.5 ms = 2.5 ms and Lim steps back to 0 V.
+[[measure]]
+name = "t_fall"
+analysis = "tran"
+meas = "when v(lim)=0.5 fall=1"
+expect = 2.5e-3
+atol = 1e-6
+
+# While the condition is true, B2 puts out its "true" value: Lim's top is 1 V.
+[[measure]]
+name = "lim_max"
+analysis = "tran"
+meas = "max v(lim)"
+expect = 1.0
+rtol = 0.01

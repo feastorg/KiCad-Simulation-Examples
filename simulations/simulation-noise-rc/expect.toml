@@ -1,0 +1,20 @@
+# R1 = 10 Ω and C1 = 1 µF at 27 °C, T = 300.15 K. ngspice has no meas for a noise
+# analysis, so each meas is an expression read after the run.
+
+# The total output noise is √(kT/C) = √(4.1440e-21 J / 1 µF) = 64.4 nV rms, whatever
+# R1 is. The sweep stops at 10 MHz, 628 fc, so the simulated total is 64.3 nV.
+[[measure]]
+name = "vn_out"
+analysis = "noise"
+meas = "onoise_total"
+expect = 6.432e-8
+rtol = 0.01
+
+# Far below fc = 15.9 kHz, Out sees R1's thermal noise unfiltered:
+# √(4kTR) = √(4 × 4.1440e-21 J × 10 Ω) = 0.4071 nV/√Hz. The spectrum is in noise1.
+[[measure]]
+name = "vn_1hz"
+analysis = "noise"
+meas = "noise1.onoise_spectrum[0]"
+expect = 4.071e-10
+rtol = 0.01
