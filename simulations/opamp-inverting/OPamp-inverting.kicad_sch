@@ -1791,7 +1791,7 @@
 				(hide yes)
 			)
 		)
-		(property "Sim.Library" "${KICAD7_SYMBOL_DIR}/Simulation_SPICE.sp"
+		(property "Sim.Library" "kicad_builtin_opamp.lib"
 			(at 151.13 99.06 0)
 			(effects
 				(font
