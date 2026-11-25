@@ -1,0 +1,18 @@
+# R1 = 1 kΩ, C1 = 1 µF, driven by a 1 V sine at 159.2 Hz = 1/(2πRC): the corner
+# frequency, where the capacitor's reactance equals R.
+
+# At the corner the capacitor voltage is 1/√2 of the input: 0.707 V.
+[[measure]]
+name = "v_out"
+analysis = "tran"
+meas = "max v(out) from=20m to=30m"
+expect = 0.707
+rtol = 0.02
+
+# ...and lags the input by 45°, one eighth of the 6.28 ms period: 0.785 ms.
+[[measure]]
+name = "lag"
+analysis = "tran"
+meas = "trig v(in) val=0 rise=3 targ v(out) val=0 rise=3"
+expect = 0.785e-3
+rtol = 0.03

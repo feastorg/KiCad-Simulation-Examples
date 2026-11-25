@@ -1,21 +1,23 @@
 # RL Voltage Current
 
-Demonstrates the relationship between voltage and current in an RL network.
+An RL network driven by a sine at its corner frequency, where the resistor and inductor share the input equally and the inductor voltage leads by 45°.
 
-## Circuit Summary
+## Circuit
 
-A step input is applied to an inductor through a resistor.
+V1, a 1 V sine at 159.2 kHz, drives R1 = 100 Ω in series with L1 = 100 µH to ground. Out is the inductor voltage, and V(In) − V(Out) is the resistor voltage. The transient analysis runs for 50 µs, almost eight cycles.
 
-## Expected Behavior
+## What To Look For
 
-- Inductor current ramps linearly at first and approaches steady state.
+- 159.2 kHz is the corner frequency R1/(2π · L1), where the inductor's reactance 2πfL equals R1 = 100 Ω.
+- So the resistor and inductor voltages have the same amplitude, 1 V / √2 = 0.707 V each, 90° apart.
+- V(Out) leads V(In) by 45°, one eighth of the 6.28 µs period: 0.785 µs. Compare RC Voltage Current, where the capacitor voltage lags instead.
+
+The simulation gives 0.707 V and a lead of 0.785 µs.
 
 ## How To Run
 
-1. Open `RL-Voltage-Current.kicad_sch` in KiCad.
-2. Click `Simulate` and run the configured analyses.
-3. Add probes to the key nodes to view the expected behavior.
+Open `RL-Voltage-Current.kicad_sch` in KiCad, click **Simulate**, and run the transient tab. It plots V(In), V(Out) and V(In) − V(Out).
 
-## Notes
+## Try This
 
-- Time constant τ = L/R controls the rise time.
+- Lower the frequency tenfold and V(Out) shrinks to about 0.1 V: at low frequency the inductor is nearly a short, the opposite of a capacitor.

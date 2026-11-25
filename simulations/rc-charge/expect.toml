@@ -1,0 +1,25 @@
+# R1 = 1 kΩ, C1 = 100 µF: τ = RC = 0.1 s. V1 steps from 0 to 1 V at t = 0.
+
+# After one time constant the capacitor reaches 1 − 1/e = 63.2 % of the step.
+[[measure]]
+name = "v_tau"
+analysis = "tran"
+meas = "find v(out) at=100m"
+expect = 0.632
+rtol = 0.02
+
+# After five time constants it is within 1 % of the final value: 1 − e⁻⁵ = 0.993.
+[[measure]]
+name = "v_5tau"
+analysis = "tran"
+meas = "find v(out) at=500m"
+expect = 0.993
+rtol = 0.01
+
+# At the step the empty capacitor is a short: I = 1 V / 1 kΩ = 1 mA.
+[[measure]]
+name = "i_peak"
+analysis = "tran"
+meas = "max c1#branch from=0 to=50m"
+expect = 1e-3
+rtol = 0.02
