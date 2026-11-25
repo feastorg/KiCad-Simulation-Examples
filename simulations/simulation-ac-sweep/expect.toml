@@ -1,0 +1,17 @@
+# R1 = 100 Ω, C1 = 10 µF low-pass: fc = 1/(2π · 100 Ω · 10 µF) = 159 Hz.
+# The AC source has amplitude 1, so V(Out) in dB is the gain.
+[[measure]]
+name = "fc"
+analysis = "ac"
+meas = "when vdb(out)=-3"
+expect = 159.2
+rtol = 0.02
+
+# A decade above fc a first-order filter is down about 20 dB: at 1.59 kHz,
+# 1/√(1 + 10²) = 0.0995.
+[[measure]]
+name = "gain_10fc"
+analysis = "ac"
+meas = "find vm(out) at=1.592k"
+expect = 0.0995
+rtol = 0.02

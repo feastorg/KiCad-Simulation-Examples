@@ -1,0 +1,16 @@
+# R1 = 1 kΩ, C1 = 10 µF low-pass (fc = 15.9 Hz) driven by a 1 V sine at 50 Hz.
+# Gain: 1/√(1 + (50/15.9)²) = 0.303. Phase: −atan(50/15.9) = −72.3°, which is
+# 72.3/360 × 20 ms = 4.02 ms of lag.
+[[measure]]
+name = "v_out"
+analysis = "tran"
+meas = "max v(out) from=60m to=100m"
+expect = 0.303
+rtol = 0.02
+
+[[measure]]
+name = "lag"
+analysis = "tran"
+meas = "trig v(in) val=0 rise=4 targ v(out) val=0 rise=4"
+expect = 4.02e-3
+rtol = 0.03
