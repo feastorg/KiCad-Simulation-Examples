@@ -20,3 +20,15 @@ analysis = "ac"
 meas = "max vdb(out)"
 expect = 19.66
 atol = 0.1
+
+# Above the peak the gain depends on GBW, which g_peak barely sees:
+# |H| = (f/f_D) / √((1 − f²/f_pk²)² + (f/GBW + f/f_S)²) with f_pk = 24.06 kHz;
+# at 100 kHz, 62.81 / √(16.27² + 6.531²) = 3.583, or 11.08 dB; ngspice gives 11.07.
+# GBW ±10 % (POLE = 18 / 22) gives 10.22 / 11.82 dB, GBW 280k / 560k gives
+# 8.13 / 13.64 dB. C1, R2 ±10 % and R1 ±5 % move it by 0.13 dB at most.
+[[measure]]
+name = "g_100k"
+analysis = "ac"
+meas = "find vdb(out) at=100k"
+expect = 11.07
+atol = 0.3
