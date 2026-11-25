@@ -115,11 +115,16 @@ def check(example: Path) -> list[str]:
             output = run_deck(example, Path(tmp), find_tab(example, analysis), control)
         for m in measures:
             value = measured(output, m["name"])
-            expect, rtol = m["expect"], m["rtol"]
-            ok = abs(value - expect) <= rtol * abs(expect)
-            print(f"{example.name}: {m['name']} = {value:.4g} (expect {expect:.4g} ± {rtol * 100:g}%) {'ok' if ok else 'FAIL'}")
+            expect = m["expect"]
+            # rtol is relative to expect; atol is absolute, for values that should be ~0.
+            if "atol" in m:
+                tol, shown = m["atol"], f"± {m['atol']:g}"
+            else:
+                tol, shown = m["rtol"] * abs(expect), f"± {m['rtol'] * 100:g}%"
+            ok = abs(value - expect) <= tol
+            print(f"{example.name}: {m['name']} = {value:.4g} (expect {expect:.4g} {shown}) {'ok' if ok else 'FAIL'}")
             if not ok:
-                failures.append(f"{example.name}: {m['name']} = {value:.4g}, expected {expect:.4g} ± {rtol * 100:g}%")
+                failures.append(f"{example.name}: {m['name']} = {value:.4g}, expected {expect:.4g} {shown}")
     return failures
 
 
