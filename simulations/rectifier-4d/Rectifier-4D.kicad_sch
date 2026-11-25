@@ -923,28 +923,6 @@
 		(uuid "febca324-99f1-469f-bafb-a4ea77e993e7")
 	)
 	(global_label "In2"
-		(shape output)
-		(at 116.84 176.53 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "50ffc0ee-12e6-4b30-8c70-2cc3906730a8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 116.84 170.5815 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "In2"
 		(shape input)
 		(at 105.41 100.33 180)
 		(fields_autoplaced yes)
@@ -1115,73 +1093,6 @@
 			(project "Rectifier-4D-(.tran)"
 				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 116.84 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "429e7e60-871a-4ba0-b35b-628c19e6f447")
-		(property "Reference" "#PWR02"
-			(at 116.84 193.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 116.84 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 116.84 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 116.84 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 116.84 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "292bdc52-bf1e-40c9-89b5-3578c50f0d35")
-		)
-		(instances
-			(project "Rectifier-4D-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -1760,70 +1671,25 @@
 			)
 		)
 	)
-	(symbol
-		(lib_name "GND_1")
-		(lib_id "power:GND")
-		(at 57.15 186.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "In2"
+		(shape output)
+		(at 57.15 186.69 270)
 		(fields_autoplaced yes)
-		(uuid "cc210075-c9da-4431-b977-16d7c8785fc7")
-		(property "Reference" "#PWR01"
-			(at 57.15 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f8f3bf2b-1177-46fb-9a88-b6bc9e7f4d3a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 57.15 192.6385 270)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 57.15 191.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 57.15 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 57.15 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 57.15 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c597e93d-49a3-4e03-9cac-b3d0b51ca0f9")
-		)
-		(instances
-			(project "Rectifier-4D-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "#PWR01")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2027,114 +1893,6 @@
 			(project "Rectifier-4D-(.tran)"
 				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
 					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_name "VSIN_1")
-		(lib_id "Simulation_SPICE:VSIN")
-		(at 116.84 181.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e901266d-00c7-459e-a6b6-aa358c2a1b82")
-		(property "Reference" "V2"
-			(at 120.65 178.9401 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "VSIN"
-			(at 120.65 181.4801 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#sec_Independent_Sources_for"
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Voltage source, sinusoidal"
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=+ 2=-"
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Params" "dc=0 ampl=15 f=50 td=0 theta=0 phase=180 ac=1"
-			(at 120.65 184.0201 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Sim.Type" "SIN"
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "V"
-			(at 116.84 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8b54847d-0757-4a50-a2af-2cb72a31a3c7")
-		)
-		(pin "2"
-			(uuid "32d8f56b-79d0-451d-a6b8-a75d5c2f51ea")
-		)
-		(instances
-			(project "Rectifier-4D-(.tran)"
-				(path "/f9167e10-5867-491e-aed4-e24df70e20b8"
-					(reference "V2")
 					(unit 1)
 				)
 			)

@@ -6,3 +6,11 @@ analysis = "tran"
 meas = "avg v(out) from=60m to=100m"
 expect = 9.02
 rtol = 0.03
+
+# Full-wave bridge: D1 and D2 conduct on alternate half-cycles, 10 ms apart at 50 Hz.
+[[measure]]
+name = "half_period"
+analysis = "tran"
+meas = "trig d1#branch val=0.2 rise=1 from=60m targ d2#branch val=0.2 rise=1 from=60m"
+expect = 10e-3
+rtol = 0.05
