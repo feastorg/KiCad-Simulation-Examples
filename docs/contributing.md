@@ -13,9 +13,13 @@ most important parts of a good contribution.
 
 Each simulation must live under `simulations/<name>/` and include:
 
-- `*.kicad_sch` schematic (single file preferred, name matches the folder if multiple)
+- One `*.kicad_sch` schematic and its `*.kicad_pro` project file
+- The `*.wbk` simulator workbook, which holds the analysis commands and plotted traces
 - `README.md` with a single H1 title and a short first paragraph
 - Any required SPICE models (`.lib`, `.spice`, etc.) stored alongside the schematic
+
+Do not commit the `*.kicad_prl` file: it holds your local KiCad window state.
+Run `just check` to confirm the folder layout.
 
 ## README Template
 

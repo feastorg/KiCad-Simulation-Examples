@@ -1,4 +1,11 @@
 _site
+__pycache__/
+
+# KiCad user-local state and backups
+*.kicad_prl
+*-backups/
+_autosave-*
+fp-info-cache
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
