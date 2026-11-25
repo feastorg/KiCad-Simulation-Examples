@@ -3,12 +3,13 @@
 [![CI](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml/badge.svg)](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml)
 
 40 KiCad 10 schematics that teach circuit simulation with KiCad's built-in ngspice
-simulator, from an RC filter to a regulated power supply. Each one is ready to simulate,
-and its README states what it should show, with the numbers worked out from the circuit.
+simulator, from an RC filter to a regulated power supply. Each README states what the
+example should show, with the numbers worked out from the circuit, and 39 of the 40 come
+with their analyses already set up; the 40th is a cheat sheet of simulator commands.
 
 <p>
-  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/schematic.png" alt="RC Lowpass schematic: a 10 ohm resistor feeding a 1 uF capacitor" width="48%">
-  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/ac.svg" alt="RC Lowpass AC sweep: gain flat to about 1 kHz, -3 dB near 16 kHz, then falling" width="48%">
+  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/schematic.png" alt="RC Lowpass schematic: a 10 ohm resistor feeding a 1 uF capacitor" width="32%">
+  <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/ac.svg" alt="RC Lowpass AC sweep: gain flat to about 1 kHz, -3 dB near 16 kHz, then falling" width="64%">
 </p>
 
 *[RC Lowpass](https://feastorg.github.io/KiCad-Simulation-Examples/simulations/rc-lowpass/): 10 Ω and 1 µF put the −3 dB corner at 1/(2πRC) = 15.9 kHz. The simulation puts it at 15.9 kHz.*
@@ -30,9 +31,9 @@ Browse it all on the site: **https://feastorg.github.io/KiCad-Simulation-Example
 ## Checked by Simulation
 
 On every pull request, CI exports each example's netlist with kicad-cli, runs its analyses
-in ngspice, and checks the figures its README states against `expect.toml`. One example,
-KiCad Simulation Commands, is a cheat sheet with no analysis set up, so it has nothing to
-check.
+in ngspice, and checks the key figures its README states, the ones listed in its
+`expect.toml`. One example, KiCad Simulation Commands, is a cheat sheet with no analysis
+set up, so it has nothing to check.
 
 ## Getting Started
 

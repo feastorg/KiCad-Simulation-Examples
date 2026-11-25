@@ -149,7 +149,7 @@ def render_site_index(chapters: list[dict], sims_by_chapter: dict[str, list[dict
         f"simulator, in {len(chapters)} chapters. Each example states what it should show, with "
         "the numbers worked out from the circuit, and the simulated plots to compare against. "
         "On every pull request, CI simulates each example that has an analysis set up and checks "
-        "the figures its README states.",
+        "the key figures its README states.",
         "",
         f"New to KiCad's simulator? Start with the [Introduction to Simulation in KiCad]"
         f"({BASE}/introduction-to-simulations/), then [{chapters[0]['title']}]"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bundle PDFs + KiCad schematics + READMEs into a single zip."""
+"""Bundle each example's KiCad project, workbook, models, README and schematic PDF into one zip."""
 
 from __future__ import annotations
 
