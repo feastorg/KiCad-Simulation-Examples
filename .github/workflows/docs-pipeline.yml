@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/inti-cmnb/kicad10_auto:1.9.1-1_k10.0.4_d13.2
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install tools
         run: |
@@ -36,18 +36,18 @@ jobs:
         run: bash scripts/build_docs.sh
 
       - name: Upload generated docs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: generated-docs
           path: docs
 
-  deploy:
+  build:
     needs: [generate]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: generated-docs
           path: _generated_docs
@@ -63,19 +63,29 @@ jobs:
         run: python3 scripts/inject_feast_assets.py
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
       - name: Build Jekyll site
-        uses: actions/jekyll-build-pages@v1
+        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697 # v1.0.13
         with:
           source: ./docs
           destination: ./_site
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./_site
 
+  # Deploying in its own job, after the upload job has finished, is the layout of
+  # GitHub's Pages workflows. In one job, deploy-pages twice found no "github-pages"
+  # artifact right after it was uploaded (runs 45684316371 and 45687575786).
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
