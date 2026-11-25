@@ -1,0 +1,15 @@
+# V1 swept from 0 to 12 V in 1 V steps across R1 = 100 Ω and R2 = 100 Ω in series.
+# Out is always half of V1: at 12 V, 6 V; at 4 V, 2 V.
+[[measure]]
+name = "v_out_12"
+analysis = "dc"
+meas = "find v(out) at=12"
+expect = 6.0
+rtol = 0.001
+
+[[measure]]
+name = "v_out_4"
+analysis = "dc"
+meas = "find v(out) at=4"
+expect = 2.0
+rtol = 0.001
