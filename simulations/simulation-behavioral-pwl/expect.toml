@@ -9,6 +9,15 @@ meas = "find v(sq) at=0.5m"
 expect = 0.25
 rtol = 0.01
 
+# At 0.25 ms, Sq = 0.25² = 0.0625 V: a second point, so a linear B1 that also gives
+# 0.25 V at 0.5 ms fails.
+[[measure]]
+name = "v_sq_q"
+analysis = "tran"
+meas = "find v(sq) at=0.25m"
+expect = 0.0625
+rtol = 0.01
+
 # Lim steps from 0 to 1 V when v(in) passes 0.5 V: 0.5 V / (1 V/ms) = 0.5 ms. The step
 # is found to within one 1 µs time step.
 [[measure]]
@@ -16,4 +25,12 @@ name = "t_lim"
 analysis = "tran"
 meas = "when v(lim)=0.5 rise=1"
 expect = 0.5e-3
+atol = 1e-6
+
+# On the way down, In passes 0.5 V at 2 ms + 0.5 ms = 2.5 ms and Lim steps back to 0 V.
+[[measure]]
+name = "t_fall"
+analysis = "tran"
+meas = "when v(lim)=0.5 fall=1"
+expect = 2.5e-3
 atol = 1e-6

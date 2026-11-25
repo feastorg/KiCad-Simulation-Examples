@@ -4,7 +4,7 @@
 [[chapter]]
 slug = "simulator-basics"
 title = "Simulator Basics"
-summary = "The analyses KiCad's simulator runs: operating point, DC sweep, AC sweep and transient, and behavioral and PWL sources."
+summary = "The analyses KiCad's simulator runs (operating point, DC sweep, AC sweep and transient), and its behavioral and PWL sources."
 examples = [
     "simulation-dc-operating-point",
     "simulation-dc-sweep",
