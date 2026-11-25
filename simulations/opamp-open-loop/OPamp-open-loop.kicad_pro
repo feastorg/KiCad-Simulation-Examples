@@ -254,7 +254,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "OPamp-freerunning.kicad_pro",
+    "filename": "OPamp-open-loop.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -393,7 +393,7 @@
         "version": 0
       },
       "model_mode": 4,
-      "workbook_filename": "OPamp-freerunning.wbk"
+      "workbook_filename": "OPamp-open-loop.wbk"
     },
     "page_layout_descr_file": "",
     "plot_directory": "",
