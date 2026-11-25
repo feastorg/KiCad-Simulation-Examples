@@ -1,5 +1,6 @@
 _site
 __pycache__/
+build/
 
 # KiCad user-local state and backups
 *.kicad_prl
