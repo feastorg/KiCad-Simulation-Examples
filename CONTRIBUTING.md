@@ -7,7 +7,7 @@ circuit does, open an issue first so we can agree on what it should teach.
 
 ```sh
 just check   # shellcheck, compile the scripts, check the simulation folder layout
-just test    # run the simulations (skipped until the harness lands, #4)
+just test    # simulate each example that has an expect.toml (needs kicad-cli, ngspice)
 just docs    # build the site artifacts under docs/ (needs KiBot, KiCad, rsvg-convert)
 ```
 
@@ -29,7 +29,9 @@ How to lay out an example and what its README needs is on the site:
   ```
 
 - A README states numbers worked out from the schematic, such as the cutoff, gain or
-  ripple, and the formula behind them.
+  ripple, and the formula behind them. The example's `expect.toml` checks them: each
+  `[[measure]]` names an analysis from the `.wbk`, an ngspice `meas` expression, the
+  expected value and a relative tolerance. See `simulations/rc-lowpass/expect.toml`.
 - SPICE models sit next to the schematic that uses them and are referenced by a path
   relative to the project.
 - `docs/index.md`, `docs/simulations/`, `docs/assets/simulations/` and

@@ -1,0 +1,8 @@
+# R1 = 10 Ω, C1 = 1 µF: fc = 1 / (2π · 10 · 1e-6) = 15.92 kHz.
+# The AC source has amplitude 1, so V(Out) in dB is the gain.
+[[measure]]
+name = "fc"
+analysis = "ac"
+meas = "when vdb(out)=-3"
+expect = 15.92e3
+rtol = 0.02
