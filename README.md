@@ -2,10 +2,10 @@
 
 [![CI](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml/badge.svg)](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml)
 
-44 KiCad 10 schematics that teach circuit simulation with KiCad's built-in ngspice
+58 KiCad 10 schematics that teach circuit simulation with KiCad's built-in ngspice
 simulator, from an RC filter to a regulated power supply. Each README states what the
-example should show, with the numbers worked out from the circuit, and 43 of the 44 come
-with their analyses already set up; the 44th is a cheat sheet of simulator commands.
+example should show, with the numbers worked out from the circuit, and 57 of the 58 come
+with their analyses already set up; the 58th is a cheat sheet of simulator commands.
 
 <p>
   <img src="https://feastorg.github.io/KiCad-Simulation-Examples/assets/simulations/rc-lowpass/schematic.png" alt="RC Lowpass schematic: a 10 ohm resistor feeding a 1 uF capacitor" width="32%">
@@ -20,13 +20,14 @@ Browse it all on the site: **https://feastorg.github.io/KiCad-Simulation-Example
 
 | Chapter | Examples |
 |---|---|
-| [Simulator Basics](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/simulator-basics/): operating point, DC sweep, AC sweep, transient | 6 |
+| [Simulator Basics](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/simulator-basics/): operating point, DC sweep, AC sweep, transient, behavioral and PWL sources | 7 |
 | [Passive RC and RL](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/passive-rc-rl/): time constants, corners, phase | 7 |
 | [Resonance and Magnetics](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/resonance-magnetics/): LC resonance, RLC step response, transformers | 5 |
 | [Diodes and Rectifiers](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/diodes-rectifiers/): diode curve, half-wave to three-phase bridge | 5 |
-| [Transistors](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/transistors/): BJT curves, switches, amplifiers, current mirror | 7 |
-| [Op-Amps](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/op-amps/): followers, amplifiers, summer, active filter, comparator, open loop | 8 |
-| [Power Supplies](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/power-supplies/): linear regulators, polarity and overvoltage protection | 6 |
+| [Transistors](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/transistors/): BJT curves, switches, amplifiers, current mirror, differential pair | 8 |
+| [Op-Amps](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/op-amps/): followers, amplifiers, summer, integrator, differentiator, active filter, comparator, Schmitt trigger, oscillator, open loop | 12 |
+| [Power Supplies](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/power-supplies/): linear regulators, polarity and overvoltage protection, a buck converter | 7 |
+| [Analysis Techniques](https://feastorg.github.io/KiCad-Simulation-Examples/chapters/analysis-techniques/): temperature sweep, noise, pole-zero, transfer function, measurements, vendor models, Multi Run | 7 |
 
 ## Checked by Simulation
 
