@@ -37,6 +37,9 @@ How to lay out an example and what its README needs is on the site:
   analysis, `meas` is an expression such as `v(out)`, `onoise_total` or
   `real(pole(1))`.
   See `simulations/rc-lowpass/expect.toml`.
+- A measure may also set `alter`, such as `alter = "@R1=2000"`, to run with a part's
+  value changed. The check sends `alter @R1=2000` before that measure's run, the command
+  KiCad's tuner sends for each step of a Multi Run, and fails if ngspice refuses it.
 - SPICE models sit next to the schematic that uses them and are referenced by a path
   relative to the project.
 - `docs/index.md`, `docs/simulations/`, `docs/assets/simulations/` and
