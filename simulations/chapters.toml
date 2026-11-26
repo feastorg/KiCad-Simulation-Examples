@@ -81,6 +81,7 @@ examples = [
     "opamp-differentiator",
     "opamp-sallen-key-lowpass",
     "opamp-comparator",
+    "opamp-schmitt-trigger",
     "opamp-open-loop",
     "opamp-headphone",
 ]
