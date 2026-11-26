@@ -1,0 +1,29 @@
+# R1 = 10 kΩ, R2 = 47 kΩ, on the built-in op-amp: open-loop gain A = 20,000, ROUT = 10 Ω.
+# The feedback fraction is β = R1 / (R1 + R2) = 10/57, so the loop gain is
+# T = A·β = 3508.8. ngspice has no meas for a .tf analysis, so each meas is one of
+# the vectors it writes, read after the run. Its names are lowercase.
+
+# −R2/R1 / (1 + 1/T) = −4.7 / (1 + 1/3508.8) = −4.69866. The ideal −4.70 is 0.03 % away,
+# so the tolerance is tight enough to see the finite gain.
+[[measure]]
+name = "tf_gain"
+analysis = "tf"
+meas = "transfer_function"
+expect = -4.69866
+rtol = 0.0001
+
+# R1 + R2 / (1 + A) = 10 kΩ + 47 kΩ / 20,001 = 10,002.35 Ω.
+[[measure]]
+name = "r_in"
+analysis = "tf"
+meas = "v1#input_impedance"
+expect = 10002.35
+rtol = 0.0001
+
+# ROUT / (1 + T) = 10 Ω / 3509.8 = 2.85 mΩ.
+[[measure]]
+name = "r_out"
+analysis = "tf"
+meas = "output_impedance_at_v(out)"
+expect = 2.85e-3
+rtol = 0.01
