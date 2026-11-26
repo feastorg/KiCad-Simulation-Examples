@@ -45,8 +45,8 @@ class WorkbookTabs(StubbedRun):
 
 
 def ngspice_output(name: str) -> str:
-    # Captured from ngspice 44.2 in batch mode, -D ngbehavior=ltpsa, on decks built as
-    # check() builds them for simulation-pole-zero and simulation-transfer-function.
+    # Captured from ngspice 44.2 in batch mode, -D ngbehavior=ltpsa, on decks shaped as
+    # check() builds them, for simulation-pole-zero and simulation-transfer-function.
     return (FIXTURES / "ngspice" / f"{name}.out").read_text(encoding="utf-8")
 
 
@@ -58,6 +58,20 @@ class Measured(unittest.TestCase):
         # pole_2 = -4.52765e+03,4.977370e+03
         with self.assertRaisesRegex(RuntimeError, r"pole_2 is complex"):
             simulate.measured(ngspice_output("pz-complex"), "pole_2")
+
+    def test_reads_only_the_checks_own_output(self):
+        # The deck's "meas tf transfer_function ..." failed; ngspice then printed
+        # "transfer_function = -4.69866e+00" and "Stack = 0 bytes." of its own.
+        output = ngspice_output("tf-unprompted")
+        self.assertEqual(simulate.measured(output, "tf_gain"), -4.69866)
+        for name in ("transfer_function", "stack"):
+            with self.subTest(name=name), self.assertRaisesRegex(RuntimeError, f"no value for {name}"):
+                simulate.measured(output, name)
+
+    def test_refuses_output_without_the_end_of_the_measures(self):
+        output = ngspice_output("tf-unprompted").replace(simulate.END, "")
+        with self.assertRaisesRegex(RuntimeError, "did not reach the end"):
+            simulate.measured(output, "tf_gain")
 
 
 if __name__ == "__main__":

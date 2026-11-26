@@ -28,6 +28,10 @@ SIM_ROOT = ROOT / "simulations"
 # The command entries KiCad 10 writes as a tab's settings. Its workbook loader joins every
 # other entry onto the analysis line with no separator (simulator_frame_ui.cpp).
 KICAD_ENTRIES = {".kicad adjustpaths", ".kicad esavenone", ".save all", ".probe alli", ".probe allp"}
+# check() echoes these around its measures, and measured() reads only between them: batch
+# ngspice prints "name = value" lines of its own too, such as transfer_function after a tf
+# run and "Stack = 0 bytes." in its memory report.
+BEGIN, END = "simulate-measures-begin", "simulate-measures-end"
 
 
 def workbook_tabs(example: Path) -> list[dict]:
@@ -107,6 +111,10 @@ def run_deck(example: Path, tmp: Path, tab: dict, control: list[str], alter: str
 
 
 def measured(output: str, name: str) -> float:
+    lines = [line.strip() for line in output.splitlines()]
+    if BEGIN not in lines or END not in lines:
+        raise RuntimeError(f"ngspice did not reach the end of the measures for {name}:\n{output}")
+    output = "\n".join(lines[lines.index(BEGIN) + 1 : lines.index(END)])
     number = r"[-+0-9.eE]+"
     match = re.search(rf"^\s*{re.escape(name)}\s*=\s*({number})(\s*,\s*{number})?", output, re.MULTILINE | re.IGNORECASE)
     if not match:
@@ -137,6 +145,7 @@ def check(example: Path) -> list[str]:
             control = [c for m in measures for c in (f"let {m['name']} = {m['meas']}", f"print {m['name']}")]
         else:
             control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
+        control = [f"echo {BEGIN}", *control, f"echo {END}"]
         with tempfile.TemporaryDirectory() as tmp:
             output = run_deck(example, Path(tmp), find_tab(example, analysis), control, alter)
         for m in measures:
