@@ -101,11 +101,12 @@ examples = [
 [[chapter]]
 slug = "analysis-techniques"
 title = "Analysis Techniques"
-summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, the poles of an active filter, measurements on a result, and importing a vendor's SPICE model."
+summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, the poles of an active filter, measurements on a result, importing a vendor's SPICE model, and rerunning a circuit for each value of a part with a tuner's Multi Run."
 examples = [
     "simulation-temperature-sweep",
     "simulation-noise-rc",
     "simulation-pole-zero",
     "simulation-measurements",
     "simulation-vendor-model",
+    "simulation-multi-run",
 ]
