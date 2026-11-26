@@ -3,7 +3,7 @@
 [![CI](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml/badge.svg)](https://github.com/feastorg/KiCad-Simulation-Examples/actions/workflows/ci.yml)
 
 58 KiCad 10 schematics that teach circuit simulation with KiCad's built-in ngspice
-simulator, from an RC filter to a regulated power supply. Each README states what the
+simulator, from an RC filter to a buck converter. Each README states what the
 example should show, with the numbers worked out from the circuit, and 57 of the 58 come
 with their analyses already set up; the 58th is a cheat sheet of simulator commands.
 
