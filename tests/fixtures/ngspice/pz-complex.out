@@ -1,0 +1,20 @@
+
+Note: Compatibility modes selected: ps lt a
+
+Warning: Strange parameter in line *probe allp, ingnored
+Warning: Strange parameter in line *probe allp, ingnored
+
+Circuit: KiCad schematic
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Using SPARSE 1.3 as Direct Linear Solver
+Warning: Pole-zero iteration limit reached; giving up after 280 trials
+
+No. of Data Rows : 1
+simulate-measures-begin
+pole_re = -4.52765e+03
+pole_2 = -4.52765e+03,4.977370e+03
+simulate-measures-end
+Note: Simulation executed from .control section 

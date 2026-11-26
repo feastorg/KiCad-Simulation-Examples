@@ -107,9 +107,13 @@ def run_deck(example: Path, tmp: Path, tab: dict, control: list[str], alter: str
 
 
 def measured(output: str, name: str) -> float:
-    match = re.search(rf"^\s*{re.escape(name)}\s*=\s*([-+0-9.eE]+)", output, re.MULTILINE | re.IGNORECASE)
+    number = r"[-+0-9.eE]+"
+    match = re.search(rf"^\s*{re.escape(name)}\s*=\s*({number})(\s*,\s*{number})?", output, re.MULTILINE | re.IGNORECASE)
     if not match:
         raise RuntimeError(f"ngspice printed no value for {name}:\n{output}")
+    if match.group(2):
+        # A complex value prints as "re,im": check its real() or imag() instead.
+        raise RuntimeError(f"{name} is complex, {match.group(1)}{match.group(2)}: check real() or imag() of it")
     return float(match.group(1))
 
 

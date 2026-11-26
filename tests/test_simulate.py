@@ -44,5 +44,21 @@ class WorkbookTabs(StubbedRun):
         self.assertEqual(self.decks, [])
 
 
+def ngspice_output(name: str) -> str:
+    # Captured from ngspice 44.2 in batch mode, -D ngbehavior=ltpsa, on decks built as
+    # check() builds them for simulation-pole-zero and simulation-transfer-function.
+    return (FIXTURES / "ngspice" / f"{name}.out").read_text(encoding="utf-8")
+
+
+class Measured(unittest.TestCase):
+    def test_reads_a_real_value(self):
+        self.assertEqual(simulate.measured(ngspice_output("pz-complex"), "pole_re"), -4.52765e3)
+
+    def test_refuses_a_complex_value(self):
+        # pole_2 = -4.52765e+03,4.977370e+03
+        with self.assertRaisesRegex(RuntimeError, r"pole_2 is complex"):
+            simulate.measured(ngspice_output("pz-complex"), "pole_2")
+
+
 if __name__ == "__main__":
     unittest.main()
