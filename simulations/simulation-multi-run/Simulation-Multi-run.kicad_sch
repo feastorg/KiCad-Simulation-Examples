@@ -631,6 +631,17 @@
 		)
 		(uuid "462e6e3c-e5dd-4545-a613-e9471322b277")
 	)
+	(text ".options interp"
+		(exclude_from_sim no)
+		(at 113.03 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6bc12417-882c-46fa-9711-05540f2c2b4f")
+	)
 	(junction
 		(at 144.78 86.36)
 		(diameter 0)

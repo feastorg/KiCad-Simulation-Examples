@@ -87,10 +87,11 @@ def run_deck(example: Path, tmp: Path, tab: dict, control: list[str], alter: str
     )
     if proc.returncode != 0:
         raise RuntimeError(f"ngspice exited {proc.returncode}:\n{proc.stdout}{proc.stderr}")
-    # A refused alter, such as one naming no part in the circuit, is only an error
-    # message: ngspice runs on with the schematic's value.
-    if alter and re.search(r"^Error", proc.stdout + proc.stderr, re.MULTILINE):
-        raise RuntimeError(f"ngspice refused alter {alter}:\n{proc.stdout}{proc.stderr}")
+    # ngspice reports a refused alter, such as one naming no part in the circuit, only
+    # as an error message, and runs on with the schematic's value.
+    errors = re.findall(r"^Error.*", proc.stdout + proc.stderr, re.MULTILINE)
+    if alter and errors:
+        raise RuntimeError(f"ngspice error during run with alter {alter}: {'; '.join(errors)}")
     return proc.stdout
 
 
