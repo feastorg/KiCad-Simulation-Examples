@@ -168,8 +168,10 @@ def plot(example: Path, out_dir: Path) -> list[str]:
         for trace in tab["traces"]:
             expr = trace_expression(trace["signal"])
             (exprs if expr else skipped).append(expr or trace["signal"])
+        # A trace left out would leave the published plot short of what the workbook
+        # shows, so any untranslated trace fails the run; the rest still plot.
         if skipped:
-            print(f"{example.name}: {analysis}: skipped traces {skipped}")
+            errors.append(f"{example.name}: {analysis}: no ngspice expression for traces {skipped}")
         # One axis per plot, so currents (often mA) get their own beside the voltages.
         plots = {
             f"{analysis}.svg": [e for e in exprs if "#branch" not in e],
