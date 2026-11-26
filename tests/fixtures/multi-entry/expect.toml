@@ -1,0 +1,6 @@
+[[measure]]
+name = "v_end"
+analysis = "tran"
+meas = "find v(out) at=2m"
+expect = 1.0
+rtol = 0.01

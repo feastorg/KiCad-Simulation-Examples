@@ -1,0 +1,7 @@
+{
+  "schematic": {
+    "ngspice": {
+      "model_mode": 4
+    }
+  }
+}

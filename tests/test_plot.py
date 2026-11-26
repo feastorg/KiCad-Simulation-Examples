@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for simulate.py that need neither kicad-cli nor ngspice: both are stubbed."""
+"""Tests of plot() in scripts/simulate.py, with kicad-cli and ngspice stubbed."""
 
 import json
 import re
@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import simulate  # noqa: E402
 
 

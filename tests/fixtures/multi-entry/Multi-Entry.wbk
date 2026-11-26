@@ -1,0 +1,21 @@
+{
+  "tabs": [
+    {
+      "analysis": "TRAN",
+      "commands": [
+        ".tran 100n 2m",
+        ".options method=gear",
+        ".kicad adjustpaths",
+        ".save all",
+        ".probe alli",
+        ".probe allp"
+      ],
+      "traces": [
+        {
+          "signal": "V(out)"
+        }
+      ]
+    }
+  ],
+  "version": 7
+}

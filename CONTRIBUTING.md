@@ -6,8 +6,8 @@ circuit does, open an issue first so we can agree on what it should teach.
 ## Working on it
 
 ```sh
-just check   # shellcheck, compile the scripts, check the simulation folder layout
-just test    # test the harness, check each expect.toml, then simulate and plot every example (needs kicad-cli, ngspice)
+just check   # shellcheck, compile and test the scripts, check the simulation folder layout
+just test    # check each expect.toml, then simulate and plot every example (needs kicad-cli, ngspice)
 just docs    # build the site artifacts under docs/ (needs KiCad, ngspice, rsvg-convert, Pillow)
 ```
 

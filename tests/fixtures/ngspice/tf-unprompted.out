@@ -1,0 +1,50 @@
+
+Note: Compatibility modes selected: ps lt a
+
+Warning: Strange parameter in line *probe allp, ingnored
+Warning: Strange parameter in line *probe allp, ingnored
+
+Circuit: KiCad schematic
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+No. of Data Rows : 1
+simulate-measures-begin
+tf_gain = -4.69866e+00
+Error: measure limited to tran, dc, sp, or ac analysis
+ meas tf transfer_function transfer_function failed!
+
+simulate-measures-end
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+No. of Data Rows : 1
+Transfer function information:
+transfer_function = -4.69866e+00
+output_impedance_at_v(out) = 2.850327e-03
+v1#input_impedance = 1.000235e+04
+
+Transfer function information:
+transfer_function = -4.69866e+00
+output_impedance_at_v(out) = 2.850327e-03
+tf_gain = -4.69866e+00
+v1#input_impedance = 1.000235e+04
+
+
+Total analysis time (seconds) = 0.000200579
+
+Total elapsed time (seconds) = 0.004 
+
+Total DRAM available = 32017.211 MB.
+DRAM currently available = 2185.637 MB.
+Maximum ngspice program size =   21.785 MB.
+Current ngspice program size =   12.801 MB.
+
+Shared ngspice pages =   10.805 MB.
+Text (code) pages =    6.543 MB.
+Stack = 0 bytes.
+Library pages =    2.105 MB.
+
