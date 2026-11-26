@@ -1,0 +1,23 @@
+# R1 = R2 = R = 10k, C1 = 22n, C2 = 10n, unity gain. With an ideal op-amp the
+# filter's poles are s = −1/(R·C1) ± j·√(C1/C2 − 1)/(R·C1) = −4545 ± j4979 rad/s.
+# The op-amp model (400 kHz gain-bandwidth) moves them to −4528 ± j4977 rad/s.
+# ngspice has no meas for a pole-zero analysis, so each meas is an expression read
+# after the run. pole(1) is the op-amp's own pole, near −2.5e6 rad/s; pole(2) is the
+# filter pole with the positive imaginary part.
+
+# Real part, −1/(R·C1): C1 ± 5 % moves it by about 5 %, R1 or R2 ± 5 % by 2.5 %.
+[[measure]]
+name = "pole_re"
+analysis = "pz"
+meas = "real(pole(2))"
+expect = -4528
+rtol = 0.01
+
+# Imaginary part, √(C1/C2 − 1)/(R·C1): C2 ± 5 % moves it by about 5 %, and the real
+# part not at all.
+[[measure]]
+name = "pole_im"
+analysis = "pz"
+meas = "imag(pole(2))"
+expect = 4977
+rtol = 0.01

@@ -1,0 +1,11 @@
+# R1 = 1 kΩ, C1 = 100 µF: RC = 0.1 s. V1 steps from 0 to 1 V, so V(Out) = 1 − e^(−t/RC)
+# crosses 0.1 V at RC·ln(10/9) and 0.9 V at RC·ln 10.
+
+# The 10–90 % rise time, the same expression as the workbook's Measurements pane:
+# RC·ln 9 = 0.1 s × 2.19722 = 219.72 ms. R1 or C1 5 % off moves it 5 %.
+[[measure]]
+name = "t_rise"
+analysis = "tran"
+meas = "trig v(out) val=0.1 rise=1 targ v(out) val=0.9 rise=1"
+expect = 0.21972
+rtol = 0.01

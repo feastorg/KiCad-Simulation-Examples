@@ -4,13 +4,14 @@
 [[chapter]]
 slug = "simulator-basics"
 title = "Simulator Basics"
-summary = "The analyses KiCad's simulator runs: operating point, DC sweep, AC sweep and transient."
+summary = "The analyses KiCad's simulator runs (operating point, DC sweep, AC sweep and transient), and its behavioral and PWL sources."
 examples = [
     "simulation-dc-operating-point",
     "simulation-dc-sweep",
     "simulation-ac-sweep",
     "simulation-transient-pulse",
     "simulation-transient-sine",
+    "simulation-behavioral-pwl",
     "kicad-simulation-commands",
 ]
 
@@ -55,7 +56,7 @@ examples = [
 [[chapter]]
 slug = "transistors"
 title = "Transistors"
-summary = "BJT curves, transistors as switches, single-transistor amplifiers, and a current mirror."
+summary = "BJT curves, transistors as switches, single-transistor amplifiers, a current mirror and a differential pair."
 examples = [
     "simulation-npn-characteristics",
     "actuator-npn-switch-led",
@@ -64,6 +65,7 @@ examples = [
     "npn-amplifier-ce",
     "nmos-amplifier-cs",
     "npn-current-mirror",
+    "npn-differential-pair",
 ]
 
 [[chapter]]
@@ -75,6 +77,8 @@ examples = [
     "opamp-inverting",
     "opamp-noninverting",
     "opamp-adding",
+    "opamp-integrator",
+    "opamp-differentiator",
     "opamp-sallen-key-lowpass",
     "opamp-comparator",
     "opamp-open-loop",
@@ -98,7 +102,11 @@ examples = [
 [[chapter]]
 slug = "analysis-techniques"
 title = "Analysis Techniques"
-summary = "Analyses beyond the basics, starting with a DC sweep of the circuit's temperature."
+summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, the poles of an active filter, measurements on a result, and importing a vendor's SPICE model."
 examples = [
     "simulation-temperature-sweep",
+    "simulation-noise-rc",
+    "simulation-pole-zero",
+    "simulation-measurements",
+    "simulation-vendor-model",
 ]

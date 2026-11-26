@@ -65,7 +65,7 @@ def front_matter(**fields: object) -> str:
     return "---\nlayout: default\n" + "".join(f"{k}: {v}\n" for k, v in fields.items()) + "---\n"
 
 
-ANALYSIS_NAMES = {"tran": "Transient", "ac": "AC sweep", "dc": "DC sweep", "op": "Operating point"}
+ANALYSIS_NAMES = {"tran": "Transient", "ac": "AC sweep", "dc": "DC sweep", "op": "Operating point", "noise": "Noise"}
 
 
 def render_plots(sim_name: str) -> str:
