@@ -25,11 +25,22 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SIM_ROOT = ROOT / "simulations"
+# The command entries KiCad 10 writes as a tab's settings. Its workbook loader joins every
+# other entry onto the analysis line with no separator (simulator_frame_ui.cpp).
+KICAD_ENTRIES = {".kicad adjustpaths", ".kicad esavenone", ".save all", ".probe alli", ".probe allp"}
 
 
 def workbook_tabs(example: Path) -> list[dict]:
     (wbk,) = example.glob("*.wbk")
-    return json.loads(wbk.read_text(encoding="utf-8"))["tabs"]
+    tabs = json.loads(wbk.read_text(encoding="utf-8"))["tabs"]
+    for tab in tabs:
+        entries = [c for c in tab["commands"] if c not in KICAD_ENTRIES]
+        if len(entries) != 1:
+            raise ValueError(
+                f"{example.name}: the {tab['analysis']} tab has command entries {entries}, "
+                f"which KiCad runs as one line: {''.join(c.rstrip() for c in entries)!r}"
+            )
+    return tabs
 
 
 def tab_commands(tab: dict) -> list[str]:

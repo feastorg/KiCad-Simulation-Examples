@@ -6,10 +6,11 @@ set dotenv-load := false
 default:
     @just --list
 
-# Lint the shell and Python scripts and the simulation folder layout (CI-equivalent)
+# Lint the shell and Python scripts, test the harness, check the simulation folder layout (CI-equivalent)
 check:
     shellcheck scripts/*.sh
     python3 -m py_compile scripts/*.py
+    python3 -m unittest discover -s tests
     python3 scripts/check_layout.py
 
 # Check every expect.toml, then simulate and plot every example into build/plots (needs kicad-cli, ngspice)
