@@ -101,10 +101,11 @@ examples = [
 [[chapter]]
 slug = "analysis-techniques"
 title = "Analysis Techniques"
-summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, an amplifier's DC gain and impedances, measurements on a result, and importing a vendor's SPICE model."
+summary = "Analyses beyond the basics: a DC sweep of the circuit's temperature, the thermal noise of an RC filter, the poles of an active filter, an amplifier's DC gain and impedances, measurements on a result, and importing a vendor's SPICE model."
 examples = [
     "simulation-temperature-sweep",
     "simulation-noise-rc",
+    "simulation-pole-zero",
     "simulation-transfer-function",
     "simulation-measurements",
     "simulation-vendor-model",

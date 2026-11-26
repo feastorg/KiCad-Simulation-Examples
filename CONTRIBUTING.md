@@ -33,8 +33,9 @@ How to lay out an example and what its README needs is on the site:
   and every figure it checks is stated in the README.
 - In `expect.toml`, each `[[measure]]` names an analysis from the `.wbk`, an ngspice
   `meas` expression, the expected value and a tolerance: `rtol`, relative, or `atol`,
-  absolute, for a value that should be near zero. For an `op` analysis, `meas` is an
-  expression such as `v(out)`.
+  absolute, for a value that should be near zero. For an `op`, `noise` or `pz`
+  analysis, `meas` is an expression such as `v(out)`, `onoise_total` or
+  `real(pole(1))`.
   See `simulations/rc-lowpass/expect.toml`.
 - SPICE models sit next to the schematic that uses them and are referenced by a path
   relative to the project.
