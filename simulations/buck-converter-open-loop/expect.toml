@@ -9,8 +9,9 @@
 # 5.425 − 0.202 − 0.026 = 5.197 V; ngspice 44.2 gives 5.19725 V. D or Vin 5 % off moves
 # Vout by about 5 %. The 0.1 % tolerance (±5.2 mV) is tight enough to catch the switch
 # model: halving kp gives 5.1851 V and doubling rd 5.1880 V, both outside it. Steps of
-# 50 ns or 200 ns and reltol 1e-3 or 1e-5 stay within 0.5 mV of 5.19725 V. vto = −3 gives
-# 5.1946 V, a 2.7 mV shift that no tolerance this tight can separate safely from numerics.
+# 50 ns or 200 ns and reltol 1e-3 or 1e-5 stay within 0.9 mV of 5.19725 V. vto = −3 gives
+# 5.1946 V, 2.7 mV low; it passes, because the threshold voltage barely moves Vout and
+# a band tight enough to catch it would sit within 2 mV of those numerical shifts.
 [[measure]]
 name = "vout"
 analysis = "tran"
