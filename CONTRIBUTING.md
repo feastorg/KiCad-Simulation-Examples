@@ -7,7 +7,7 @@ circuit does, open an issue first so we can agree on what it should teach.
 
 ```sh
 just check   # shellcheck, compile the scripts, check the simulation folder layout
-just test    # check each expect.toml, then simulate and plot every example (needs kicad-cli, ngspice)
+just test    # test the harness, check each expect.toml, then simulate and plot every example (needs kicad-cli, ngspice)
 just docs    # build the site artifacts under docs/ (needs KiCad, ngspice, rsvg-convert, Pillow)
 ```
 
@@ -40,6 +40,11 @@ How to lay out an example and what its README needs is on the site:
 - A measure may also set `alter`, such as `alter = "@R1=2000"`, to run with a part's
   value changed. The check sends `alter @R1=2000` before that measure's run, the command
   KiCad's tuner sends for each step of a Multi Run, and fails if ngspice refuses it.
+- Every trace in a workbook tab must translate to an ngspice expression in
+  `scripts/simulate.py`, or `just test` fails, naming the example, the tab and the
+  traces. This holds when only some of a tab's traces fail to translate: the published
+  plot would otherwise be missing a curve the workbook shows. For a new trace form,
+  teach `trace_expression` to translate it.
 - SPICE models sit next to the schematic that uses them and are referenced by a path
   relative to the project.
 - `docs/index.md`, `docs/simulations/`, `docs/assets/simulations/` and

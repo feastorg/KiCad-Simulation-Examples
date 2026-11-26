@@ -12,8 +12,9 @@ check:
     python3 -m py_compile scripts/*.py
     python3 scripts/check_layout.py
 
-# Check every expect.toml, then simulate and plot every example into build/plots (needs kicad-cli, ngspice)
+# Test the harness, check every expect.toml, then simulate and plot every example into build/plots (needs kicad-cli, ngspice)
 test:
+    python3 scripts/test_simulate.py
     python3 scripts/simulate.py
     python3 scripts/simulate.py --plots build/plots
 
