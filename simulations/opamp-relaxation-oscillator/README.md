@@ -8,7 +8,7 @@ U1 runs from ±15 V. R1 = 10 kΩ runs from Out back to Ref, U1's non-inverting i
 
 The text directive on the schematic has two lines:
 - `.ic V(/Cap)=1` starts the oscillation. ngspice solves the operating point with Cap held at 1 V, where Out = 2.02 V and Ref = 1.01 V, then releases it at t = 0, and Out crosses 0 V 5.1 µs later. Without it, the circuit sits at its balance point (Try This).
-- `.options method=gear` keeps the result from depending on the step, as in OPamp Schmitt Trigger. With ngspice's default trapezoidal method and a 2 µs step the period comes out at 1.094 ms; with Gear it is 1.042 ms.
+- `.options method=gear`, as in OPamp Schmitt Trigger. With the maximum step left free, the default trapezoidal method at a 2 µs step gives a period of 1.094 ms, Gear 1.042 ms. It is the pinned maximum step below that makes the result independent of the step: with it, Gear and trapezoidal agree to 0.005 %.
 
 The maximum step is pinned because the output switches in a few microseconds. With a 1 µs maximum step the period comes out 0.4 % short, at 1.0412 ms. From 2 µs up, now and then a cycle overshoots, and with a 10 µs step Cap peaks at 8.48 V, 1 V past the threshold.
 
@@ -31,4 +31,4 @@ Open `OPamp-Relaxation-Oscillator.kicad_sch` in KiCad, click **Simulate**, and r
 
 - Make C1 = 100 nF: the period scales with C1, to 2 · 10 kΩ · 100 nF · ln 3 = 2.197 ms, 455.1 Hz. The simulation gives 2.212 ms, 452.1 Hz.
 - Make R1 = 20 kΩ: β drops to 1/3 and ln((1 + β) / (1 − β)) to ln 2, so T = 2 · 470 µs · 0.6931 = 0.6516 ms, 1534.8 Hz, and Cap swings ±β · Vsat = ±5.00 V. The simulation gives 0.6696 ms, 1493.5 Hz, with Cap between +5.087 V and −5.107 V.
-- Delete the `.ic` line. The operating point is then the balance point, Out = Cap = −0.020 V, and with a 0.1 µs step nothing disturbs it: Out stays there for the whole run. With a 1 µs step the solver's own error happens to start it, and with 5 µs it does not.
+- Delete the `.ic` line. The operating point is then the balance point, Out = Cap = −0.020 V, and with the workbook's 0.1 µs step nothing disturbs it: Out stays there for the whole run. Whether a coarser step starts it depends on the step: with the 0.1 µs maximum step kept, which is what changing only the step in KiCad's dialog does, every step from 0.2 to 10 µs starts it (at 5 µs the first switch is at 363 µs); with the maximum step left free, 5 and 10 µs stay at the balance point. That dependence on numerical error is why the schematic gives the kick explicitly.
