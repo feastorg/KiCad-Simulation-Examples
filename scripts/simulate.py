@@ -111,12 +111,13 @@ def check(example: Path) -> list[str]:
     for (analysis, alter), measures in by_run.items():
         # Measure in the control block, after the run: a .meas dot-line makes ngspice
         # build its save list from the expression, which it misparses for vdb().
-        # meas has no operating-point, noise or pole-zero form, so for "op", "noise" and
-        # "pz" the entry's meas is an expression, printed after the run as "name = value".
-        # After a noise run the current plot holds the totals, onoise_total and
-        # inoise_total. A pole is complex and prints as "re,im", so a pz entry measures
-        # real(pole(n)) or imag(pole(n)).
-        if analysis in ("op", "noise", "pz"):
+        # meas has no operating-point, noise, pole-zero or transfer-function form, so for
+        # "op", "noise", "pz" and "tf" the entry's meas is an expression, printed after the
+        # run as "name = value". After a noise run the current plot holds the totals,
+        # onoise_total and inoise_total. A pole is complex and prints as "re,im", so a pz
+        # entry measures real(pole(n)) or imag(pole(n)). A tf run's results are scalars
+        # such as transfer_function and v1#input_impedance.
+        if analysis in ("op", "noise", "pz", "tf"):
             control = [c for m in measures for c in (f"let {m['name']} = {m['meas']}", f"print {m['name']}")]
         else:
             control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
