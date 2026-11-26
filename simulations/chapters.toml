@@ -71,7 +71,7 @@ examples = [
 [[chapter]]
 slug = "op-amps"
 title = "Op-Amps"
-summary = "The classic op-amp circuits and an active filter, and the open-loop gain and bandwidth behind them."
+summary = "The classic op-amp circuits, an integrator, a differentiator and an active filter, a comparator, Schmitt trigger and oscillator, and the open-loop gain and bandwidth behind them."
 examples = [
     "opamp-voltage-follower",
     "opamp-inverting",
@@ -82,6 +82,7 @@ examples = [
     "opamp-sallen-key-lowpass",
     "opamp-comparator",
     "opamp-schmitt-trigger",
+    "opamp-relaxation-oscillator",
     "opamp-open-loop",
     "opamp-headphone",
 ]
