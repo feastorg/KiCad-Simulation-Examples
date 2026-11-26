@@ -70,9 +70,10 @@ def compatibility_mode(example: Path) -> list[str]:
     return ["-D", f"ngbehavior={behaviour[mode]}"] if behaviour[mode] else []
 
 
-def run_deck(example: Path, tmp: Path, tab: dict, control: list[str]) -> str:
+def run_deck(example: Path, tmp: Path, tab: dict, control: list[str], alter: str | None = None) -> str:
     netlist = export_netlist(example, tmp)
-    deck = "\n".join([netlist, *tab_commands(tab), ".control", "run", *control, ".endc", ".end", ""])
+    setup = [f"alter {alter}"] if alter else []
+    deck = "\n".join([netlist, *tab_commands(tab), ".control", *setup, "run", *control, ".endc", ".end", ""])
     cir = tmp / "deck.cir"
     cir.write_text(deck, encoding="utf-8")
     # kicad-cli writes model includes as absolute paths, so ngspice can run from the
@@ -86,6 +87,11 @@ def run_deck(example: Path, tmp: Path, tab: dict, control: list[str]) -> str:
     )
     if proc.returncode != 0:
         raise RuntimeError(f"ngspice exited {proc.returncode}:\n{proc.stdout}{proc.stderr}")
+    # ngspice reports a refused alter, such as one naming no part in the circuit, only
+    # as an error message, and runs on with the schematic's value.
+    errors = re.findall(r"^Error.*", proc.stdout + proc.stderr, re.MULTILINE)
+    if alter and errors:
+        raise RuntimeError(f"ngspice error during run with alter {alter}: {'; '.join(errors)}")
     return proc.stdout
 
 
@@ -98,11 +104,12 @@ def measured(output: str, name: str) -> float:
 
 def check(example: Path) -> list[str]:
     spec = tomllib.loads((example / "expect.toml").read_text(encoding="utf-8"))
-    by_analysis: dict[str, list[dict]] = {}
+    # One run per analysis and alter: a measure's alter applies to its own run only.
+    by_run: dict[tuple[str, str | None], list[dict]] = {}
     for m in spec["measure"]:
-        by_analysis.setdefault(m["analysis"].lower(), []).append(m)
+        by_run.setdefault((m["analysis"].lower(), m.get("alter")), []).append(m)
     failures = []
-    for analysis, measures in by_analysis.items():
+    for (analysis, alter), measures in by_run.items():
         # Measure in the control block, after the run: a .meas dot-line makes ngspice
         # build its save list from the expression, which it misparses for vdb().
         # meas has no operating-point, noise, pole-zero or transfer-function form, so for
@@ -116,7 +123,7 @@ def check(example: Path) -> list[str]:
         else:
             control = [f"meas {analysis} {m['name']} {m['meas']}" for m in measures]
         with tempfile.TemporaryDirectory() as tmp:
-            output = run_deck(example, Path(tmp), find_tab(example, analysis), control)
+            output = run_deck(example, Path(tmp), find_tab(example, analysis), control, alter)
         for m in measures:
             value = measured(output, m["name"])
             expect = m["expect"]
